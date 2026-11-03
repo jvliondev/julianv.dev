@@ -1,0 +1,19 @@
+{
+  "context": "local production static export, headless Chromium, desktop viewport, unthrottled browser",
+  "url": "http://127.0.0.1:3200",
+  "measuredAt": "2026-11-03T05:23:07.922Z",
+  "navigation": {
+    "lcpMs": 116,
+    "cls": 0,
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    }
+  },
+  "interaction": {
+    "samples": 3,
+    "interactionCount": 1,
+    "maxInteractionEventDurationMs": 24
+  },
+  "note": "maxInteractionEventDurationMs is a scripted Event Timing proxy. It is not field INP, a p75 Core Web Vital, or a substitute for real-user measurement."
+}
