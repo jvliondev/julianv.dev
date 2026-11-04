@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Footer } from "@/components/Footer";
 import "./styles.css";
+import "./facility-visual.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://julianv.dev"),

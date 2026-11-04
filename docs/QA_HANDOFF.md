@@ -1,58 +1,58 @@
-# QA handoff
+# Black Site V2 QA handoff
 
-Local validation for the production static export. A local build does not represent a live deployment or field Core Web Vitals.
+## Delivery state
 
-## Project boundary
+The current project is a static Next.js export in `out/`, ready for manual GitHub and Vercel setup. The build was not deployed and no Vercel settings were changed. The preview is available at [http://127.0.0.1:3200](http://127.0.0.1:3200) while the local preview server is running.
 
-- This is an isolated project in `site/` with its own local Git repository on `feat/black-site-production`.
-- No GitHub repository, Vercel project, deployment, or domain setting was created or changed.
-- `npm run build` exports the deployable static site to `out/`. The owner can create/connect GitHub and configure Vercel manually.
-- Product copy and route behavior are documented in `07_ARCHITECTURE.md` and `14_NEXT_GEN_INTERACTIONS.md`.
-- The three bundled Fontsource families are licensed under the SIL Open Font License 1.1.
+The content registry is `machine/projects.json`. The Three.js scene and its no-WebGL SVG fallback live in `src/components/FacilityScene.tsx` and `src/components/FacilitySceneFallback.tsx`. See [the visual audit](BLACK_SITE_GAP_AUDIT.md), [reference comparison](BLACK_SITE_VISUAL_QA.md), and [asset inventory](BLACK_SITE_ASSET_INVENTORY.md).
 
-## Checks run
+## Verification run
 
 | Check | Result |
 | --- | --- |
-| `npm install` | Complete; `npm audit --audit-level=low` reports 0 vulnerabilities |
 | `npm run typecheck` | Pass |
-| `npm run lint` | Pass |
-| `npm test` | Pass: 3 reducer tests |
-| `npm run build` | Pass: all app routes statically generated into `out/` |
-| `npm run test:e2e` | Pass: 11 Playwright checks |
-| Automated accessibility | axe reports no serious or critical issues on Home and Work; Lighthouse scores 100 desktop and mobile |
-| Browser console / route requests | Lighthouse reports no console or network errors |
+| `npm run lint` | Pass, no warnings |
+| `npm test -- --run` | Pass: 3 reducer tests |
+| `npm run build` | Pass: all 17 static routes generated, including all six `/work/{slug}` dossiers |
+| `npm run test:e2e` | Pass: 15 Playwright tests |
+| `npm audit --audit-level=low` | Pass: 0 vulnerabilities |
+| Responsive screenshots | Captured at 1672×941, 1440×900, 1024×768, 390×844, and 320×720; mobile Professional and Experience modes both captured |
+| Browser capture log | 0 console errors, uncaught page errors, failed non-cancelled requests, or HTTP errors |
+| Axe Playwright checks | No serious or critical findings on Work and the interactive facility |
+| Chamber resource loop | 20 successive open/close cycles across all six bays; one canvas and stable geometry/texture counts |
+| No-JavaScript smoke | Static Home product index, navigation, dossier links, and `/work/xondry` render and work without client JavaScript |
+| `npm run measure:qa` | Headless Chromium at 1440×900, unthrottled: LCP 100 ms, CLS 0, maximum scripted Event Timing duration 64 ms; full result in [local-vitals.json](local-vitals.json) |
 
-Playwright covered the home navigation, all six dossiers, truthful RealBall status, chamber and entrance skip/close behavior, browser history, reduced motion, responsive overflow at 320/390/1024/1440/1672 px, and axe checks on Home and Work.
+The Event Timing value is a local scripted proxy, not field INP or a p75 Core Web Vital. No Lighthouse run, manual screen-reader session, deployed field measurement, or real-user Web Vitals are claimed.
 
-## Lighthouse lab results
+## Visual evidence
 
-Lighthouse was run against the local production static preview using desktop and emulated mobile configurations. These results are lab measurements, not field data.
+Screenshots come from the production static export, not the development server. The first desktop screenshot confirms the WebGL scene is active; the no-WebGL test separately forces the authored SVG fallback.
 
-| Viewport | Performance | Accessibility | Best Practices | SEO | LCP | CLS | TBT |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Desktop | 100 | 100 | 100 | 100 | 284 ms | 0.002 | 0 ms |
-| Emulated mobile | 100 | 100 | 100 | 100 | 1.05 s | 0.024 | 14 ms |
-
-`npm run measure:qa` also measured the local 1440 x 900 export in unthrottled Chromium: LCP 116 ms and CLS 0. Its scripted interaction duration of 24 ms is an Event Timing proxy, not field INP or a p75 Core Web Vital.
-
-## Visual review
-
-Screenshots were captured from the local production export at the five reference sizes and for an open Xondry chamber and dossier.
-
-| Preview | Screenshot |
+| Evidence | File |
 | --- | --- |
-| 1672 x 941 | [home-1672x941.png](screenshots/home-1672x941.png) |
-| 1440 x 900 | [home-1440x900.png](screenshots/home-1440x900.png) |
-| 1024 x 768 | [home-1024x768.png](screenshots/home-1024x768.png) |
-| 390 x 844 | [home-390x844.png](screenshots/home-390x844.png) |
-| 320 x 720 | [home-320x720.png](screenshots/home-320x720.png) |
-| Xondry chamber | [chamber-xondry.png](screenshots/chamber-xondry.png) |
-| Xondry dossier | [dossier-xondry.png](screenshots/dossier-xondry.png) |
+| Approved reference and final site side by side | [reference-vs-final.png](visual-qa/final/reference-vs-final.png) |
+| Pixel difference map (qualitative only; the reference is generated concept art) | [difference.png](visual-qa/final/difference.png) |
+| 50% overlay | [overlay-50.png](visual-qa/final/overlay-50.png) |
+| Initial implementation at reference size | [home-1672x941.png](visual-qa/before/home-1672x941.png) |
+| Final implementation at reference size | [home-1672x941.png](visual-qa/final/home-1672x941.png) |
+| Entry in motion | [entry-entering.png](visual-qa/final/entry-entering.png) |
+| Entry fully open | [entry-ready.png](visual-qa/final/entry-ready.png) |
+| Server-rendered product index without JavaScript | [no-js-professional.png](visual-qa/final/no-js-professional.png) |
+| Xondry, AtomLang, Classified chamber/dossier states | [Xondry](visual-qa/final/chamber-xondry-open.png), [AtomLang](visual-qa/final/chamber-atomlang-open.png), [Classified](visual-qa/final/chamber-classified-open.png) |
+| Xondry dossier route | [dossier-xondry.png](visual-qa/final/dossier-xondry.png) |
+| Browser issue log | [browser-issues.json](visual-qa/final/browser-issues.json) |
 
-## Limits before launch
+## Product truth and external checks
 
-- No manual screen-reader session was available; the recorded accessibility evidence is automated axe, Lighthouse, and keyboard interaction coverage in Playwright.
-- Real-user Core Web Vitals require a deployed site with traffic.
-- The Contact page uses the public X profile already listed by the current portfolio. No email, resume, booking system, or form backend was supplied. SquadAMP availability and checkout remain unverified and are not linked.
-- The new build is prepared for Vercel static hosting, but no remote repository or hosting settings were touched. The existing production site and domain remain unchanged.
+- RealBall26 is described as a playable basketball prototype in development. It is not called live, released, or a statistics product.
+- SquadAMP, AtomLang, and RAEYL retain conservative development/research labels; TOP SECRET details remain undisclosed.
+- The current public Xondry site was reachable during review, but this portfolio does not repeat its unverified community counters. SquadAMP was not independently reachable in the review session, so no external destination is published for it.
+- The supplied scene motifs are concept visualization, not screenshots of the products or game.
+- No public email, booking form, revenue, user count, benchmark, or testimonial was fabricated.
+
+## Remaining differences
+
+The scene now has connected corridor architecture, unequal recessed bays, a split blast door with an open passage, product-specific motifs, a reflective floor path, local lighting, and doorway vapor. Compared with the approved generated image, its authored meshes and materials remain more graphic and less detailed; the image has richer smoke, dramatic volumetric lighting, more realistic surfaces, and actual human/product imagery. No licensed screenshots, editable scene models, or game captures were supplied.
+
+At 320 and 390 px, Professional Mode is the default; Experience Mode remains available. Motion Off removes sustained particles and animation while preserving direct product access. No manual screen-reader or field-performance result is claimed.
