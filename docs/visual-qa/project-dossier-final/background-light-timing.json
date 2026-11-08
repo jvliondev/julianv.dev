@@ -1,0 +1,32 @@
+[
+  {
+    "id": "vault-beacon",
+    "animation": "background-light-pulse",
+    "duration": "6.4s"
+  },
+  {
+    "id": "arch-warning-left",
+    "animation": "background-light-flash",
+    "duration": "7.2s"
+  },
+  {
+    "id": "arch-warning-right",
+    "animation": "background-light-flash",
+    "duration": "7.2s"
+  },
+  {
+    "id": "outer-cyan-left",
+    "animation": "background-light-pulse",
+    "duration": "6.4s"
+  },
+  {
+    "id": "outer-cyan-right",
+    "animation": "background-light-pulse",
+    "duration": "6.4s"
+  },
+  {
+    "id": "inner-cyan-left",
+    "animation": "background-light-flicker",
+    "duration": "8.4s"
+  }
+]

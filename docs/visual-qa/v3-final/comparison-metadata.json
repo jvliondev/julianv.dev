@@ -1,0 +1,46 @@
+{
+  "method": "Direct scene crops aligned to the artwork stage; no similarity score is calculated.",
+  "sourceReference": {
+    "file": "../reference/approved_black_site_1672x941.png",
+    "width": 1672,
+    "height": 941,
+    "crop": {
+      "x": 0,
+      "y": 100,
+      "width": 1672,
+      "height": 771
+    },
+    "resizeTo": {
+      "width": 1672,
+      "height": 781
+    }
+  },
+  "previous3DImplementation": {
+    "file": "../v3-before/home-1672x941.png",
+    "width": 1672,
+    "height": 941,
+    "crop": {
+      "x": 0,
+      "y": 76,
+      "width": 1672,
+      "height": 781
+    }
+  },
+  "imageDrivenFinal": {
+    "file": "home-1672x941.png",
+    "width": 1672,
+    "height": 941,
+    "crop": {
+      "x": 0,
+      "y": 76,
+      "width": 1672,
+      "height": 781
+    }
+  },
+  "excludedFromComparison": [
+    "Reference browser chrome",
+    "Global site header",
+    "Footer",
+    "No claims of pixel identity; text and navigation are live DOM in the implementation."
+  ]
+}

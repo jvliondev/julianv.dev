@@ -1,0 +1,24 @@
+{
+  "boxes": {
+    "terminal": {
+      "x": 507,
+      "y": 308,
+      "width": 320,
+      "height": 130
+    },
+    "chamber": {
+      "x": 313,
+      "y": 456,
+      "width": 175,
+      "height": 140
+    },
+    "overlapX": 0,
+    "overlapY": 0
+  },
+  "reset": {
+    "phase": "blacksite-artboard phase-sealed entry-locked motion-full",
+    "terminalCount": 0,
+    "overviewCount": 0
+  },
+  "issues": []
+}

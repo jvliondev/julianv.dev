@@ -1,0 +1,14 @@
+{
+  "method": "Full-page 1672 x 941 captures shown at 1:1 scale, before on the left and after on the right.",
+  "before": "../smoke-loop-final/initial-1672x941.png",
+  "after": "initial-1672x941.png",
+  "changes": [
+    "Transparent home header over the scene",
+    "Angular cyan primary and access buttons",
+    "Compact identity and verified contact-link footer",
+    "Smaller vent-aligned chamber vapor"
+  ],
+  "limitations": [
+    "The email displayed in the approved raster is marked illustrative in the content-truth source, so the footer uses the site's Contact route instead."
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "method": "Visual captures and DOM geometry for the image-driven composite; no pixel-identity claim.",
+  "captures": [
+    {
+      "viewport": "1672x941",
+      "opening": {
+        "phase": "phase-dissipating",
+        "doorState": "open",
+        "frame": {
+          "x": 711,
+          "y": 327,
+          "width": 249,
+          "height": 202
+        },
+        "artworkLayer": {
+          "x": 727,
+          "y": 341,
+          "width": 217,
+          "height": 174
+        },
+        "leftDoor": {
+          "x": 743,
+          "y": 355,
+          "width": 27,
+          "height": 153
+        },
+        "rightDoor": {
+          "x": 901,
+          "y": 355,
+          "width": 27,
+          "height": 153
+        },
+        "terminal": {
+          "x": 942,
+          "y": 188,
+          "width": 361,
+          "height": 146
+        }
+      },
+      "fullyOpen": {
+        "phase": "phase-revealed",
+        "doorState": "open",
+        "frame": {
+          "x": 300,
+          "y": 445,
+          "width": 201,
+          "height": 163
+        },
+        "artworkLayer": {
+          "x": 313,
+          "y": 456,
+          "width": 175,
+          "height": 140
+        },
+        "leftDoor": {
+          "x": 326,
+          "y": 468,
+          "width": 21,
+          "height": 123
+        },
+        "rightDoor": {
+          "x": 453,
+          "y": 468,
+          "width": 21,
+          "height": 123
+        },
+        "terminal": null
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "opening": {
+        "phase": "phase-dissipating",
+        "doorState": "open",
+        "frame": {
+          "x": 621,
+          "y": 328,
+          "width": 197,
+          "height": 159
+        },
+        "artworkLayer": {
+          "x": 634,
+          "y": 340,
+          "width": 171,
+          "height": 137
+        },
+        "leftDoor": {
+          "x": 647,
+          "y": 351,
+          "width": 21,
+          "height": 120
+        },
+        "rightDoor": {
+          "x": 771,
+          "y": 351,
+          "width": 21,
+          "height": 120
+        },
+        "terminal": {
+          "x": 806,
+          "y": 200,
+          "width": 326,
+          "height": 132
+        }
+      },
+      "fullyOpen": {
+        "phase": "phase-revealed",
+        "doorState": "open",
+        "frame": {
+          "x": 252,
+          "y": 423,
+          "width": 176,
+          "height": 142
+        },
+        "artworkLayer": {
+          "x": 263,
+          "y": 433,
+          "width": 153,
+          "height": 123
+        },
+        "leftDoor": {
+          "x": 275,
+          "y": 443,
+          "width": 19,
+          "height": 108
+        },
+        "rightDoor": {
+          "x": 386,
+          "y": 443,
+          "width": 19,
+          "height": 108
+        },
+        "terminal": null
+      }
+    },
+    {
+      "viewport": "1024x768",
+      "phase": "responsive project overview",
+      "horizontalOverflow": false
+    },
+    {
+      "viewport": "390x844",
+      "phase": "fully-open-responsive-overview",
+      "horizontalOverflow": false
+    }
+  ],
+  "issues": []
+}

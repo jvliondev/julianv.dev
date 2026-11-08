@@ -1,60 +1,70 @@
-# Black Site V2 gap audit
+# JulianV.dev Black Site V3 gap audit
 
-## Scope and evidence
+## Delivery summary
 
-The requested `CODEX_CORRECTIVE_MASTER_PROMPT_V2.md` filename was not present in the extracted handoff directory. I followed the complete directive supplied in the conversation and the package's `CODEX_MASTER_PROMPT.md`, visual forensics, design system, content truth, motion storyboard, scene and asset plan, responsive/accessibility/QA requirements, tokens, project data, annotated regions, and reference crops.
+The home experience now uses an image-driven 2.5D composition. A smoke-free underground environment plate fills one shared 1672 x 941 artboard while preserving the central floor fog. Six supplied project exhibit images sit in the chamber openings with aperture-shaped alpha feathering; extracted shutter leaves and animated roof vapor respond to the existing chamber state machine. Controls, project statuses, and project details remain live HTML.
 
-The approved raster is a generated concept, not a source model. Its first 49 pixels are fictional browser chrome and were excluded from comparison. I captured the current production export with Playwright at the requested widths and states. The direct desktop comparison aligns reference pixels y=49..940 with current viewport pixels y=0..891, both at 1672 x 892.
+This replaces the previous procedural Three.js corridor, which had recreated the concept as generic geometry and small image planes. The new composition uses the high-quality chamber art as its main visual content.
+
+## Root cause and correction
+
+The prior implementation treated the reference as a prompt for new scene geometry. That produced a recognizable corridor, but the chamber interiors became simplified props or framed image cards, and the approved visual assets were not doing enough work. The main gap was the rendering approach: recreating the whole environment procedurally sacrificed the supplied artwork's lighting, textures, and visual specificity.
+
+The V3 implementation uses one scene image plate, perspective-aligned chamber crops, DOM captions and controls, and image-derived moving door leaves. All visual layers and click targets share the same cover transform from the 1672 x 941 coordinate space. The 3D canvas and Three.js dependencies have been removed from the home route.
+
+## Corrections and evidence
+
+| Area | V3 implementation | Evidence |
+| --- | --- | --- |
+| Environment | Generated clean environment plate based on the approved concept, without its browser chrome, header text, or inaccurate status labels | [Final home capture](visual-qa/v3-final/home-1672x941.png), [reference beside final](visual-qa/v3-final/reference-vs-final-scene.png) |
+| Chamber imagery and foreground depth | Six source-art crops use alpha feathering shaped to each aperture and screen blending over the environment; alpha-masked frame crops let original metal lips overlap the image edges; pointer hover does not draw a glow or shift the artwork | [Before/after edge comparison](visual-qa/chamber-blend-final/edge-comparison.png), [hovered open chamber](visual-qa/smoke-cleanup-final/xondry-open-hover.png), [all chambers](visual-qa/smoke-cleanup-final/) |
+| Mechanical reveal and venting | All six bays begin sealed. Only the selected leaves slide; the smoke-free plate lets the selected roof plume play during opening, dissipate before the chamber settles, and disappear. Switching projects seals the prior bay; only one remains open | [Closed](visual-qa/smoke-cleanup-final/initial-1672x941.png), [static-to-dynamic roof plume](visual-qa/smoke-cleanup-final/roof-smoke-before-after.png), [smoke motion](visual-qa/smoke-cleanup-final/smoke-motion-pair.png), [dissipating](visual-qa/smoke-cleanup-final/xondry-dissipating.png), [settled open](visual-qa/smoke-cleanup-final/xondry-open-dossier.png) |
+| Chamber selection and project details | The detail panel moves to the opposite side of the selected bay so it does not cover the project art; desktop and mobile access remain available | [Xondry panel on right](visual-qa/chamber-blend-final/xondry-open-dossier.png), [RAEYL panel on left](visual-qa/chamber-blend-final/chamber-raeyl.png) |
+| Responsive controls | Desktop scene hotspots, tablet chamber selector, and mobile scene crop with a touch-friendly selector and selected exhibit | [1024 px](visual-qa/v3-final/initial-1024x768.png), [390 px](visual-qa/v3-final/initial-390x844.png), [360 px](visual-qa/v3-final/initial-360x800.png) |
+| Header, action buttons, and footer | Home header overlays the environment, action buttons use chamfered cyan styling, and the compact footer groups identity, Contact, and verified social links; tablet access actions wrap into two columns | [Before and after](visual-qa/header-footer-final/before-after-home-1672x941.png), [desktop](visual-qa/header-footer-final/initial-1672x941.png), [tablet](visual-qa/header-footer-final/initial-1024x768.png), [mobile](visual-qa/header-footer-final/initial-390x844.png) |
+| Project artwork | The Work index and project pages use the supplied concept images | [Work index](../public/images/projects/), [Xondry project page](visual-qa/v3-final/dossier-xondry-390x844.png) |
+| Project truth | Project statuses and descriptions remain in the live project panel; the former boxed caption over the exhibit image has been removed so it no longer forms a second rectangle | [Xondry project panel](visual-qa/chamber-blend-final/xondry-open-dossier.png), [project data](../src/data/projects.ts), [RealBall project page](visual-qa/chamber-blend-final/realball26-dossier.png) |
+| Accessibility and routing | Project routes, shared links, browser history, keyboard focus, Escape close, and automatic reduced-motion behavior are preserved; the homepage always opens on the chamber experience | [Keyboard focus](visual-qa/v3-final/keyboard-focus.png), [reduced motion](visual-qa/v3-final/reduced-motion-realball26.png), [browser tests](../tests/e2e/portfolio.spec.ts) |
+
+## Visual comparison method
+
+The approved source is 1672 x 941 and contains decorative browser chrome. The comparison crops the reference from y=100 and the final page from y=76 to align the artwork stage. Both scene crops are normalized to 1672 x 781. The comparison includes a side-by-side image, 50 percent overlay, and difference image. These are review aids only; no pixel similarity score is reported because the environment plate is a reinterpretation and the page uses live DOM text.
 
 - [Approved reference](visual-qa/reference/approved_black_site_1672x941.png)
-- [Annotated reference regions](visual-qa/reference/annotated_regions.png)
-- [Current desktop capture](visual-qa/before/home-1672x941.png)
-- [Reference / current side by side](visual-qa/before/reference-vs-current.png)
-- [Difference image](visual-qa/before/difference.png)
-- [All current baseline states and viewport captures](visual-qa/before/)
-- [Baseline browser issue log](visual-qa/before/browser-issues.json)
+- [Before: previous 3D implementation](visual-qa/v3-before/home-1672x941.png)
+- [After: image-driven implementation](visual-qa/v3-final/home-1672x941.png)
+- [Latest header and footer layout comparison](visual-qa/header-footer-final/before-after-home-1672x941.png)
+- [Chamber outline and image blend before/after](visual-qa/chamber-blend-final/edge-comparison.png)
+- [Reference and final scene crops](visual-qa/v3-final/reference-vs-final-scene.png)
+- [Before and after scene crops](visual-qa/v3-final/before-vs-after-scene.png)
+- [50 percent overlay](visual-qa/v3-final/reference-final-overlay-50.png)
+- [Difference image](visual-qa/v3-final/reference-final-difference.png)
+- [Comparison crop metadata](visual-qa/v3-final/comparison-metadata.json)
 
-Baseline and final screenshot capture found no browser console errors, uncaught page errors, failed non-cancelled requests, or HTTP errors. Playwright's deliberately cancelled link prefetches are filtered from the issue log. The current public Xondry site was reachable on November 3, 2026; no live community counters were copied into this portfolio. SquadAMP could not be independently reached during this review, so it remains marked in development.
+## Remaining differences
 
-## Root cause
+- The environment plate is generated from the reference concept; it is a close visual reinterpretation, not the exact approved pixels.
+- Chamber interiors remain perspective-mapped source-art planes rather than independently rendered rooms or live product captures. Foreground frame occlusion and restrained parallax improve the depth cues but do not create full 3D interiors.
+- Shutter motion uses image-derived 2D leaves. Vapor is a screen-blended WebM loop rendered from the transparent generated plume art; it is not volumetric simulation or live-action footage.
+- The reference has more surface detail, brighter localized lighting, and richer smoke. Chamber inserts still read as projected artwork inside a physical bay rather than a live 3D product room.
+- Mobile deliberately crops the environment and moves chamber access into a selector and a larger selected exhibit.
 
-The current landing stage is a CSS illustration: a few concentric rings, broad radial gradients, and six equal card-like buttons. It has no camera, environment geometry, bay depth, material maps, local light sources, or door mechanics connected to the reducer. As a result, there is no visual structure capable of producing the reference's corridor perspective, large industrial environment, recessed asymmetrical bays, localized vapor, or reflective floor. This is the principal fidelity gap, not a missing CSS polish pass.
+## Follow-up visual correction
 
-The project package supplies no editable mesh, scene, material texture, or actual product/game screenshots. The replacement is an authored Three.js environment with original procedural architecture, chamber props, lighting, vapor sprites, and a generated basalt surface map. Concept-only chamber props remain visibly illustrative; they are not presented as actual app captures.
+The follow-up addressed chamber inserts reading as cards and vapor baked into the environment. Source-art frame crops overlap each insert and aperture alpha feathering softens edges. The roof vapor was cleaned from the background plate and is played as a screen-blended loop above the selected chamber while its doors open; it fades before the open state. The plume is wider and positioned over the roof seam, and right-side bays mirror it toward the center. Reduced-motion mode uses the still image or hides the effect according to the setting; the browser check verifies video playback in Full mode.
 
-## Ranked reference comparison
+- [Final follow-up captures](visual-qa/smoke-loop-final/)
+- [Frame and chamber before/after](visual-qa/visual-gap-final/chamber-detail-before-after.png)
+- [Chamber vent before/after](visual-qa/smoke-loop-final/vapor-before-after.png)
+- [Chamber vent capture](visual-qa/smoke-loop-final/xondry-venting.png)
+- [Looping smoke video](../public/blacksite/art/steam-loop.webm)
 
-| Rank | Reference | Baseline defect | Correction | Evidence |
-| ---: | --- | --- | --- | --- | --- |
-| 1 | Continuous underground corridor with a single vanishing point and large vault integrated into the architecture | CSS rings had no side walls, ceiling, or connecting corridor | Added textured stone shoulders, roof wings, steel ribs, pipes, converging floor rails, and a lit inner passage | [Before/after](visual-qa/final/reference-vs-final.png), [final desktop](visual-qa/final/home-1672x941.png) |
-| 2 | Xondry and Classified are large foreground portals; SquadAMP and RealBall26 sit at mid-depth; AtomLang and RAEYL recede toward center | Six similar card rectangles formed a straight row | Six recessed, unequal bays now occupy three depth planes; DOM hotspots follow projected positions | [Annotated regions](visual-qa/reference/annotated_regions.png), [final desktop](visual-qa/final/home-1672x941.png) |
-| 3 | Thick radial steel door with segmented plates, bolts, hazard arcs, separated leaves, and a narrow cyan breach | Two thin circles and a central line, with no moving mechanical panels | Added segmented armor, radial fasteners, twin translating leaves, an actual passage behind the opening, portal lighting, and visible state-driven movement | [Blast-door crop](visual-qa/reference/crops/blast_door.png), [entry states](visual-qa/final/entry-entering.png) and [open](visual-qa/final/entry-ready.png) |
-| 4 | Rough rock/concrete, steel framing, service pipes, emissive fixtures, localized colored light | Smooth gradients and regular lines lacked material variation | Added generated basalt albedo/bump texture, metal maps, layered geometry, and localized bay lighting | [Reference](visual-qa/reference/approved_black_site_1672x941.png), [final desktop](visual-qa/final/home-1672x941.png) |
-| 5 | Wet walkway with converging lights, localized reflections, and door vapor | No travel path, plume, or floor reflections | Added perspective rails, restrained wet-floor highlights, and vent-local vapor; reduced the overly sharp cyan floor reflection seen in the first 3D pass | [Final desktop](visual-qa/final/home-1672x941.png), [entry motion](visual-qa/final/entry-entering.png) |
-| 6 | Six distinct product interiors | Motifs were decorative icons in flat cards | Added spatial motifs and per-bay light, door, vapor, and prop behavior while clearly labeling concept visualization | [Chamber captures](visual-qa/final/chamber-xondry-open.png), [AtomLang](visual-qa/final/chamber-atomlang-open.png), [Classified](visual-qa/final/chamber-classified-open.png) |
-| 7 | Title aligned to the vault; one bottom access row and one Xondry teaser | CTA hierarchy was detached from the lower scene | Kept a centered hero CTA and added one concise access rail, one dossier teaser, and the existing footer | [Hero crop](visual-qa/reference/crops/hero_title_buttons.png), [access crop](visual-qa/reference/crops/access_paths.png), [final desktop](visual-qa/final/home-1672x941.png) |
-| 8 | Header includes Julian's name and role line | Role previously appeared only in the footer | Added the name and role in the first viewport, with responsive header behavior | [Final desktop](visual-qa/final/home-1672x941.png) |
-| 9 | Enter and chamber actions move mechanical parts and cue local light/vapor | Interaction state mostly changed CSS decoration | Connected the entry and chamber state machines to physical door leaves, bay light, motifs, and vapor; skip, Escape, history, and focus remain wired | [Entry states](visual-qa/final/entry-entering.png), [dossier state](visual-qa/final/dossier-xondry.png), [E2E suite](../tests/e2e/portfolio.spec.ts) |
-| 10 | Responsive scene with accessible direct access | Narrow viewports only had the professional list | Small screens default to Professional Mode and can opt into the scene; both render without horizontal overflow at 320 and 390 px | [320](visual-qa/final/home-320x720.png), [390](visual-qa/final/home-390x844.png), [experience 320](visual-qa/final/home-experience-320x720.png) |
-| 11 | Accurate project states | Risk of copying incorrect concept labels and claims | Kept statuses in one data source; RealBall is a playable prototype in development, SquadAMP is in development, and classified research remains undisclosed | [Project registry](../machine/projects.json), [RealBall route coverage](../tests/e2e/portfolio.spec.ts) |
-| 12 | Keyboard and low-motion access | Scene refactor could have regressed existing navigation | Kept semantic DOM controls; added keyboard, history, reduced-motion, no-WebGL fallback, and 20-cycle GPU resource checks | [E2E suite](../tests/e2e/portfolio.spec.ts), [final browser issue log](visual-qa/final/browser-issues.json) |
+The next layout pass lowered and reduced the plume so its visible cloud stays close to the selected vent, moved the home header over the scene, updated the shared action-button shape, and rebuilt the footer around the real Contact route. The approved-raster email remains omitted because it is explicitly marked illustrative in the content-truth source. [Latest venting capture](visual-qa/header-footer-final/xondry-venting.png).
 
-## Initial visual scores
+The chamber blend pass removed the persistent active outline and boxed in-image caption, applied an aperture-matched alpha feather, and blended the project art against the environment. A follow-up removed global hotspot hover glow and zoom, cleaned static roof smoke from the base plate, and moved the animated vent to the roof seam. Shutters start closed, smoke dissipates before the settled-open state, project switching closes the previous bay, and the details panel stays opposite the selected chamber. [Before/after edge comparison](visual-qa/chamber-blend-final/edge-comparison.png), [roof smoke in motion](visual-qa/smoke-cleanup-final/squadamp-roof-venting.png), [full capture set](visual-qa/smoke-cleanup-final/).
 
-Scores use a five-point review scale (1 = absent/poor, 5 = close to the concept while retaining readable web content). They are qualitative, based on the direct screenshot comparison above, not a claim of pixel similarity.
+The chamber blend pass removed the persistent active outline and boxed in-image caption, applied an aperture-matched alpha feather, and blended the project art against the environment. Shutters now start closed, smoke stops before the settled-open state, a project switch closes the previous bay, and the details panel stays opposite the selected chamber. [Before/after edge comparison](visual-qa/chamber-blend-final/edge-comparison.png), [full capture set](visual-qa/chamber-blend-final/).
 
-| Dimension | Before | Evidence summary |
-| --- | ---: | --- |
-| Spatial layout / hierarchy | 2 | Title is centered, but access/teaser composition is missing and bays form a card row |
-| Physical architecture / perspective | 1 | No actual corridor, walls, or bay depth |
-| Materials / lighting / atmosphere | 1 | Mostly uniform CSS gradients; no material maps, localized vapor, or floor reflection |
-| Chamber recognizability | 2 | Accent motifs exist, but not integrated interiors |
-| Typography / legibility | 3 | Main title and project copy read clearly; some telemetry is very small |
-| Responsive adaptation | 4 | Professional fallback works at narrow widths; scene is not yet recomposed |
+## Verification
 
-## Remaining differences and limits
-
-- The reference is a highly detailed generated concept image. The shipped Three.js scene has actual depth and mechanical interactions, but its procedural geometry and simple product props remain visibly stylized and are not photoreal.
-- No licensed product screenshots, game footage, or editable source 3D models were supplied, so each chamber uses original illustrative geometry and labels it as a concept visualization.
-- The final comparison confirms the intended hierarchy and corridor/bay geometry, but the reference still has richer local smoke, more complex environmental lighting, and denser mechanical surface detail.
-- No manual screen-reader session or real-user performance data is claimed; those limits are tracked in the QA handoff.
+Final verification results are recorded in [QA handoff](QA_HANDOFF.md). The latest browser capture log is empty: [browser-issues.json](visual-qa/smoke-cleanup-final/browser-issues.json). The earlier scene-reference comparison remains in [v3-final](visual-qa/v3-final/).

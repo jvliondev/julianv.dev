@@ -31,7 +31,8 @@ const navigation = await page.evaluate(() => {
   const cls = shifts.filter((entry) => !entry.hadRecentInput).reduce((sum, entry) => sum + entry.value, 0);
   return { lcpMs: lcp, cls, viewport: { width: innerWidth, height: innerHeight } };
 });
-await page.getByRole("button", { name: "Professional Mode" }).click();
+await page.getByRole("button", { name: /Open Xondry\.com project/i }).click();
+await page.getByRole("link", { name: "View project", exact: true }).waitFor();
 await page.waitForTimeout(150);
 const interaction = await page.evaluate(() => {
   const samples = window.__interactionSamples;

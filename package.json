@@ -11,6 +11,10 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "capture:qa": "node scripts/capture-qa.mjs",
+    "capture:blacksite": "node scripts/capture-blacksite-qa.mjs",
+    "compare:blacksite": "node scripts/compare-blacksite-qa.mjs",
+    "compare:shell": "node scripts/compare-shell-qa.mjs",
+    "generate:smoke-loop": "node scripts/generate-smoke-loop.mjs",
     "measure:qa": "node scripts/measure-local-vitals.mjs"
   },
   "dependencies": {
@@ -19,8 +23,7 @@
     "@fontsource/ibm-plex-mono": "^5.3.0",
     "next": "16.4.4",
     "react": "19.2.0",
-    "react-dom": "19.2.0",
-    "three": "^0.187.0"
+    "react-dom": "19.2.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.11.0",
@@ -29,7 +32,6 @@
     "@types/node": "24.10.0",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
-    "@types/three": "^0.187.0",
     "eslint": "^9.39.5",
     "eslint-config-next": "16.4.4",
     "jsdom": "27.1.0",

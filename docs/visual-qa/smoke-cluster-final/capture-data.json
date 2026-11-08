@@ -1,0 +1,152 @@
+{
+  "captures": [
+    {
+      "chamber": "squadamp",
+      "phase": "opening+dissipating",
+      "activeEmitters": 6,
+      "emitters": [
+        {
+          "vent": "top-left",
+          "angle": "rotate(-56deg)",
+          "width": "61px",
+          "height": "48px",
+          "opacity": "0.447585"
+        },
+        {
+          "vent": "top-center",
+          "angle": "rotate(-66deg)",
+          "width": "79px",
+          "height": "58px",
+          "opacity": "0.62"
+        },
+        {
+          "vent": "top-right",
+          "angle": "rotate(-76deg)",
+          "width": "61px",
+          "height": "48px",
+          "opacity": "0.433209"
+        },
+        {
+          "vent": "side-left",
+          "angle": "rotate(-148deg)",
+          "width": "60px",
+          "height": "41px",
+          "opacity": "0.323917"
+        },
+        {
+          "vent": "side-right",
+          "angle": "rotate(-32deg)",
+          "width": "60px",
+          "height": "41px",
+          "opacity": "0.159323"
+        },
+        {
+          "vent": "threshold",
+          "angle": "rotate(-69deg)",
+          "width": "67px",
+          "height": "53px",
+          "opacity": "0"
+        }
+      ]
+    },
+    {
+      "chamber": "classified",
+      "phase": "opening+dissipating",
+      "activeEmitters": 6,
+      "emitters": [
+        {
+          "vent": "top-left",
+          "angle": "rotate(-126deg)",
+          "width": "85px",
+          "height": "63px",
+          "opacity": "0.45"
+        },
+        {
+          "vent": "top-center",
+          "angle": "rotate(-136deg)",
+          "width": "108px",
+          "height": "76px",
+          "opacity": "0.62"
+        },
+        {
+          "vent": "top-right",
+          "angle": "rotate(-146deg)",
+          "width": "85px",
+          "height": "63px",
+          "opacity": "0.449992"
+        },
+        {
+          "vent": "side-left",
+          "angle": "rotate(-148deg)",
+          "width": "83px",
+          "height": "53px",
+          "opacity": "0.388211"
+        },
+        {
+          "vent": "side-right",
+          "angle": "rotate(-32deg)",
+          "width": "83px",
+          "height": "53px",
+          "opacity": "0.348826"
+        },
+        {
+          "vent": "threshold",
+          "angle": "rotate(-139deg)",
+          "width": "93px",
+          "height": "70px",
+          "opacity": "0.146689"
+        }
+      ]
+    },
+    {
+      "chamber": "xondry",
+      "phase": "opening+dissipating",
+      "activeEmitters": 6,
+      "emitters": [
+        {
+          "vent": "top-left",
+          "angle": "rotate(-48deg)",
+          "width": "97px",
+          "height": "59px",
+          "opacity": "0.45"
+        },
+        {
+          "vent": "top-center",
+          "angle": "rotate(-58deg)",
+          "width": "124px",
+          "height": "71px",
+          "opacity": "0.62"
+        },
+        {
+          "vent": "top-right",
+          "angle": "rotate(-68deg)",
+          "width": "97px",
+          "height": "59px",
+          "opacity": "0.449993"
+        },
+        {
+          "vent": "side-left",
+          "angle": "rotate(-148deg)",
+          "width": "95px",
+          "height": "50px",
+          "opacity": "0.388263"
+        },
+        {
+          "vent": "side-right",
+          "angle": "rotate(-32deg)",
+          "width": "95px",
+          "height": "50px",
+          "opacity": "0.348974"
+        },
+        {
+          "vent": "threshold",
+          "angle": "rotate(-61deg)",
+          "width": "106px",
+          "height": "65px",
+          "opacity": "0.147433"
+        }
+      ]
+    }
+  ],
+  "browserIssues": []
+}

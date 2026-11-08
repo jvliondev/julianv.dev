@@ -1,0 +1,1231 @@
+{
+  "version": 2,
+  "coordinateSpace": {
+    "width": 1672,
+    "height": 941,
+    "fit": "cover",
+    "origin": "top-left"
+  },
+  "source": "/blacksite/source/reference_original.png",
+  "environmentPlate": "/blacksite/art/environment-plate.webp",
+  "closedDoorSource": "/blacksite/art/closed-doors-reference.webp",
+  "effects": {
+    "steamPlume": "/blacksite/art/steam-plume.webp",
+    "steamLoop": "/blacksite/art/steam-loop.webp",
+    "environmentEmissive": "/blacksite/art/environment-emissive.webp"
+  },
+  "backgroundLights": [
+    {
+      "id": "vault-beacon",
+      "x": 808,
+      "y": 48,
+      "width": 58,
+      "height": 54,
+      "color": "#52efff",
+      "mode": "pulse",
+      "delay": "0s",
+      "asset": "/blacksite/art/background-light-vault-beacon.webp"
+    },
+    {
+      "id": "arch-warning-left",
+      "x": 482,
+      "y": 165,
+      "width": 54,
+      "height": 55,
+      "color": "#ff354e",
+      "mode": "flash",
+      "delay": ".2s",
+      "asset": "/blacksite/art/background-light-arch-warning-left.webp"
+    },
+    {
+      "id": "arch-warning-right",
+      "x": 1135,
+      "y": 165,
+      "width": 54,
+      "height": 55,
+      "color": "#ff354e",
+      "mode": "flash",
+      "delay": "1.7s",
+      "asset": "/blacksite/art/background-light-arch-warning-right.webp"
+    },
+    {
+      "id": "outer-cyan-left",
+      "x": 105,
+      "y": 252,
+      "width": 78,
+      "height": 44,
+      "color": "#38e6ff",
+      "mode": "pulse",
+      "delay": ".7s",
+      "asset": "/blacksite/art/background-light-outer-cyan-left.webp"
+    },
+    {
+      "id": "outer-cyan-right",
+      "x": 1488,
+      "y": 252,
+      "width": 78,
+      "height": 44,
+      "color": "#38e6ff",
+      "mode": "pulse",
+      "delay": "2.1s",
+      "asset": "/blacksite/art/background-light-outer-cyan-right.webp"
+    },
+    {
+      "id": "inner-cyan-left",
+      "x": 330,
+      "y": 326,
+      "width": 75,
+      "height": 42,
+      "color": "#36e5ff",
+      "mode": "flicker",
+      "delay": "1.2s",
+      "asset": "/blacksite/art/background-light-inner-cyan-left.webp"
+    },
+    {
+      "id": "inner-cyan-right",
+      "x": 1268,
+      "y": 326,
+      "width": 75,
+      "height": 42,
+      "color": "#36e5ff",
+      "mode": "flicker",
+      "delay": ".4s",
+      "asset": "/blacksite/art/background-light-inner-cyan-right.webp"
+    },
+    {
+      "id": "amber-beacon-left",
+      "x": 273,
+      "y": 352,
+      "width": 50,
+      "height": 66,
+      "color": "#ff9c42",
+      "mode": "flash",
+      "delay": "1s",
+      "asset": "/blacksite/art/background-light-amber-beacon-left.webp"
+    },
+    {
+      "id": "amber-beacon-right",
+      "x": 1349,
+      "y": 352,
+      "width": 50,
+      "height": 66,
+      "color": "#ff9c42",
+      "mode": "flash",
+      "delay": "2.4s",
+      "asset": "/blacksite/art/background-light-amber-beacon-right.webp"
+    },
+    {
+      "id": "inner-amber-left",
+      "x": 481,
+      "y": 408,
+      "width": 44,
+      "height": 53,
+      "color": "#ff963e",
+      "mode": "pulse",
+      "delay": "1.8s",
+      "asset": "/blacksite/art/background-light-inner-amber-left.webp"
+    },
+    {
+      "id": "inner-amber-right",
+      "x": 1147,
+      "y": 408,
+      "width": 44,
+      "height": 53,
+      "color": "#ff963e",
+      "mode": "pulse",
+      "delay": ".5s",
+      "asset": "/blacksite/art/background-light-inner-amber-right.webp"
+    },
+    {
+      "id": "violet-bay-left",
+      "x": 12,
+      "y": 300,
+      "width": 48,
+      "height": 42,
+      "color": "#d174ff",
+      "mode": "flicker",
+      "delay": ".9s",
+      "asset": "/blacksite/art/background-light-violet-bay-left.webp"
+    },
+    {
+      "id": "violet-bay-right",
+      "x": 1612,
+      "y": 300,
+      "width": 48,
+      "height": 42,
+      "color": "#d174ff",
+      "mode": "flicker",
+      "delay": "2.2s",
+      "asset": "/blacksite/art/background-light-violet-bay-right.webp"
+    },
+    {
+      "id": "walkway-left-0",
+      "x": 422,
+      "y": 746,
+      "width": 69,
+      "height": 37,
+      "color": "#ff3b4f",
+      "mode": "sequence",
+      "sequenceDelay": "0s",
+      "asset": "/blacksite/art/background-light-walkway-left-0.webp"
+    },
+    {
+      "id": "walkway-right-0",
+      "x": 1181,
+      "y": 746,
+      "width": 69,
+      "height": 37,
+      "color": "#ff3b4f",
+      "mode": "sequence",
+      "sequenceDelay": "0s",
+      "asset": "/blacksite/art/background-light-walkway-right-0.webp"
+    },
+    {
+      "id": "walkway-left-1",
+      "x": 565,
+      "y": 702,
+      "width": 44,
+      "height": 26,
+      "color": "#ff3b4f",
+      "mode": "sequence",
+      "sequenceDelay": ".45s",
+      "asset": "/blacksite/art/background-light-walkway-left-1.webp"
+    },
+    {
+      "id": "walkway-right-1",
+      "x": 1063,
+      "y": 702,
+      "width": 44,
+      "height": 26,
+      "color": "#ff3b4f",
+      "mode": "sequence",
+      "sequenceDelay": ".45s",
+      "asset": "/blacksite/art/background-light-walkway-right-1.webp"
+    },
+    {
+      "id": "walkway-left-2",
+      "x": 648,
+      "y": 679,
+      "width": 25,
+      "height": 17,
+      "color": "#ff3b4f",
+      "mode": "sequence",
+      "sequenceDelay": ".9s",
+      "asset": "/blacksite/art/background-light-walkway-left-2.webp"
+    },
+    {
+      "id": "walkway-right-2",
+      "x": 999,
+      "y": 679,
+      "width": 25,
+      "height": 17,
+      "color": "#ff3b4f",
+      "mode": "sequence",
+      "sequenceDelay": ".9s",
+      "asset": "/blacksite/art/background-light-walkway-right-2.webp"
+    },
+    {
+      "id": "walkway-left-3",
+      "x": 694,
+      "y": 626,
+      "width": 23,
+      "height": 29,
+      "color": "#ff3b4f",
+      "mode": "sequence",
+      "sequenceDelay": "1.35s",
+      "asset": "/blacksite/art/background-light-walkway-left-3.webp"
+    },
+    {
+      "id": "walkway-right-3",
+      "x": 964,
+      "y": 626,
+      "width": 26,
+      "height": 29,
+      "color": "#ff3b4f",
+      "mode": "sequence",
+      "sequenceDelay": "1.35s",
+      "asset": "/blacksite/art/background-light-walkway-right-3.webp"
+    }
+  ],
+  "note": "Coordinates map to the 1672x941 artboard; all visual layers use one cover transform. The inner artwork and animated shutters share a shaped doorway mask; an alpha-cut foreground frame restores the original structural supports over both. Smoke uses six independently sized, angled and staggered emitters at the shutter top seal, side gaps, and threshold, using a transparent animated WebP.",
+  "chambers": [
+    {
+      "id": "xondry",
+      "aperture": {
+        "x": 18,
+        "y": 452,
+        "width": 250,
+        "height": 192,
+        "polygon": [
+          [
+            0,
+            5
+          ],
+          [
+            100,
+            0
+          ],
+          [
+            97,
+            100
+          ],
+          [
+            4,
+            100
+          ]
+        ]
+      },
+      "opening": {
+        "left": 34,
+        "top": 472,
+        "width": 226,
+        "height": 155,
+        "polygon": [
+          [
+            6,
+            0
+          ],
+          [
+            94,
+            0
+          ],
+          [
+            100,
+            9
+          ],
+          [
+            100,
+            91
+          ],
+          [
+            95,
+            100
+          ],
+          [
+            5,
+            100
+          ],
+          [
+            0,
+            91
+          ],
+          [
+            0,
+            9
+          ]
+        ]
+      },
+      "frame": {
+        "left": 4,
+        "top": 442,
+        "width": 278,
+        "height": 212,
+        "asset": "/blacksite/art/xondry-frame-occluder.webp"
+      },
+      "shutter": {
+        "left": 34,
+        "top": 472,
+        "width": 226,
+        "height": 155,
+        "leftAsset": "/blacksite/art/xondry-shutter-left.webp",
+        "rightAsset": "/blacksite/art/xondry-shutter-right.webp"
+      },
+      "exhibit": "/blacksite/art/xondry-exhibit.webp",
+      "emissive": "/blacksite/art/xondry-emissive.webp",
+      "ventAnchor": {
+        "x": 143,
+        "y": 458
+      },
+      "smokeFlowAngle": -58,
+      "vents": [
+        {
+          "id": "top-left",
+          "x": 95,
+          "y": 474,
+          "width": 97,
+          "height": 59,
+          "angle": -48,
+          "delay": ".06s",
+          "opacity": 0.45,
+          "loopDelay": "-.45s",
+          "duration": "2.7s"
+        },
+        {
+          "id": "top-center",
+          "x": 147,
+          "y": 472,
+          "width": 124,
+          "height": 71,
+          "angle": -58,
+          "delay": "0s",
+          "opacity": 0.62,
+          "loopDelay": "-1.15s",
+          "duration": "3.2s"
+        },
+        {
+          "id": "top-right",
+          "x": 199,
+          "y": 474,
+          "width": 97,
+          "height": 59,
+          "angle": -68,
+          "delay": ".1s",
+          "opacity": 0.45,
+          "loopDelay": "-.8s",
+          "duration": "2.5s"
+        },
+        {
+          "id": "side-left",
+          "x": 35,
+          "y": 542,
+          "width": 95,
+          "height": 50,
+          "angle": -148,
+          "delay": ".16s",
+          "opacity": 0.4,
+          "loopDelay": "-1.5s",
+          "duration": "3.5s"
+        },
+        {
+          "id": "side-right",
+          "x": 259,
+          "y": 542,
+          "width": 95,
+          "height": 50,
+          "angle": -32,
+          "delay": ".21s",
+          "opacity": 0.4,
+          "loopDelay": "-.25s",
+          "duration": "3.8s"
+        },
+        {
+          "id": "threshold",
+          "x": 147,
+          "y": 626,
+          "width": 106,
+          "height": 65,
+          "angle": -61,
+          "delay": ".28s",
+          "opacity": 0.42,
+          "loopDelay": "-.95s",
+          "duration": "3.1s"
+        }
+      ]
+    },
+    {
+      "id": "squadamp",
+      "aperture": {
+        "x": 310,
+        "y": 493,
+        "width": 181,
+        "height": 145,
+        "polygon": [
+          [
+            0,
+            2
+          ],
+          [
+            100,
+            0
+          ],
+          [
+            95,
+            100
+          ],
+          [
+            3,
+            100
+          ]
+        ]
+      },
+      "opening": {
+        "left": 329,
+        "top": 505,
+        "width": 143,
+        "height": 127,
+        "polygon": [
+          [
+            10,
+            0
+          ],
+          [
+            90,
+            0
+          ],
+          [
+            100,
+            14
+          ],
+          [
+            100,
+            89
+          ],
+          [
+            92,
+            100
+          ],
+          [
+            8,
+            100
+          ],
+          [
+            0,
+            89
+          ],
+          [
+            0,
+            14
+          ]
+        ]
+      },
+      "frame": {
+        "left": 300,
+        "top": 484,
+        "width": 201,
+        "height": 163,
+        "asset": "/blacksite/art/squadamp-frame-occluder.webp"
+      },
+      "shutter": {
+        "left": 329,
+        "top": 505,
+        "width": 143,
+        "height": 127,
+        "leftAsset": "/blacksite/art/squadamp-shutter-left.webp",
+        "rightAsset": "/blacksite/art/squadamp-shutter-right.webp"
+      },
+      "exhibit": "/blacksite/art/squadamp-exhibit.webp",
+      "emissive": "/blacksite/art/squadamp-emissive.webp",
+      "ventAnchor": {
+        "x": 400.5,
+        "y": 499
+      },
+      "smokeFlowAngle": -66,
+      "vents": [
+        {
+          "id": "top-left",
+          "x": 368,
+          "y": 507,
+          "width": 61,
+          "height": 48,
+          "angle": -56,
+          "delay": ".06s",
+          "opacity": 0.45,
+          "loopDelay": "-.45s",
+          "duration": "2.7s"
+        },
+        {
+          "id": "top-center",
+          "x": 401,
+          "y": 505,
+          "width": 79,
+          "height": 58,
+          "angle": -66,
+          "delay": "0s",
+          "opacity": 0.62,
+          "loopDelay": "-1.15s",
+          "duration": "3.2s"
+        },
+        {
+          "id": "top-right",
+          "x": 433,
+          "y": 507,
+          "width": 61,
+          "height": 48,
+          "angle": -76,
+          "delay": ".1s",
+          "opacity": 0.45,
+          "loopDelay": "-.8s",
+          "duration": "2.5s"
+        },
+        {
+          "id": "side-left",
+          "x": 330,
+          "y": 562,
+          "width": 60,
+          "height": 41,
+          "angle": -148,
+          "delay": ".16s",
+          "opacity": 0.4,
+          "loopDelay": "-1.5s",
+          "duration": "3.5s"
+        },
+        {
+          "id": "side-right",
+          "x": 471,
+          "y": 562,
+          "width": 60,
+          "height": 41,
+          "angle": -32,
+          "delay": ".21s",
+          "opacity": 0.4,
+          "loopDelay": "-.25s",
+          "duration": "3.8s"
+        },
+        {
+          "id": "threshold",
+          "x": 401,
+          "y": 631,
+          "width": 67,
+          "height": 53,
+          "angle": -69,
+          "delay": ".28s",
+          "opacity": 0.42,
+          "loopDelay": "-.95s",
+          "duration": "3.1s"
+        }
+      ]
+    },
+    {
+      "id": "atomlang-evolved-sdk",
+      "aperture": {
+        "x": 508,
+        "y": 493,
+        "width": 170,
+        "height": 147,
+        "polygon": [
+          [
+            2,
+            0
+          ],
+          [
+            98,
+            1
+          ],
+          [
+            100,
+            100
+          ],
+          [
+            4,
+            100
+          ]
+        ]
+      },
+      "opening": {
+        "left": 519,
+        "top": 507,
+        "width": 146,
+        "height": 124,
+        "polygon": [
+          [
+            5,
+            0
+          ],
+          [
+            95,
+            0
+          ],
+          [
+            100,
+            8
+          ],
+          [
+            100,
+            93
+          ],
+          [
+            95,
+            100
+          ],
+          [
+            5,
+            100
+          ],
+          [
+            0,
+            93
+          ],
+          [
+            0,
+            8
+          ]
+        ]
+      },
+      "frame": {
+        "left": 498,
+        "top": 484,
+        "width": 190,
+        "height": 165,
+        "asset": "/blacksite/art/atomlang-evolved-sdk-frame-occluder.webp"
+      },
+      "shutter": {
+        "left": 519,
+        "top": 507,
+        "width": 146,
+        "height": 124,
+        "leftAsset": "/blacksite/art/atomlang-evolved-sdk-shutter-left.webp",
+        "rightAsset": "/blacksite/art/atomlang-evolved-sdk-shutter-right.webp"
+      },
+      "exhibit": "/blacksite/art/atomlang-evolved-sdk-exhibit.webp",
+      "emissive": "/blacksite/art/atomlang-evolved-sdk-emissive.webp",
+      "ventAnchor": {
+        "x": 593,
+        "y": 499
+      },
+      "smokeFlowAngle": -78,
+      "vents": [
+        {
+          "id": "top-left",
+          "x": 558,
+          "y": 509,
+          "width": 63,
+          "height": 47,
+          "angle": -68,
+          "delay": ".06s",
+          "opacity": 0.45,
+          "loopDelay": "-.45s",
+          "duration": "2.7s"
+        },
+        {
+          "id": "top-center",
+          "x": 592,
+          "y": 507,
+          "width": 80,
+          "height": 57,
+          "angle": -78,
+          "delay": "0s",
+          "opacity": 0.62,
+          "loopDelay": "-1.15s",
+          "duration": "3.2s"
+        },
+        {
+          "id": "top-right",
+          "x": 626,
+          "y": 509,
+          "width": 63,
+          "height": 47,
+          "angle": -88,
+          "delay": ".1s",
+          "opacity": 0.45,
+          "loopDelay": "-.8s",
+          "duration": "2.5s"
+        },
+        {
+          "id": "side-left",
+          "x": 520,
+          "y": 563,
+          "width": 61,
+          "height": 40,
+          "angle": -148,
+          "delay": ".16s",
+          "opacity": 0.4,
+          "loopDelay": "-1.5s",
+          "duration": "3.5s"
+        },
+        {
+          "id": "side-right",
+          "x": 664,
+          "y": 563,
+          "width": 61,
+          "height": 40,
+          "angle": -32,
+          "delay": ".21s",
+          "opacity": 0.4,
+          "loopDelay": "-.25s",
+          "duration": "3.8s"
+        },
+        {
+          "id": "threshold",
+          "x": 592,
+          "y": 630,
+          "width": 69,
+          "height": 52,
+          "angle": -81,
+          "delay": ".28s",
+          "opacity": 0.42,
+          "loopDelay": "-.95s",
+          "duration": "3.1s"
+        }
+      ]
+    },
+    {
+      "id": "raeyl",
+      "aperture": {
+        "x": 1007,
+        "y": 491,
+        "width": 173,
+        "height": 146,
+        "polygon": [
+          [
+            2,
+            0
+          ],
+          [
+            98,
+            0
+          ],
+          [
+            100,
+            100
+          ],
+          [
+            4,
+            100
+          ]
+        ]
+      },
+      "opening": {
+        "left": 1012,
+        "top": 507,
+        "width": 145,
+        "height": 124,
+        "polygon": [
+          [
+            5,
+            0
+          ],
+          [
+            95,
+            0
+          ],
+          [
+            100,
+            9
+          ],
+          [
+            100,
+            93
+          ],
+          [
+            95,
+            100
+          ],
+          [
+            5,
+            100
+          ],
+          [
+            0,
+            93
+          ],
+          [
+            0,
+            9
+          ]
+        ]
+      },
+      "frame": {
+        "left": 997,
+        "top": 482,
+        "width": 193,
+        "height": 164,
+        "asset": "/blacksite/art/raeyl-frame-occluder.webp"
+      },
+      "shutter": {
+        "left": 1012,
+        "top": 507,
+        "width": 145,
+        "height": 124,
+        "leftAsset": "/blacksite/art/raeyl-shutter-left.webp",
+        "rightAsset": "/blacksite/art/raeyl-shutter-right.webp"
+      },
+      "exhibit": "/blacksite/art/raeyl-exhibit.webp",
+      "emissive": "/blacksite/art/raeyl-emissive.webp",
+      "ventAnchor": {
+        "x": 1093.5,
+        "y": 497
+      },
+      "smokeFlowAngle": -102,
+      "vents": [
+        {
+          "id": "top-left",
+          "x": 1051,
+          "y": 509,
+          "width": 62,
+          "height": 47,
+          "angle": -92,
+          "delay": ".06s",
+          "opacity": 0.45,
+          "loopDelay": "-.45s",
+          "duration": "2.7s"
+        },
+        {
+          "id": "top-center",
+          "x": 1085,
+          "y": 507,
+          "width": 80,
+          "height": 57,
+          "angle": -102,
+          "delay": "0s",
+          "opacity": 0.62,
+          "loopDelay": "-1.15s",
+          "duration": "3.2s"
+        },
+        {
+          "id": "top-right",
+          "x": 1118,
+          "y": 509,
+          "width": 62,
+          "height": 47,
+          "angle": -112,
+          "delay": ".1s",
+          "opacity": 0.45,
+          "loopDelay": "-.8s",
+          "duration": "2.5s"
+        },
+        {
+          "id": "side-left",
+          "x": 1013,
+          "y": 563,
+          "width": 61,
+          "height": 40,
+          "angle": -148,
+          "delay": ".16s",
+          "opacity": 0.4,
+          "loopDelay": "-1.5s",
+          "duration": "3.5s"
+        },
+        {
+          "id": "side-right",
+          "x": 1156,
+          "y": 563,
+          "width": 61,
+          "height": 40,
+          "angle": -32,
+          "delay": ".21s",
+          "opacity": 0.4,
+          "loopDelay": "-.25s",
+          "duration": "3.8s"
+        },
+        {
+          "id": "threshold",
+          "x": 1085,
+          "y": 630,
+          "width": 68,
+          "height": 52,
+          "angle": -105,
+          "delay": ".28s",
+          "opacity": 0.42,
+          "loopDelay": "-.95s",
+          "duration": "3.1s"
+        }
+      ]
+    },
+    {
+      "id": "realball26",
+      "aperture": {
+        "x": 1215,
+        "y": 484,
+        "width": 181,
+        "height": 154,
+        "polygon": [
+          [
+            1,
+            2
+          ],
+          [
+            98,
+            0
+          ],
+          [
+            100,
+            100
+          ],
+          [
+            5,
+            100
+          ]
+        ]
+      },
+      "opening": {
+        "left": 1227,
+        "top": 500,
+        "width": 150,
+        "height": 132,
+        "polygon": [
+          [
+            7,
+            0
+          ],
+          [
+            93,
+            0
+          ],
+          [
+            100,
+            11
+          ],
+          [
+            100,
+            90
+          ],
+          [
+            93,
+            100
+          ],
+          [
+            7,
+            100
+          ],
+          [
+            0,
+            90
+          ],
+          [
+            0,
+            11
+          ]
+        ]
+      },
+      "frame": {
+        "left": 1205,
+        "top": 475,
+        "width": 201,
+        "height": 172,
+        "asset": "/blacksite/art/realball26-frame-occluder.webp"
+      },
+      "shutter": {
+        "left": 1227,
+        "top": 500,
+        "width": 150,
+        "height": 132,
+        "leftAsset": "/blacksite/art/realball26-shutter-left.webp",
+        "rightAsset": "/blacksite/art/realball26-shutter-right.webp"
+      },
+      "exhibit": "/blacksite/art/realball26-exhibit.webp",
+      "emissive": "/blacksite/art/realball26-emissive.webp",
+      "ventAnchor": {
+        "x": 1305.5,
+        "y": 490
+      },
+      "smokeFlowAngle": -120,
+      "vents": [
+        {
+          "id": "top-left",
+          "x": 1268,
+          "y": 502,
+          "width": 65,
+          "height": 50,
+          "angle": -110,
+          "delay": ".06s",
+          "opacity": 0.45,
+          "loopDelay": "-.45s",
+          "duration": "2.7s"
+        },
+        {
+          "id": "top-center",
+          "x": 1302,
+          "y": 500,
+          "width": 83,
+          "height": 61,
+          "angle": -120,
+          "delay": "0s",
+          "opacity": 0.62,
+          "loopDelay": "-1.15s",
+          "duration": "3.2s"
+        },
+        {
+          "id": "top-right",
+          "x": 1337,
+          "y": 502,
+          "width": 65,
+          "height": 50,
+          "angle": -130,
+          "delay": ".1s",
+          "opacity": 0.45,
+          "loopDelay": "-.8s",
+          "duration": "2.5s"
+        },
+        {
+          "id": "side-left",
+          "x": 1228,
+          "y": 559,
+          "width": 63,
+          "height": 42,
+          "angle": -148,
+          "delay": ".16s",
+          "opacity": 0.4,
+          "loopDelay": "-1.5s",
+          "duration": "3.5s"
+        },
+        {
+          "id": "side-right",
+          "x": 1376,
+          "y": 559,
+          "width": 63,
+          "height": 42,
+          "angle": -32,
+          "delay": ".21s",
+          "opacity": 0.4,
+          "loopDelay": "-.25s",
+          "duration": "3.8s"
+        },
+        {
+          "id": "threshold",
+          "x": 1302,
+          "y": 631,
+          "width": 71,
+          "height": 55,
+          "angle": -123,
+          "delay": ".28s",
+          "opacity": 0.42,
+          "loopDelay": "-.95s",
+          "duration": "3.1s"
+        }
+      ]
+    },
+    {
+      "id": "classified",
+      "aperture": {
+        "x": 1443,
+        "y": 449,
+        "width": 216,
+        "height": 194,
+        "polygon": [
+          [
+            3,
+            0
+          ],
+          [
+            100,
+            1
+          ],
+          [
+            98,
+            100
+          ],
+          [
+            3,
+            100
+          ]
+        ]
+      },
+      "opening": {
+        "left": 1458,
+        "top": 462,
+        "width": 197,
+        "height": 166,
+        "polygon": [
+          [
+            5,
+            0
+          ],
+          [
+            95,
+            0
+          ],
+          [
+            100,
+            12
+          ],
+          [
+            100,
+            91
+          ],
+          [
+            94,
+            100
+          ],
+          [
+            6,
+            100
+          ],
+          [
+            0,
+            91
+          ],
+          [
+            0,
+            12
+          ]
+        ]
+      },
+      "frame": {
+        "left": 1431,
+        "top": 439,
+        "width": 240,
+        "height": 214,
+        "asset": "/blacksite/art/classified-frame-occluder.webp"
+      },
+      "shutter": {
+        "left": 1458,
+        "top": 462,
+        "width": 197,
+        "height": 166,
+        "leftAsset": "/blacksite/art/classified-shutter-left.webp",
+        "rightAsset": "/blacksite/art/classified-shutter-right.webp"
+      },
+      "exhibit": "/blacksite/art/classified-exhibit.webp",
+      "emissive": "/blacksite/art/classified-emissive.webp",
+      "ventAnchor": {
+        "x": 1551,
+        "y": 455
+      },
+      "smokeFlowAngle": -136,
+      "vents": [
+        {
+          "id": "top-left",
+          "x": 1511,
+          "y": 464,
+          "width": 85,
+          "height": 63,
+          "angle": -126,
+          "delay": ".06s",
+          "opacity": 0.45,
+          "loopDelay": "-.45s",
+          "duration": "2.7s"
+        },
+        {
+          "id": "top-center",
+          "x": 1557,
+          "y": 462,
+          "width": 108,
+          "height": 76,
+          "angle": -136,
+          "delay": "0s",
+          "opacity": 0.62,
+          "loopDelay": "-1.15s",
+          "duration": "3.2s"
+        },
+        {
+          "id": "top-right",
+          "x": 1602,
+          "y": 464,
+          "width": 85,
+          "height": 63,
+          "angle": -146,
+          "delay": ".1s",
+          "opacity": 0.45,
+          "loopDelay": "-.8s",
+          "duration": "2.5s"
+        },
+        {
+          "id": "side-left",
+          "x": 1459,
+          "y": 537,
+          "width": 83,
+          "height": 53,
+          "angle": -148,
+          "delay": ".16s",
+          "opacity": 0.4,
+          "loopDelay": "-1.5s",
+          "duration": "3.5s"
+        },
+        {
+          "id": "side-right",
+          "x": 1654,
+          "y": 537,
+          "width": 83,
+          "height": 53,
+          "angle": -32,
+          "delay": ".21s",
+          "opacity": 0.4,
+          "loopDelay": "-.25s",
+          "duration": "3.8s"
+        },
+        {
+          "id": "threshold",
+          "x": 1557,
+          "y": 627,
+          "width": 93,
+          "height": 70,
+          "angle": -139,
+          "delay": ".28s",
+          "opacity": 0.42,
+          "loopDelay": "-.95s",
+          "duration": "3.1s"
+        }
+      ]
+    }
+  ]
+}

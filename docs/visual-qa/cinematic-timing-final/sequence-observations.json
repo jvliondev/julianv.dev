@@ -1,0 +1,90 @@
+{
+  "viewport": "1672x941",
+  "observations": [
+    {
+      "capture": "01-following-walkway-lights",
+      "phase": "phase-unlocking",
+      "cameraWaypoint": "walkway-mid-1",
+      "cameraZoom": "1.030",
+      "cameraTransition": "0s",
+      "doorTransition": "2.55s, 2.55s",
+      "walkwayAnimation": "0.82s",
+      "ambientFlashAnimation": "13.2s",
+      "overviewVisible": false,
+      "cameraTransform": "translate3d(-25.3837px, -264.084px, 0px) scale(1.03036)"
+    },
+    {
+      "capture": "02-following-lights-to-gate",
+      "phase": "phase-depressurizing",
+      "cameraWaypoint": "gate-approach",
+      "cameraZoom": "1.080",
+      "cameraTransition": "0s",
+      "doorTransition": "2.55s, 2.55s",
+      "walkwayAnimation": "0.82s",
+      "ambientFlashAnimation": "13.2s",
+      "overviewVisible": false,
+      "cameraTransform": "translate3d(-66.8856px, 44.0553px, 0px) scale(1.08001)"
+    },
+    {
+      "capture": "03-panning-up-to-warning-lights",
+      "phase": "phase-depressurizing",
+      "cameraWaypoint": "warning-lights",
+      "cameraZoom": "1.110",
+      "cameraTransition": "0s",
+      "doorTransition": "2.55s, 2.55s",
+      "walkwayAnimation": "0.82s",
+      "ambientFlashAnimation": "13.2s",
+      "overviewVisible": false,
+      "cameraTransform": "translate3d(-92.0886px, 289.502px, 0px) scale(1.11015)"
+    },
+    {
+      "capture": "04-chamber-focus-before-doors",
+      "phase": "phase-depressurizing",
+      "cameraWaypoint": "chamber",
+      "cameraZoom": "1.200",
+      "cameraTransition": "0s",
+      "doorTransition": "2.55s, 2.55s",
+      "walkwayAnimation": "0.82s",
+      "ambientFlashAnimation": "13.2s",
+      "overviewVisible": false,
+      "cameraTransform": "translate3d(355.4px, -203.9px, 0px) scale(1.2)"
+    },
+    {
+      "capture": "05-doors-opening",
+      "phase": "phase-opening",
+      "cameraWaypoint": "chamber",
+      "cameraZoom": "1.200",
+      "cameraTransition": "0s",
+      "doorTransition": "2.55s, 2.55s",
+      "walkwayAnimation": "0.82s",
+      "ambientFlashAnimation": "13.2s",
+      "overviewVisible": false,
+      "cameraTransform": "translate3d(355.4px, -203.9px, 0px) scale(1.2)"
+    },
+    {
+      "capture": "06-pullback",
+      "phase": "phase-dissipating",
+      "cameraWaypoint": "pullback",
+      "cameraZoom": "1.141",
+      "cameraTransition": "0s",
+      "doorTransition": "2.55s, 2.55s",
+      "walkwayAnimation": "0s",
+      "ambientFlashAnimation": "13.2s",
+      "overviewVisible": false,
+      "cameraTransform": "translate3d(231.809px, -139.161px, 0px) scale(1.14068)"
+    },
+    {
+      "capture": "07-showcase-after-pullback",
+      "phase": "phase-revealed",
+      "cameraWaypoint": "corridor",
+      "cameraZoom": "1.000",
+      "cameraTransition": "1.32s",
+      "doorTransition": "2.55s, 2.55s",
+      "walkwayAnimation": "0s",
+      "ambientFlashAnimation": "13.2s",
+      "overviewVisible": true,
+      "cameraTransform": "translate3d(0px, 0px, 0px) scale(1)"
+    }
+  ],
+  "issues": []
+}

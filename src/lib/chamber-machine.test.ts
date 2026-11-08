@@ -12,6 +12,8 @@ describe("chamber state machine", () => {
     state = chamberReducer(state, { type: "VENT_DONE" });
     expect(state.phase).toBe("opening");
     state = chamberReducer(state, { type: "DOOR_DONE" });
+    expect(state.phase).toBe("dissipating");
+    state = chamberReducer(state, { type: "DISSIPATE_DONE" });
     expect(state.phase).toBe("revealed");
     state = chamberReducer(state, { type: "CLOSE" });
     expect(state.phase).toBe("closing");

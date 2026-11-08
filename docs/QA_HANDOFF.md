@@ -1,58 +1,34 @@
-# Black Site V2 QA handoff
+# JulianV.dev Black Site V3 QA handoff
 
 ## Delivery state
 
-The current project is a static Next.js export in `out/`, ready for manual GitHub and Vercel setup. The build was not deployed and no Vercel settings were changed. The preview is available at [http://127.0.0.1:3200](http://127.0.0.1:3200) while the local preview server is running.
+The project builds as a static Next.js export in out/ and is ready for the user's manual GitHub and Vercel setup. No GitHub repository or Vercel settings were changed. The local preview responds at [http://127.0.0.1:3200](http://127.0.0.1:3200) while its preview server is running.
 
-The content registry is `machine/projects.json`. The Three.js scene and its no-WebGL SVG fallback live in `src/components/FacilityScene.tsx` and `src/components/FacilitySceneFallback.tsx`. See [the visual audit](BLACK_SITE_GAP_AUDIT.md), [reference comparison](BLACK_SITE_VISUAL_QA.md), and [asset inventory](BLACK_SITE_ASSET_INVENTORY.md).
+The home route always presents a single image-driven 2.5D chamber experience; the Work route is the direct project index. There is no Professional Mode or homepage experience switch. The environment plate has been cleaned of static roof vapor while retaining the central fog; aperture-feathered exhibit artwork, source-art frame occluders, steam poster, VP9 smoke loop, and shutter assets are in public/blacksite. The selected vent plays smoke only during door opening, then dissipates; pointer hover no longer draws a glow around chamber art, while keyboard focus remains visible. Only one chamber stays open, and its project details panel moves to the opposite side. Switching chambers replaces the active history entry, so closing the current panel does not restore the prior chamber. The coordinate map is public/blacksite/manifest.json. Live behavior lives in src/components/BlacksiteExperience.tsx and src/components/Facility.tsx. Motion is adjusted automatically for reduced-motion preferences and small screens. The previous Three.js scene and dependencies have been removed.
 
-## Verification run
+See [visual QA](BLACK_SITE_VISUAL_QA.md), [gap audit](BLACK_SITE_GAP_AUDIT.md), and [asset inventory](BLACK_SITE_ASSET_INVENTORY.md).
+
+## Verification
 
 | Check | Result |
 | --- | --- |
-| `npm run typecheck` | Pass |
-| `npm run lint` | Pass, no warnings |
-| `npm test -- --run` | Pass: 3 reducer tests |
-| `npm run build` | Pass: all 17 static routes generated, including all six `/work/{slug}` dossiers |
-| `npm run test:e2e` | Pass: 15 Playwright tests |
-| `npm audit --audit-level=low` | Pass: 0 vulnerabilities |
-| Responsive screenshots | Captured at 1672×941, 1440×900, 1024×768, 390×844, and 320×720; mobile Professional and Experience modes both captured |
-| Browser capture log | 0 console errors, uncaught page errors, failed non-cancelled requests, or HTTP errors |
-| Axe Playwright checks | No serious or critical findings on Work and the interactive facility |
-| Chamber resource loop | 20 successive open/close cycles across all six bays; one canvas and stable geometry/texture counts |
-| No-JavaScript smoke | Static Home product index, navigation, dossier links, and `/work/xondry` render and work without client JavaScript |
-| `npm run measure:qa` | Headless Chromium at 1440×900, unthrottled: LCP 100 ms, CLS 0, maximum scripted Event Timing duration 64 ms; full result in [local-vitals.json](local-vitals.json) |
+| npm run typecheck | Pass |
+| npm run lint | Pass, no lint warnings |
+| npm run test | Pass, 9 tests across 2 files |
+| npm run build | Pass, 17 static pages generated, including six project detail pages |
+| npm run test:e2e | Pass, 17 Playwright tests, including always-on homepage chambers, direct Work navigation, single-open switching, opposite-side project panel placement, smoke dissipation, keyboard/history, reduced motion, accessibility, and responsive overflow |
+| npm run measure:qa | Pass, local unthrottled Chromium at 1440 x 900: LCP 152 ms, CLS 0, scripted Event Timing proxy 24 ms; raw result in [local-vitals.json](local-vitals.json) |
+| Browser capture | Pass, 0 console errors, uncaught page errors, failed non-cancelled requests, or HTTP errors; latest states in [smoke-cleanup-final](visual-qa/smoke-cleanup-final/) |
+| Visual comparison | Pass, close crop before/after evidence in [edge-comparison.png](visual-qa/chamber-blend-final/edge-comparison.png); static-to-dynamic smoke and two animated frames in [smoke-cleanup-final](visual-qa/smoke-cleanup-final/), plus desktop/tablet/mobile and hovered-open captures |
+| Screenshot sizes | 1672 x 941, 1440 x 900, 1920 x 1080, 1024 x 768, 390 x 844, and 360 x 800 |
+| Responsive and accessibility checks | E2E covers responsive overflow, keyboard focus, browser history, reduced motion, no-JavaScript routes, failed environment art fallback, and automated serious/critical accessibility findings |
 
-The Event Timing value is a local scripted proxy, not field INP or a p75 Core Web Vital. No Lighthouse run, manual screen-reader session, deployed field measurement, or real-user Web Vitals are claimed.
+Current route captures: [interactive homepage](screenshots/home-1672x941.png), [Work index](screenshots/work-index.png), and [Xondry project page](screenshots/project-xondry.png). Earlier chamber and reference comparisons are in [visual-qa/smoke-cleanup-final](visual-qa/smoke-cleanup-final/) for the roof-smoke and hover pass, [visual-qa/chamber-blend-final](visual-qa/chamber-blend-final/) for the close edge comparison, [visual-qa/header-footer-final](visual-qa/header-footer-final/) for the header/footer layout pass, and [visual-qa/v3-final](visual-qa/v3-final/) for the reference scene comparison. Before screenshots from the 3D implementation are in [visual-qa/v3-before](visual-qa/v3-before/).
 
-## Visual evidence
+The Event Timing value is a local scripted proxy, not field INP or a p75 Core Web Vital. No throttled midrange-device run or manual screen-reader session is claimed. Automated Axe checks and keyboard, focus restoration, Escape, history, and reduced-motion cases are included in the browser suite.
 
-Screenshots come from the production static export, not the development server. The first desktop screenshot confirms the WebGL scene is active; the no-WebGL test separately forces the authored SVG fallback.
+## Remaining differences and limits
 
-| Evidence | File |
-| --- | --- |
-| Approved reference and final site side by side | [reference-vs-final.png](visual-qa/final/reference-vs-final.png) |
-| Pixel difference map (qualitative only; the reference is generated concept art) | [difference.png](visual-qa/final/difference.png) |
-| 50% overlay | [overlay-50.png](visual-qa/final/overlay-50.png) |
-| Initial implementation at reference size | [home-1672x941.png](visual-qa/before/home-1672x941.png) |
-| Final implementation at reference size | [home-1672x941.png](visual-qa/final/home-1672x941.png) |
-| Entry in motion | [entry-entering.png](visual-qa/final/entry-entering.png) |
-| Entry fully open | [entry-ready.png](visual-qa/final/entry-ready.png) |
-| Server-rendered product index without JavaScript | [no-js-professional.png](visual-qa/final/no-js-professional.png) |
-| Xondry, AtomLang, Classified chamber/dossier states | [Xondry](visual-qa/final/chamber-xondry-open.png), [AtomLang](visual-qa/final/chamber-atomlang-open.png), [Classified](visual-qa/final/chamber-classified-open.png) |
-| Xondry dossier route | [dossier-xondry.png](visual-qa/final/dossier-xondry.png) |
-| Browser issue log | [browser-issues.json](visual-qa/final/browser-issues.json) |
+The composition uses generated environment art and source image crops; it is not an exact pixel copy of the reference or a full 3D simulation. Shutter doors are extracted 2D leaves, and the vapor effect is a WebM loop rendered from generated art rather than a volumetric fluid simulation. Aperture feathering softens the project artwork edges, though the inserts still read as projected displays inside the physical bays. See the [visual comparison](BLACK_SITE_VISUAL_QA.md) and [gap audit](BLACK_SITE_GAP_AUDIT.md) for the full record.
 
-## Product truth and external checks
-
-- RealBall26 is described as a playable basketball prototype in development. It is not called live, released, or a statistics product.
-- SquadAMP, AtomLang, and RAEYL retain conservative development/research labels; TOP SECRET details remain undisclosed.
-- The current public Xondry site was reachable during review, but this portfolio does not repeat its unverified community counters. SquadAMP was not independently reachable in the review session, so no external destination is published for it.
-- The supplied scene motifs are concept visualization, not screenshots of the products or game.
-- No public email, booking form, revenue, user count, benchmark, or testimonial was fabricated.
-
-## Remaining differences
-
-The scene now has connected corridor architecture, unequal recessed bays, a split blast door with an open passage, product-specific motifs, a reflective floor path, local lighting, and doorway vapor. Compared with the approved generated image, its authored meshes and materials remain more graphic and less detailed; the image has richer smoke, dramatic volumetric lighting, more realistic surfaces, and actual human/product imagery. No licensed screenshots, editable scene models, or game captures were supplied.
-
-At 320 and 390 px, Professional Mode is the default; Experience Mode remains available. Motion Off removes sustained particles and animation while preserving direct product access. No manual screen-reader or field-performance result is claimed.
+No deployment was performed. The site is ready for manual repository creation and Vercel setup.

@@ -1,0 +1,90 @@
+[
+  {
+    "id": "walkway-left-0",
+    "opacity": "1",
+    "animation": "none",
+    "delay": "0s",
+    "emitterOpacity": "0.82",
+    "emitterAnimation": "walkway-light-run",
+    "emitterFilter": "brightness(1.04) drop-shadow(rgb(255, 224, 160) 0px 0px 5px)",
+    "dimmerOpacity": "0",
+    "dimmerMask": "url(\"http://127.0.0.1:3200/blacksite/art/background-light-walkway-left-0.webp\")"
+  },
+  {
+    "id": "walkway-right-0",
+    "opacity": "1",
+    "animation": "none",
+    "delay": "0s",
+    "emitterOpacity": "0.82",
+    "emitterAnimation": "walkway-light-run",
+    "emitterFilter": "brightness(1.04) drop-shadow(rgb(255, 224, 160) 0px 0px 5px)",
+    "dimmerOpacity": "0",
+    "dimmerMask": "url(\"http://127.0.0.1:3200/blacksite/art/background-light-walkway-right-0.webp\")"
+  },
+  {
+    "id": "walkway-left-1",
+    "opacity": "1",
+    "animation": "none",
+    "delay": "0.22s",
+    "emitterOpacity": "0.960012",
+    "emitterAnimation": "walkway-light-run",
+    "emitterFilter": "brightness(1.08004) drop-shadow(rgb(255, 224, 160) 0px 0px 7.00061px)",
+    "dimmerOpacity": "0.122712",
+    "dimmerMask": "url(\"http://127.0.0.1:3200/blacksite/art/background-light-walkway-left-1.webp\")"
+  },
+  {
+    "id": "walkway-right-1",
+    "opacity": "1",
+    "animation": "none",
+    "delay": "0.22s",
+    "emitterOpacity": "0.960012",
+    "emitterAnimation": "walkway-light-run",
+    "emitterFilter": "brightness(1.08004) drop-shadow(rgb(255, 224, 160) 0px 0px 7.00061px)",
+    "dimmerOpacity": "0.122712",
+    "dimmerMask": "url(\"http://127.0.0.1:3200/blacksite/art/background-light-walkway-right-1.webp\")"
+  },
+  {
+    "id": "walkway-left-2",
+    "opacity": "1",
+    "animation": "none",
+    "delay": "0.44s",
+    "emitterOpacity": "1",
+    "emitterAnimation": "walkway-light-run",
+    "emitterFilter": "brightness(1.2) drop-shadow(rgba(255, 224, 160, 1) 0px 0px 9px)",
+    "dimmerOpacity": "0.572725",
+    "dimmerMask": "url(\"http://127.0.0.1:3200/blacksite/art/background-light-walkway-left-2.webp\")"
+  },
+  {
+    "id": "walkway-right-2",
+    "opacity": "1",
+    "animation": "none",
+    "delay": "0.44s",
+    "emitterOpacity": "1",
+    "emitterAnimation": "walkway-light-run",
+    "emitterFilter": "brightness(1.2) drop-shadow(rgba(255, 224, 160, 1) 0px 0px 9px)",
+    "dimmerOpacity": "0.572725",
+    "dimmerMask": "url(\"http://127.0.0.1:3200/blacksite/art/background-light-walkway-right-2.webp\")"
+  },
+  {
+    "id": "walkway-left-3",
+    "opacity": "1",
+    "animation": "none",
+    "delay": "0.66s",
+    "emitterOpacity": "0",
+    "emitterAnimation": "walkway-light-run",
+    "emitterFilter": "brightness(1) drop-shadow(rgba(0, 0, 0, 0) 0px 0px 0px)",
+    "dimmerOpacity": "0.88",
+    "dimmerMask": "url(\"http://127.0.0.1:3200/blacksite/art/background-light-walkway-left-3.webp\")"
+  },
+  {
+    "id": "walkway-right-3",
+    "opacity": "1",
+    "animation": "none",
+    "delay": "0.66s",
+    "emitterOpacity": "0",
+    "emitterAnimation": "walkway-light-run",
+    "emitterFilter": "brightness(1) drop-shadow(rgba(0, 0, 0, 0) 0px 0px 0px)",
+    "dimmerOpacity": "0.88",
+    "dimmerMask": "url(\"http://127.0.0.1:3200/blacksite/art/background-light-walkway-right-3.webp\")"
+  }
+]

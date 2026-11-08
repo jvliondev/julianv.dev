@@ -8,11 +8,11 @@ await mkdir(output, { recursive: true });
 const browser = await chromium.launch({ headless: true });
 
 for (const [width, height] of [[1672, 941], [1440, 900], [1024, 768], [390, 844], [320, 720]]) {
-  const context = await browser.newContext({ viewport: { width, height } });
+  const context = await browser.newContext({ viewport: { width, height }, reducedMotion: "reduce" });
   const page = await context.newPage();
   await page.goto(base, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
-  if (width <= 760) await page.locator(".professional-fallback").waitFor();
+  await page.locator(".blacksite-artboard").waitFor();
   await page.screenshot({ path: resolve(output, `home-${width}x${height}.png`) });
   await context.close();
 }
@@ -20,11 +20,13 @@ for (const [width, height] of [[1672, 941], [1440, 900], [1024, 768], [390, 844]
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
 const page = await context.newPage();
 await page.goto(base, { waitUntil: "networkidle" });
-await page.getByRole("button", { name: /xondry/i }).first().click();
-await page.getByRole("button", { name: /skip effects/i }).click();
+await page.locator('.blacksite-bay[data-bay="xondry"] .blacksite-hotspot').click({ force: true });
+await page.getByRole("dialog").waitFor();
 await page.screenshot({ path: resolve(output, "chamber-xondry.png") });
 await page.goto(`${base}/work/xondry`, { waitUntil: "networkidle" });
-await page.screenshot({ path: resolve(output, "dossier-xondry.png"), fullPage: true });
+await page.screenshot({ path: resolve(output, "project-xondry.png"), fullPage: true });
+await page.goto(`${base}/work`, { waitUntil: "networkidle" });
+await page.screenshot({ path: resolve(output, "work-index.png"), fullPage: true });
 await context.close();
 await browser.close();
-process.stdout.write(`Captured five entrance viewports, the Xondry reveal, and the Xondry dossier in ${output}\n`);
+process.stdout.write(`Captured five chamber viewports, the Xondry reveal, and the Xondry project page in ${output}\n`);

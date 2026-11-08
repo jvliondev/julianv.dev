@@ -1,47 +1,58 @@
-# Black Site V2 visual QA
+# JulianV.dev Black Site V3 visual QA
 
 ## Comparison method
 
-The approved image is 1672×941 and includes 49 pixels of decorative browser chrome. That chrome was cropped away before comparison. The final site screenshot is a direct 1672×941 CSS viewport capture from the production static export. The comparison image places both at 1672×892. The difference map and 50% overlay are included as inspection aids; because the reference is generated concept art, pixel similarity is not an acceptance score.
+The approved reference is 1672 x 941 and includes decorative browser chrome and page content that should not be copied as a static screenshot. The final page capture is also 1672 x 941. For the scene comparison, the reference is cropped at y=100 and the implementation at y=76; both crops are normalized to 1672 x 781. Header, footer, and reference browser chrome are excluded from this scene crop. Live navigation, labels, status copy, and buttons remain DOM content.
 
-![Approved reference beside the final site](visual-qa/final/reference-vs-final.png)
+![Approved reference scene beside image-driven final scene](visual-qa/v3-final/reference-vs-final-scene.png)
 
-- [Difference map](visual-qa/final/difference.png)
-- [50% overlay](visual-qa/final/overlay-50.png)
-- [Before: original site at 1672×941](visual-qa/before/home-1672x941.png)
-- [After: rebuilt site at 1672×941](visual-qa/final/home-1672x941.png)
-- [Approved source image](visual-qa/reference/approved_black_site_1672x941.png)
+- [Before: prior 3D corridor](visual-qa/v3-before/home-1672x941.png)
+- [After: image-driven home](visual-qa/v3-final/home-1672x941.png)
+- [Before and after scene crops](visual-qa/v3-final/before-vs-after-scene.png)
+- [50 percent reference overlay](visual-qa/v3-final/reference-final-overlay-50.png)
+- [Difference image](visual-qa/v3-final/reference-final-difference.png)
+- [All comparison dimensions and crops](visual-qa/v3-final/comparison-metadata.json)
 
-## What changed after direct comparison
+No numerical similarity score is reported. The final environment is generated art and the implementation intentionally replaces reference copy with accurate project content.
 
-The initial implementation was a flat CSS scene with a ring motif and equal card row. The first live capture showed that additional CSS polish would not supply the missing depth, alcove scale, material variation, or mechanical motion. That led to an authored Three.js corridor, six depth-staged bays, physical pressure-door leaves, semantic DOM hotspots, and original material and product motifs.
+## Iteration record
 
-The first source-level doorway correction did not appear in screenshots because the local static preview still served the previous `out/` export. I rebuilt the production export before recapturing. A subsequent comparison identified a solid backing disk that kept the moving leaves from revealing a passage; it was removed and replaced with an actual short inner corridor and lit bulkhead. The floor material was also made less reflective after the earlier pass produced an oversized sharp cyan patch. Entry screenshots were captured in full-motion `opening` and fully open Motion Off states to avoid timing-dependent captures.
+1. **Composition and mapping.** Replaced the procedural scene with the cleaned environment plate and mapped the six exhibit apertures, steam origins, and interaction hit areas through the shared 1672 x 941 cover transform. [Pass 1 capture](visual-qa/v3-pass1/initial-1672x941.png).
+2. **Chamber art and mechanical layering.** Refined exhibit crop bounds, extracted matching shutter leaves, and tied unlock, vent, door slide, and reveal effects to the active bay. Project copy and statuses remain live HTML. [Pass 2 capture](visual-qa/v3-pass2/initial-1672x941.png), [Xondry open](visual-qa/v3-pass2/xondry-open-dossier.png).
+3. **Typography, responsive behavior, and access.** Reduced the oversized title treatment, corrected small status labels, added tablet/mobile selectors and selected-exhibit access, and fixed pointer interception, reduced-motion access, focus behavior, and the mobile toolbar/hero overlap. [Pass 3 capture](visual-qa/v3-pass3/initial-1672x941.png), [mobile 390 px](visual-qa/v3-pass3/initial-390x844.png), [mobile 360 px](visual-qa/v3-pass3/initial-360x800.png).
+4. **Final capture alignment.** The final desktop capture was initially 17 px taller than the 941 px reference because the stage and footer exceeded the viewport. The stage height was reduced, the page now captures at exactly 1672 x 941, and image decoding is awaited before capture. The latest mobile review also shifted the hero below the toolbar and shortened the RealBall chamber label to PLAYABLE IN DEV while retaining its full project status.
+5. **Chamber depth and material pass.** Extracted alpha frame crops from the environment plate overlap the chamber inserts. Selected chambers reveal approved project artwork behind the moving shutters, and the open artwork uses a subtle brightness breath without pointer-driven zoom or glow. Reduced-motion behavior skips the plume animation. [Chamber before/after](visual-qa/visual-gap-final/chamber-before-after.png), [vapor placement before/after](visual-qa/visual-gap-final/vapor-placement-before-after.png).
+6. **Embedded smoke loop.** The transparent plume art is rendered into a five-second VP9 WebM. Smoke plays only while the selected chamber opens, then fades and unmounts before the revealed state settles. Full-mode browser checks verify the video loads and advances; the poster remains available as a still fallback during the opening phase. [Vent before/after](visual-qa/smoke-loop-final/vapor-before-after.png), [smoke capture](visual-qa/smoke-loop-final/xondry-venting.png), [looping smoke video](../public/blacksite/art/steam-loop.webm).
+7. **Header, buttons, footer, and plume alignment.** The home header now overlays the image scene and uses the cyan slash mark and online status treatment; primary and access actions use four-corner chamfers with a brighter cyan primary; the footer is a compact identity/contact strip with only verified destinations. The same slash mark remains visible in the sticky header on interior pages. The smoke loop was reduced and lowered toward the chamber vent. Tablet access actions use a two-column layout to avoid clipped labels. [Shell before/after](visual-qa/header-footer-final/before-after-home-1672x941.png), [desktop](visual-qa/header-footer-final/initial-1672x941.png), [tablet](visual-qa/header-footer-final/initial-1024x768.png), [mobile](visual-qa/header-footer-final/initial-390x844.png), [work index](visual-qa/header-footer-final/work-index-1440x900.png), [venting](visual-qa/header-footer-final/xondry-venting.png).
+8. **Chamber blend and selection behavior.** All chambers begin sealed; selecting one opens only that bay, switching projects closes the prior bay, and the project details panel moves to the side opposite the selected chamber. Removed the persistent active hotspot outline and boxed artwork caption, then feathered each image to its aperture and blended it with the environment. [Before/after edge comparison](visual-qa/chamber-blend-final/edge-comparison.png), [closed chambers](visual-qa/chamber-blend-final/initial-1672x941.png), [open Xondry](visual-qa/chamber-blend-final/xondry-open-dossier.png), [dissipating smoke](visual-qa/chamber-blend-final/xondry-dissipating.png), [open RAEYL with panel opposite](visual-qa/chamber-blend-final/chamber-raeyl.png).
+9. **Roof smoke and hover cleanup.** Replaced the plate's static roof wisps with an edited smoke-free plate, preserving the center floor fog. The selected bay now plays an animated plume from its roof vent only while the door opens, mirrors the plume on right-side bays, and lets it dissipate before the chamber settles. Removed pointer hover glow and image boosting while keeping keyboard focus visible. [Static-to-dynamic smoke comparison](visual-qa/smoke-cleanup-final/roof-smoke-before-after.png), [smoke motion across two frames](visual-qa/smoke-cleanup-final/smoke-motion-pair.png), [hovered open chamber](visual-qa/smoke-cleanup-final/xondry-open-hover.png).
 
-| Review area | Before | Final | Evidence |
-| --- | ---: | ---: | --- |
-| Spatial hierarchy | 2/5 | 4/5 | Centered blast door, foreground Xondry/CLASSIFIED, receding inner bays, access rail, and dossier teaser are present. |
-| Architecture and perspective | 1/5 | 4/5 | Connected stone shoulders, roof wings, service ribs/pipes, floor path, and a real passage behind the split leaves. |
-| Materials, light, and atmosphere | 1/5 | 3/5 | Basalt albedo/bump, metal variation, local lights, restrained reflections, and low doorway plumes. The reference has richer photoreal surfaces and smoke. |
-| Chamber recognition | 2/5 | 3/5 | Six unique spatial motifs, doors, lights, and project-accurate status labels; props remain illustrative. |
-| Typography and legibility | 3/5 | 4/5 | Main copy is DOM text; the title and product statuses remain readable at target desktop and mobile sizes. |
-| Responsive adaptation | 4/5 | 4/5 | Professional Mode is the small-screen default, with opt-in Experience Mode and no horizontal overflow at 320/390 px. |
+For local alignment inspection, run the development server and add ?blacksiteDebug=1. The overlay shows the source-art origin, aperture boxes and polygons, vent anchors, and layer z-order; the flag is disabled in production.
 
-Scores are qualitative judgments on a five-point scale, not visual-similarity metrics.
+[Development alignment overlay capture](visual-qa/v3-final/alignment-debug-dev.png)
 
-## Final screenshot set
+Capture automation waits for page images to load and decode before saving screenshots. Its browser issue log contains no console errors, uncaught page errors, failed non-cancelled requests, or HTTP errors.
+
+With the local preview running at port 3200, repeat the capture and comparison with npm run capture:blacksite and npm run compare:blacksite.
+
+## Evidence set
 
 | State | Capture |
 | --- | --- |
-| 1672×941 | [home-1672x941.png](visual-qa/final/home-1672x941.png) |
-| 1440×900 | [home-1440x900.png](visual-qa/final/home-1440x900.png) |
-| 1024×768 | [home-1024x768.png](visual-qa/final/home-1024x768.png) |
-| 390×844 Professional / Experience | [Professional](visual-qa/final/home-390x844.png), [Experience](visual-qa/final/home-experience-390x844.png) |
-| 320×720 Professional / Experience | [Professional](visual-qa/final/home-320x720.png), [Experience](visual-qa/final/home-experience-320x720.png) |
-| Entry motion / fully open | [Opening](visual-qa/final/entry-entering.png), [open](visual-qa/final/entry-ready.png) |
-| Product reveal / dossier | [Xondry](visual-qa/final/chamber-xondry-open.png), [AtomLang](visual-qa/final/chamber-atomlang-open.png), [Classified](visual-qa/final/chamber-classified-open.png), [Xondry dossier](visual-qa/final/dossier-xondry.png) |
-| No-JavaScript server-rendered product index | [no-js-professional.png](visual-qa/final/no-js-professional.png) |
+| Home at 1672 x 941 | [Final](visual-qa/v3-final/home-1672x941.png) |
+| Header/button/footer pass | [Before and after](visual-qa/header-footer-final/before-after-home-1672x941.png), [current desktop](visual-qa/header-footer-final/initial-1672x941.png) |
+| Current responsive pass | [1024 x 768](visual-qa/header-footer-final/initial-1024x768.png), [390 x 844](visual-qa/header-footer-final/initial-390x844.png), [360 x 800](visual-qa/header-footer-final/initial-360x800.png) |
+| Other desktop and tablet sizes | [1440 x 900](visual-qa/v3-final/initial-1440x900.png), [1920 x 1080](visual-qa/v3-final/initial-1920x1080.png), [1024 x 768](visual-qa/v3-final/initial-1024x768.png) |
+| Mobile sizes | [390 x 844](visual-qa/v3-final/initial-390x844.png), [360 x 800](visual-qa/v3-final/initial-360x800.png), [selected Xondry](visual-qa/v3-final/chamber-open-390x844.png), [Xondry project page](visual-qa/v3-final/dossier-xondry-390x844.png) |
+| Entry sequence | [Venting](visual-qa/v3-final/entry-venting.png), [door opening](visual-qa/v3-final/entry-opening.png), [entered](visual-qa/v3-final/entry-entered.png) |
+| Chamber sequence | [Unlocking](visual-qa/v3-final/xondry-unlocking.png), [venting](visual-qa/v3-final/xondry-venting.png), [open project details](visual-qa/v3-final/xondry-open-dossier.png) |
+| Current chamber interaction | [Doors closed at rest](visual-qa/smoke-cleanup-final/initial-1672x941.png), [no hover glow](visual-qa/smoke-cleanup-final/xondry-open-hover.png), [static-to-dynamic smoke](visual-qa/smoke-cleanup-final/roof-smoke-before-after.png), [two animated smoke frames](visual-qa/smoke-cleanup-final/smoke-motion-pair.png), [Xondry smoke dissipating](visual-qa/smoke-cleanup-final/xondry-dissipating.png), [settled open](visual-qa/smoke-cleanup-final/xondry-open-dossier.png), [RAEYL with opposite-side panel](visual-qa/smoke-cleanup-final/chamber-raeyl.png) |
+| Other chamber exhibits | [SquadAMP](visual-qa/v3-final/chamber-squadamp.png), [AtomLang](visual-qa/v3-final/chamber-atomlang-evolved-sdk.png), [RAEYL](visual-qa/v3-final/chamber-raeyl.png), [RealBall26](visual-qa/v3-final/chamber-realball26.png), [Classified](visual-qa/v3-final/chamber-classified.png) |
+| Keyboard and motion | [Keyboard focus](visual-qa/v3-final/keyboard-focus.png), [reduced motion](visual-qa/v3-final/reduced-motion-realball26.png) |
+| Browser errors | [Empty latest issue log](visual-qa/smoke-cleanup-final/browser-issues.json) |
 
 ## Remaining visual differences
 
-The approved image has denser industrial detail, brighter cinematic falloff, broader white steam, and actual human/product visuals. The site uses intentionally original, optimized geometry and a generated basalt map rather than a static screenshot or unavailable licensed models. The resulting world and interactions are real, but the individual product props are still graphic and less photoreal than the concept. The reference also includes incorrect `LIVE` labels for some products; the site keeps verified project statuses instead.
+The final composition follows the reference's underground setting, arched blast door, central perspective, recessed chambers, wet walkway, and dramatic colored lighting. It remains a 2.5D image composition: chamber interiors use source-art image planes with aperture-shaped feathering and frame occlusion; shutter doors are extracted 2D leaves; vapor is a looping WebM rendered from generated transparent plume art rather than volumetric simulation or live-action footage. The chamber edges now dissolve into the environment, although the project artwork itself still has the visual character of a projected image within a physical bay. The generated environment also differs in individual rock, steel, light, and floor details from the approved reference.
+
+The chamber animation capture set is in [smoke-cleanup-final](visual-qa/smoke-cleanup-final/), with earlier layout and plume work in [header-footer-final](visual-qa/header-footer-final/). The preview also keeps the independent responsive mobile selector and selected artwork rather than attempting to shrink all six desktop apertures into a narrow viewport. The approved image's email address remains omitted because the content-truth document marks it illustrative; the footer links to the existing Contact route.
