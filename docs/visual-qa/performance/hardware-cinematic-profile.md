@@ -8,18 +8,18 @@ The earlier 20–25 fps result came from Playwright Chromium with GPU compositin
 
 ## Results
 
-| Sequence phase | Before (rAF/s) | After (rAF/s) | After p95 interval | After intervals over 24 ms |
-| --- | ---: | ---: | ---: | ---: |
-| Idle | 144 | 144 | 7.1 ms | 0 |
-| Unlocking | 99 | 127 | 7.1 ms | 2 |
-| Camera travel / depressurizing | 142 | 144 | 7.1 ms | 0 |
-| Doors opening | 141 | 143 | 7.2 ms | 0 |
-| Smoke clearing | 140 | 144 | 7.1 ms | 0 |
-| Overview reveal | 131 | 143 | 7.2 ms | 0 |
+The camera now leaves the walkway, focuses on the selected chamber, opens the doors, pulls back, and reveals the overview at about 2.7 seconds. A Chrome capture showed the overview at 2.95 seconds from the click.
 
-After the first full run, a second chamber sequence held the 144 Hz capture ceiling in every phase, with no intervals over 24 ms. With Chrome's CPU throttling set to 4×, phase p95 intervals stayed between 7 and 7.1 ms; isolated first-run spikes remained.
+| Sequence phase | rAF cadence | p95 interval | Intervals over 24 ms |
+| --- | ---: | ---: | ---: |
+| Idle | 144 Hz | 7.1 ms | 0 |
+| Unlocking / initial click | 72 Hz | 41.7 ms | 2 |
+| Camera travel / depressurizing | 144 Hz | 7.1 ms | 0 |
+| Doors opening | 141 Hz | 7.1 ms | 0 |
+| Smoke clearing | 144 Hz | 7.1 ms | 0 |
+| Overview reveal | 143 Hz | 7.1 ms | 0 |
 
-The first chamber click still records two long frame intervals (maximum about 146 ms) in this capture. The rest of that sequence, and all phases after the scene is warm, remain within the 60 Hz frame budget. The profiler observed no long main-thread tasks at normal CPU speed.
+On a repeat run after the scene was warm, every phase held 143–144 Hz with no intervals over 24 ms. The first click still shows two isolated long intervals (maximum about 118 ms), with no long main-thread tasks. The remaining sequence stays within the 60 Hz frame budget.
 
 ## Changes
 
@@ -28,4 +28,4 @@ The first chamber click still records two long frame intervals (maximum about 14
 - Keep the transparent foreground, camera, door leaves, and sequence-light layers ready on desktop before the first chamber interaction.
 - Preserve the camera path, door timing, light sequence, smoke, and final overview.
 
-Raw profiles: [before](hardware-before.json), [after](hardware-final-prewarmed.json), [4× CPU throttle](hardware-final-prewarmed-cpu4x.json), and [repeat sequence](hardware-final-prewarmed-repeat.json). The runner is [profile-rendering.mjs](profile-rendering.mjs).
+Raw profiles: [before](hardware-before.json), [three-second sequence](hardware-fast-three-second.json), and [repeat sequence](hardware-fast-three-second-repeat.json). Visual captures: [doors opening](hardware-fast-opening.png) and [overview](hardware-fast-overview.png). The runner is [profile-rendering.mjs](profile-rendering.mjs).
