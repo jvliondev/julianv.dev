@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore } from "react";
 import { chamberReducer, initialChamberState } from "@/lib/chamber-machine";
-import { projects } from "@/data/projects";
+import { chamberProjects, projects } from "@/data/projects";
 import { BlacksiteExperience } from "@/components/BlacksiteExperience";
 
 type Motion = "full" | "reduced" | "off";
@@ -34,13 +34,13 @@ export function Facility() {
   const lastTrigger = useRef<HTMLButtonElement | null>(null);
   const initialSelectionTimer = useRef<number | null>(null);
   const stateRef = useRef(state);
-  const selected = useMemo(() => projects.find((project) => project.id === state.id), [state.id]);
+  const selected = useMemo(() => chamberProjects.find((project) => project.id === state.id), [state.id]);
+  const featuredProject = projects.find((project) => project.id === "xondry");
   const revealPanelSide = selected && ["raeyl", "realball26", "classified"].includes(selected.id) ? "left" : "right";
   const selectedHasLiveSite = Boolean(selected?.external);
-  const overviewImage = selected?.id === "xondry" ? "/images/projects/xondry-live.jpg" : selected?.artwork;
-  const overviewImageAlt = selected?.id === "xondry"
-    ? "Screenshot of the live Xondry AI creator discovery website."
-    : selected?.artworkAlt;
+  const overviewImage = selected?.snapshot?.src ?? selected?.artwork;
+  const overviewImageAlt = selected?.snapshot?.alt ?? selected?.artworkAlt;
+  const overviewImageKind = selected?.snapshot ? `is-${selected.snapshot.kind}` : "is-concept-visual";
 
   const skipEntry = useCallback(() => {
     setEntered(true);
@@ -54,7 +54,7 @@ export function Facility() {
 
   useEffect(() => {
     const initialHash = location.hash.match(/^#bay=([^&]+)/)?.[1];
-    if (initialHash && projects.some((project) => project.id === initialHash)) {
+    if (initialHash && chamberProjects.some((project) => project.id === initialHash)) {
       const timer = window.setTimeout(() => {
         initialSelectionTimer.current = null;
         setEntered(true);
@@ -108,7 +108,7 @@ export function Facility() {
   useEffect(() => {
     const syncFromHistory = () => {
       const id = location.hash.match(/^#bay=([^&]+)/)?.[1];
-      if (id && projects.some((project) => project.id === id)) dispatch({ type: "SELECT", id });
+      if (id && chamberProjects.some((project) => project.id === id)) dispatch({ type: "SELECT", id });
       else if (stateRef.current.id) dispatch({ type: "CLOSE" });
     };
     const onKey = (event: KeyboardEvent) => {
@@ -164,19 +164,19 @@ export function Facility() {
           <span className="access-heading">ACCESS PATHS</span>
           <div><Link href="/work">Browse Work</Link><Link href="/contact">Contact</Link></div>
         </nav>
-      <Link className="featured-project" href="/work/xondry" aria-label="Featured project: Xondry, public website">
-          <span className="featured-art" aria-hidden="true"><Image src="/blacksite/art/xondry-exhibit.webp" alt="" fill sizes="110px" unoptimized /></span>
-          <span className="featured-copy"><span>FEATURED PROJECT: <strong>XONDRY</strong></span><small>A home for AI creatives to showcase what they build, discover projects, connect, and gain recognition.</small></span>
-          <span className="featured-status">PUBLIC WEBSITE</span><span className="featured-arrow" aria-hidden="true">›</span>
+      <Link className="featured-project" href="/work/xondry" aria-label={`Featured project: ${featuredProject?.name}, ${featuredProject?.status.toLowerCase()}`}>
+          <span className="featured-art" aria-hidden="true"><Image src={featuredProject?.snapshot?.src ?? "/blacksite/art/xondry-exhibit.webp"} alt="" fill sizes="110px" unoptimized /></span>
+          <span className="featured-copy"><span>FEATURED PROJECT: <strong>XONDRY</strong></span><small>{featuredProject?.summary}</small></span>
+          <span className="featured-status">{featuredProject?.status}</span><span className="featured-arrow" aria-hidden="true">›</span>
         </Link>
       </div>
 
       {selected && state.phase === "revealed" && overviewImage && <aside id="project-reveal" className={`reveal-panel reveal-panel-${revealPanelSide} is-ready`} role="dialog" aria-modal="false" aria-labelledby="project-reveal-title" style={{ "--accent": selected.accent } as React.CSSProperties}>
         <button className="close" onClick={close} aria-label={`Close ${selected.name} project panel`}>×</button>
-        <div className={`project-overview-visual ${selectedHasLiveSite ? "is-live-site" : "is-concept-visual"}`}>
+        <div className={`project-overview-visual ${overviewImageKind} ${selectedHasLiveSite ? "is-live-site" : ""}`}>
           <Image className="project-overview-image" src={overviewImage} alt={overviewImageAlt ?? "Project visual"} fill sizes="(min-width: 1101px) 220px, 40vw" unoptimized draggable={false}/>
-          <span className="project-overview-visual-label">{selectedHasLiveSite ? "WEBSITE CAPTURE // NOV 2026" : "PRODUCT // CONCEPT VISUAL"}</span>
-          {selected?.external && <a className="project-overview-live-link" href={selected.external.href} target="_blank" rel="noreferrer">Open live site <span aria-hidden="true">↗</span></a>}
+          <span className="project-overview-visual-label">{selected?.snapshot?.label ?? "PRODUCT // CONCEPT VISUAL"}</span>
+          {selected?.external && <a className="project-overview-live-link" href={selected.external.href} target="_blank" rel="noreferrer">Open public site <span aria-hidden="true">↗</span></a>}
         </div>
         <div className="project-overview-copy">
           <span className="phase-label">FACILITY JV-01 // PROJECT OVERVIEW</span>
@@ -184,8 +184,9 @@ export function Facility() {
           <h2 id="project-reveal-title">{selected.name}</h2>
           <span className="project-overview-category">{selected.category}</span>
           <p>{selected.summary}</p>
+          <div className="project-overview-audience"><span>BUILT FOR</span><p>{selected.audience}</p></div>
           <div className="project-overview-role"><span>PRODUCT ROLE</span><p>{selected.role}</p></div>
-          <div className="project-overview-focus"><span>PRODUCT FOCUS</span><ul>{selected.decisions.slice(0, 2).map((decision) => <li key={decision}>{decision}</li>)}</ul></div>
+          <div className="project-overview-focus"><span>DESIGN FOCUS</span><ul>{selected.decisions.slice(0, 2).map((decision) => <li key={decision}>{decision}</li>)}</ul></div>
           <div className="panel-actions"><Link className="primary button" href={`/work/${selected.id}`}>Read case study</Link><button onClick={close}>Return to corridor</button></div>
         </div>
       </aside>}

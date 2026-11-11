@@ -1,0 +1,103 @@
+{
+  "context": "Production static export, Chromium, 1440x900, CPU throttled 1x, variant default; requestAnimationFrame cadence is a rendering proxy, not a measured user INP.",
+  "url": "http://127.0.0.1:3200",
+  "measuredAt": "2026-11-10T03:37:28.095Z",
+  "pageSummary": {
+    "domElements": 357,
+    "imagesLoaded": 62,
+    "imageTransferBytes": 1179048,
+    "activeCssAnimations": 16
+  },
+  "samples": {
+    "idle": {
+      "durationMs": 5000,
+      "frameSamples": 300,
+      "fpsFromMeanFrameInterval": 60,
+      "frameIntervalMs": {
+        "median": 16.699999999999818,
+        "p95": 16.799999999999955,
+        "max": 16.800000000000182
+      },
+      "framesOver24ms": 0,
+      "framesOver34ms": 0,
+      "longTaskCount": 0,
+      "longTaskTotalMs": 0,
+      "longTaskMaxMs": 0
+    },
+    "unlocking": {
+      "durationMs": 1550,
+      "frameSamples": 35,
+      "fpsFromMeanFrameInterval": 23,
+      "frameIntervalMs": {
+        "median": 33.5,
+        "p95": 99.89999999999964,
+        "max": 100.10000000000036
+      },
+      "framesOver24ms": 35,
+      "framesOver34ms": 17,
+      "longTaskCount": 1,
+      "longTaskTotalMs": 75,
+      "longTaskMaxMs": 75
+    },
+    "depressurizing": {
+      "durationMs": 2183,
+      "frameSamples": 52,
+      "fpsFromMeanFrameInterval": 24,
+      "frameIntervalMs": {
+        "median": 33.399999999999636,
+        "p95": 66.70000000000073,
+        "max": 83.39999999999964
+      },
+      "framesOver24ms": 48,
+      "framesOver34ms": 23,
+      "longTaskCount": 0,
+      "longTaskTotalMs": 0,
+      "longTaskMaxMs": 0
+    },
+    "opening": {
+      "durationMs": 1783,
+      "frameSamples": 46,
+      "fpsFromMeanFrameInterval": 26,
+      "frameIntervalMs": {
+        "median": 33.399999999999636,
+        "p95": 50.099999999998545,
+        "max": 50.100000000000364
+      },
+      "framesOver24ms": 39,
+      "framesOver34ms": 22,
+      "longTaskCount": 0,
+      "longTaskTotalMs": 0,
+      "longTaskMaxMs": 0
+    },
+    "dissipating": {
+      "durationMs": 1467,
+      "frameSamples": 34,
+      "fpsFromMeanFrameInterval": 23,
+      "frameIntervalMs": {
+        "median": 49.899999999999636,
+        "p95": 83.29999999999927,
+        "max": 83.29999999999927
+      },
+      "framesOver24ms": 32,
+      "framesOver34ms": 18,
+      "longTaskCount": 0,
+      "longTaskTotalMs": 0,
+      "longTaskMaxMs": 0
+    },
+    "revealed": {
+      "durationMs": 2017,
+      "frameSamples": 49,
+      "fpsFromMeanFrameInterval": 24,
+      "frameIntervalMs": {
+        "median": 33.400000000001455,
+        "p95": 66.70000000000073,
+        "max": 116.69999999999709
+      },
+      "framesOver24ms": 47,
+      "framesOver34ms": 18,
+      "longTaskCount": 0,
+      "longTaskTotalMs": 0,
+      "longTaskMaxMs": 0
+    }
+  }
+}

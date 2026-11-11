@@ -24,6 +24,7 @@ This is a new, independently buildable portfolio project. The existing julianv.d
 | `/work/squadamp` | SquadAMP project details |
 | `/work/atomlang-evolved-sdk` | AtomLang Evolved SDK project details |
 | `/work/raeyl` | RAEYL project details |
+| `/work/throwful` | Throwful project details and sample event dashboard capture |
 | `/work/realball26` | RealBall26 project details |
 | `/work/classified` | Public-safe project details |
 | `/lab` | Experimental research overview |
@@ -44,4 +45,4 @@ There is no experience mode switch or alternate project-card homepage. The chamb
 
 ## Contact and external destinations
 
-The portfolio has no supplied mail service, form backend, resume, or scheduling system. Its Contact route links to the public X profile already listed by the currently deployed portfolio. Xondry's public URL was checked. SquadAMP, AtomLang, RAEYL, RealBall26, and classified do not advertise an external destination until one is verified.
+The portfolio has no supplied mail service, form backend, resume, or scheduling system. Its Contact route links to the public X profile already listed by the currently deployed portfolio. Xondry, RAEYL, and Throwful have public project links. RAEYL's live provider integrations and customer use remain unverified; Throwful's product page displays an illustrative sample dashboard, and its protected app, payment processing, and production operations were not validated. SquadAMP, AtomLang, RealBall26, and classified do not advertise an external destination until one is verified. Project content may exceed the six architectural chambers; only products with matching chamber artwork and geometry are rendered as interactive home bays.

@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, rm, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const root = resolve("public/blacksite");
@@ -30,14 +30,14 @@ const backgroundLights = [
   { id: "inner-amber-right", x: 1147, y: 408, width: 44, height: 53, color: "#ff963e", mode: "pulse", delay: ".5s" },
   { id: "violet-bay-left", x: 12, y: 300, width: 48, height: 42, color: "#d174ff", mode: "flicker", delay: ".9s" },
   { id: "violet-bay-right", x: 1612, y: 300, width: 48, height: 42, color: "#d174ff", mode: "flicker", delay: "2.2s" },
-  { id: "walkway-left-0", x: 422, y: 746, width: 69, height: 37, color: "#ff3b4f", mode: "sequence", sequenceDelay: "0s" },
-  { id: "walkway-right-0", x: 1181, y: 746, width: 69, height: 37, color: "#ff3b4f", mode: "sequence", sequenceDelay: "0s" },
-  { id: "walkway-left-1", x: 565, y: 702, width: 44, height: 26, color: "#ff3b4f", mode: "sequence", sequenceDelay: ".45s" },
-  { id: "walkway-right-1", x: 1063, y: 702, width: 44, height: 26, color: "#ff3b4f", mode: "sequence", sequenceDelay: ".45s" },
-  { id: "walkway-left-2", x: 648, y: 679, width: 25, height: 17, color: "#ff3b4f", mode: "sequence", sequenceDelay: ".9s" },
-  { id: "walkway-right-2", x: 999, y: 679, width: 25, height: 17, color: "#ff3b4f", mode: "sequence", sequenceDelay: ".9s" },
-  { id: "walkway-left-3", x: 694, y: 626, width: 23, height: 29, color: "#ff3b4f", mode: "sequence", sequenceDelay: "1.35s" },
-  { id: "walkway-right-3", x: 964, y: 626, width: 26, height: 29, color: "#ff3b4f", mode: "sequence", sequenceDelay: "1.35s" },
+  { id: "walkway-left-0", x: 422, y: 746, width: 69, height: 37, color: "#ff1429", mode: "sequence", sequenceDelay: "0s" },
+  { id: "walkway-right-0", x: 1181, y: 746, width: 69, height: 37, color: "#ff1429", mode: "sequence", sequenceDelay: "0s" },
+  { id: "walkway-left-1", x: 565, y: 702, width: 44, height: 26, color: "#ff1429", mode: "sequence", sequenceDelay: ".45s" },
+  { id: "walkway-right-1", x: 1063, y: 702, width: 44, height: 26, color: "#ff1429", mode: "sequence", sequenceDelay: ".45s" },
+  { id: "walkway-left-2", x: 648, y: 679, width: 25, height: 17, color: "#ff1429", mode: "sequence", sequenceDelay: ".9s" },
+  { id: "walkway-right-2", x: 999, y: 679, width: 25, height: 17, color: "#ff1429", mode: "sequence", sequenceDelay: ".9s" },
+  { id: "walkway-left-3", x: 694, y: 626, width: 23, height: 29, color: "#ff1429", mode: "sequence", sequenceDelay: "1.35s" },
+  { id: "walkway-right-3", x: 964, y: 626, width: 26, height: 29, color: "#ff1429", mode: "sequence", sequenceDelay: "1.35s" },
 ];
 
 function smokeVents(shutter, corridorAngle) {
@@ -154,11 +154,28 @@ const [environmentLuminance, environmentLocalLuminance] = await Promise.all([
   sharp(environmentPath).resize(environmentWidth, environmentHeight, { fit: "fill" }).greyscale().blur(11).raw().toBuffer(),
 ]);
 const environmentEmission = environmentEmissivePass(environmentRaw, environmentLuminance, environmentLocalLuminance, environmentWidth, environmentHeight);
+const environmentEmissionInput = { raw: { width: environmentWidth, height: environmentHeight, channels: 4 } };
+const environmentAtmosphere = Buffer.from(`<svg width="${environmentWidth}" height="${environmentHeight}" viewBox="0 0 ${environmentWidth} ${environmentHeight}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="atmosphere" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#061018" stop-opacity="0.157"/><stop offset="34%" stop-color="#061018" stop-opacity="0"/><stop offset="69%" stop-color="#02080b" stop-opacity="0"/><stop offset="100%" stop-color="#02080b" stop-opacity="0.212"/></linearGradient><radialGradient id="vignette" cx="50%" cy="46%" r="75%" gradientTransform="translate(0.5 0.46) scale(1.55 0.9) translate(-0.5 -0.46)"><stop offset="25%" stop-color="#02070a" stop-opacity="0"/><stop offset="100%" stop-color="#02070a" stop-opacity="0.251"/></radialGradient></defs><rect width="100%" height="100%" fill="url(#atmosphere)"/><rect width="100%" height="100%" fill="url(#vignette)"/></svg>`);
+const [environmentEmissionCore, environmentEmissionGlow] = await Promise.all([
+  sharp(environmentEmission, environmentEmissionInput).modulate({ brightness: 1.35, saturation: 1.18 }).png().toBuffer(),
+  sharp(environmentEmission, environmentEmissionInput).blur(14).modulate({ brightness: 1.55, saturation: 1.45 }).png().toBuffer(),
+]);
 await sharp(environmentPath)
-  .resize(environmentWidth, environmentHeight, { fit: "fill" }).webp({ quality: 89, effort: 6 })
+  .resize(environmentWidth, environmentHeight, { fit: "fill" })
+  .composite([
+    { input: environmentAtmosphere },
+    { input: environmentEmissionGlow, blend: "screen", opacity: 0.065 },
+    { input: environmentEmissionCore, blend: "screen", opacity: 0.24 },
+  ])
+  .webp({ quality: 90, effort: 6 })
   .toFile(resolve(art, "environment-plate.webp"));
-await sharp(environmentEmission, { raw: { width: environmentWidth, height: environmentHeight, channels: 4 } })
-  .webp({ lossless: true, effort: 6 }).toFile(resolve(art, "environment-emissive.webp"));
+await sharp(resolve(art, "environment-plate.webp"))
+  .resize(512, 288, { fit: "cover" })
+  .blur(5)
+  .modulate({ brightness: 0.46, saturation: 0.78 })
+  .webp({ quality: 68, effort: 6 })
+  .toFile(resolve(art, "environment-plate-blur.webp"));
+await rm(resolve(art, "environment-emissive.webp"), { force: true });
 for (const light of backgroundLights) {
   const emitter = await sharp(environmentEmission, { raw: { width: environmentWidth, height: environmentHeight, channels: 4 } })
     .extract({ left: light.x, top: light.y, width: light.width, height: light.height })
@@ -167,9 +184,9 @@ for (const light of backgroundLights) {
     for (let pixel = 0; pixel < emitter.length; pixel += 4) {
       const alpha = emitter[pixel + 3];
       emitter[pixel] = 255;
-      emitter[pixel + 1] = 30 + Math.round(alpha * 0.12);
-      emitter[pixel + 2] = 42 + Math.round(alpha * 0.12);
-      emitter[pixel + 3] = Math.min(255, Math.round(alpha * 1.28));
+      emitter[pixel + 1] = 6 + Math.round(alpha * 0.025);
+      emitter[pixel + 2] = 16 + Math.round(alpha * 0.035);
+      emitter[pixel + 3] = Math.min(255, Math.round(alpha * 1.75));
     }
   }
   await sharp(emitter, { raw: { width: light.width, height: light.height, channels: 4 } })
@@ -212,25 +229,6 @@ for (const chamber of chambers) {
   }).webp({ quality: 96, alphaQuality: 100, effort: 6 })
     .toFile(resolve(art, `${chamber.id}-emissive.webp`));
 
-  const { aperture } = chamber;
-  const padX = Math.max(10, Math.round(aperture.width * 0.055));
-  const padY = Math.max(9, Math.round(aperture.height * 0.05));
-  const frame = { left: aperture.x - padX, top: aperture.y - padY, width: aperture.width + padX * 2, height: aperture.height + padY * 2 };
-  const center = { x: opening.left + opening.width / 2, y: opening.top + opening.height / 2 };
-  const frameLipInset = 1.5;
-  const shrink = 1 - frameLipInset / (Math.min(opening.width, opening.height) / 2);
-  const frameHole = opening.polygon.map(([px, py]) => {
-    const x = center.x + (opening.left + opening.width * px / 100 - center.x) * shrink - frame.left;
-    const y = center.y + (opening.top + opening.height * py / 100 - center.y) * shrink - frame.top;
-    return `${x.toFixed(2)},${y.toFixed(2)}`;
-  }).join(" ");
-  const frameMask = Buffer.from(`<svg width="${frame.width}" height="${frame.height}" viewBox="0 0 ${frame.width} ${frame.height}"><defs><mask id="opening"><rect width="100%" height="100%" fill="white"/><polygon points="${frameHole}" fill="black"/></mask></defs><rect width="100%" height="100%" fill="white" mask="url(#opening)"/></svg>`);
-  await sharp(resolve(art, "environment-plate.webp"))
-    .extract(frame)
-    .composite([{ input: frameMask, blend: "dest-in" }])
-    .webp({ lossless: true, effort: 6 })
-    .toFile(resolve(art, `${chamber.id}-frame-occluder.webp`));
-
   const { left, top, width, height } = chamber.shutter;
   const leafWidth = Math.ceil(width / 2);
   for (const side of ["left", "right"]) {
@@ -250,6 +248,24 @@ for (const chamber of chambers) {
   }
 }
 
+const foregroundHoles = chambers.map((chamber) => {
+  const centerX = chamber.shutter.left + chamber.shutter.width / 2;
+  const centerY = chamber.shutter.top + chamber.shutter.height / 2;
+  const shrink = 1 - 1.5 / (Math.min(chamber.shutter.width, chamber.shutter.height) / 2);
+  const points = chamber.openingPolygon.map(([x, y]) => {
+    const pointX = chamber.shutter.left + chamber.shutter.width * x / 100;
+    const pointY = chamber.shutter.top + chamber.shutter.height * y / 100;
+    return `${(centerX + (pointX - centerX) * shrink).toFixed(2)},${(centerY + (pointY - centerY) * shrink).toFixed(2)}`;
+  }).join(" ");
+  return `<polygon points="${points}" fill="black"/>`;
+}).join("");
+const foregroundMask = Buffer.from(`<svg width="${environmentWidth}" height="${environmentHeight}" viewBox="0 0 ${environmentWidth} ${environmentHeight}"><defs><mask id="foreground"><rect width="100%" height="100%" fill="white"/>${foregroundHoles}</mask></defs><rect width="100%" height="100%" fill="white" mask="url(#foreground)"/></svg>`);
+await sharp(resolve(art, "environment-plate.webp"))
+  .composite([{ input: foregroundMask, blend: "dest-in" }])
+  .webp({ quality: 90, alphaQuality: 100, effort: 6 })
+  .toFile(resolve(art, "environment-foreground-occluder.webp"));
+await Promise.all(chambers.map(({ id }) => rm(resolve(art, `${id}-frame-occluder.webp`), { force: true })));
+
 const manifest = {
   version: 2,
   coordinateSpace: { width: 1672, height: 941, fit: "cover", origin: "top-left" },
@@ -258,28 +274,19 @@ const manifest = {
   closedDoorSource: "/blacksite/art/closed-doors-reference.webp",
   effects: {
     steamPlume: "/blacksite/art/steam-plume.webp",
-    steamLoop: "/blacksite/art/steam-loop.webp",
-    environmentEmissive: "/blacksite/art/environment-emissive.webp",
+    steamLoop: "/blacksite/art/steam-loop.webm",
+    foregroundOccluder: "/blacksite/art/environment-foreground-occluder.webp",
   },
   backgroundLights: backgroundLights.map((light) => ({
     ...light,
     asset: `/blacksite/art/background-light-${light.id}.webp`,
   })),
-  note: "Coordinates map to the 1672x941 artboard; all visual layers use one cover transform. The inner artwork and animated shutters share a shaped doorway mask; an alpha-cut foreground frame restores the original structural supports over both. Smoke uses six independently sized, angled and staggered emitters at the shutter top seal, side gaps, and threshold, using a transparent animated WebP.",
+  note: "Coordinates map to the 1672x941 artboard; all visual layers use one cover transform. Static atmosphere and environment highlights are precomposited into the scene plate to avoid full-canvas browser filters; localized light emitters remain independently animated. A full-scene copy of the facility plate sits above chamber animation with irregular cutouts matching the recessed doorways. Smoke uses six independently sized, angled and staggered emitters at the shutter top seal, side gaps, and threshold, using transparent VP9 WebM video.",
   chambers: chambers.map(({ id, aperture, shutter, openingPolygon, smokeFlowAngle }) => {
-    const padX = Math.max(10, Math.round(aperture.width * 0.055));
-    const padY = Math.max(9, Math.round(aperture.height * 0.05));
     return {
     id,
     aperture,
     opening: { left: shutter.left, top: shutter.top, width: shutter.width, height: shutter.height, polygon: openingPolygon },
-    frame: {
-      left: aperture.x - padX,
-      top: aperture.y - padY,
-      width: aperture.width + padX * 2,
-      height: aperture.height + padY * 2,
-      asset: `/blacksite/art/${id}-frame-occluder.webp`,
-    },
     shutter: {
       ...shutter,
       leftAsset: `/blacksite/art/${id}-shutter-left.webp`,
@@ -294,4 +301,4 @@ const manifest = {
   }),
 };
 await writeFile(resolve(root, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
-process.stdout.write(`Prepared ${chambers.length} chamber inserts, ${chambers.length} frame occluders, ${chambers.length * 2} shutter leaves, ${backgroundLights.length} background light emitters, steam, and scene plates in ${art}\n`);
+process.stdout.write(`Prepared ${chambers.length} chamber inserts, one full-scene architectural occluder, ${chambers.length * 2} shutter leaves, ${backgroundLights.length} background light emitters, steam, and scene plates in ${art}\n`);

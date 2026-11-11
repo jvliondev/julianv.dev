@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { projects } from "@/data/projects";
+import { chamberProjects } from "@/data/projects";
 import type { ChamberPhase } from "@/lib/chamber-machine";
 import { computeStageTransform, mapArtboardPoint } from "@/lib/blacksite-stage";
 import assetManifest from "../../public/blacksite/manifest.json";
@@ -21,6 +21,22 @@ type Props = {
 
 function polygon(points: number[][]) {
   return `polygon(${points.map(([x, y]) => `${x}% ${y}%`).join(",")})`;
+}
+
+function steamStyle(vent: ChamberAsset["vents"][number], accent: string) {
+  return {
+    left: vent.x - vent.width * 0.04,
+    top: vent.y - vent.height * 0.5,
+    width: vent.width,
+    height: vent.height,
+    transform: `rotate(${vent.angle}deg)`,
+    transformOrigin: "4% 50%",
+    "--accent": accent,
+    "--smoke-delay": vent.delay,
+    "--smoke-opacity": vent.opacity,
+    "--smoke-loop-delay": vent.loopDelay,
+    "--smoke-drift-duration": vent.duration,
+  } as React.CSSProperties;
 }
 
 function sampleCameraPath(frames: CameraFrame[], elapsed: number) {
@@ -65,13 +81,12 @@ function sampleCameraPath(frames: CameraFrame[], elapsed: number) {
 export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onActivate, onClose, onSkip }: Props) {
   const viewport = useRef<HTMLDivElement>(null);
   const cameraRef = useRef<HTMLDivElement>(null);
-  const focusRef = useRef<HTMLDivElement>(null);
   const terminalRef = useRef<HTMLElement>(null);
   const cameraTimeline = useRef<{ id: string | null; startAt: number; frame: number | null }>({ id: null, startAt: 0, frame: null });
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [alignmentDebug, setAlignmentDebug] = useState(false);
   const stageTransform = useMemo(() => computeStageTransform(size.width, size.height), [size]);
-  const mobileSelected = projects.find((project) => project.id === selectedId);
+  const mobileSelected = chamberProjects.find((project) => project.id === selectedId);
   const mobileSelectedAsset = mobileSelected
     ? assetManifest.chambers.find((item: ChamberAsset) => item.id === mobileSelected.id) as ChamberAsset
     : null;
@@ -91,6 +106,34 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
   }, []);
 
   useEffect(() => {
+    let preload: HTMLImageElement | null = null;
+    const timer = window.setTimeout(() => {
+      preload = new window.Image();
+      preload.decoding = "async";
+      preload.fetchPriority = "low";
+      preload.src = assetManifest.effects.foregroundOccluder;
+    }, 900);
+    return () => {
+      window.clearTimeout(timer);
+      preload = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!selectedId || motion !== "full") return;
+    const preload = document.createElement("video");
+    preload.preload = "auto";
+    preload.muted = true;
+    preload.src = assetManifest.effects.steamLoop;
+    preload.load();
+    return () => {
+      preload.pause();
+      preload.removeAttribute("src");
+      preload.load();
+    };
+  }, [selectedId, motion]);
+
+  useEffect(() => {
     if (process.env.NODE_ENV !== "development") return;
     const timer = window.setTimeout(() => {
       setAlignmentDebug(new URLSearchParams(window.location.search).get("blacksiteDebug") === "1");
@@ -106,7 +149,7 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
 
   const selectedPhase = selectedId ? phase : "sealed";
   const cameraIsMoving = motion === "full" && Boolean(selectedId) && ["unlocking", "depressurizing", "opening", "dissipating"].includes(phase);
-  const activeProject = projects.find((project) => project.id === selectedId);
+  const activeProject = chamberProjects.find((project) => project.id === selectedId);
   const focusedAsset = selectedId
     ? assetManifest.chambers.find((item: ChamberAsset) => item.id === selectedId)
     : null;
@@ -121,14 +164,9 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
     : null;
   const cameraZoom = 1;
   const cameraStyle = { transform: "translate3d(0,0,0) scale(1)" } as React.CSSProperties;
-  const focusStyle = selectedId ? {
-    "--spotlight-x": "836px",
-    "--spotlight-y": "470px",
-    "--spotlight-radius-x": "470px",
-    "--spotlight-radius-y": "310px",
-  } as React.CSSProperties : undefined;
   const totalScale = stageTransform.scale * cameraZoom;
   const terminalPhase = phase === "unlocking" || phase === "depressurizing" || phase === "opening" || phase === "dissipating";
+  const steamActive = Boolean(focusedAsset && activeProject && (phase === "opening" || phase === "dissipating") && motion !== "off");
   const terminalWidth = 320;
   const terminalHeight = 130;
   const terminalPosition = activeProject && focusedAsset && terminalPhase && totalScale > 0 ? (() => {
@@ -159,15 +197,13 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
 
   useEffect(() => {
     const camera = cameraRef.current;
-    const focus = focusRef.current;
-    const artboard = camera?.parentElement;
     const timeline = cameraTimeline.current;
     if (timeline.frame !== null) cancelAnimationFrame(timeline.frame);
     timeline.frame = null;
 
-    if (!camera || !focus || !selectedId || !focusedOpening || motion !== "full" || phase === "closing") {
+    if (!camera || !selectedId || !focusedOpening || motion !== "full" || phase === "closing") {
       camera?.classList.remove("is-tracking");
-      artboard?.classList.remove("is-camera-tracking");
+      camera?.classList.remove("has-exposed-edge");
       if (!selectedId || motion !== "full" || phase === "closing") {
         timeline.id = null;
         if (camera) {
@@ -205,7 +241,6 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
     ];
 
     camera.classList.add("is-tracking");
-    artboard?.classList.add("is-camera-tracking");
     const tick = (now: number) => {
       const elapsed = now - timeline.startAt;
       const frame = sampleCameraPath(frames, elapsed);
@@ -213,28 +248,26 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
       const translateX = frame.zoom === 1 ? 0 : size.width / 2 - point.x * frame.zoom;
       const translateY = frame.zoom === 1 ? 0 : size.height / 2 - point.y * frame.zoom;
       camera.style.transform = `translate3d(${translateX}px,${translateY}px,0) scale(${frame.zoom})`;
-      camera.dataset.cameraWaypoint = frame.id;
-      camera.dataset.cameraZoom = frame.zoom.toFixed(3);
-      focus.style.setProperty("--spotlight-x", `${frame.x}px`);
-      focus.style.setProperty("--spotlight-y", `${frame.y}px`);
-      focus.style.setProperty("--spotlight-radius-x", `${frame.radiusX}px`);
-      focus.style.setProperty("--spotlight-radius-y", `${frame.radiusY}px`);
-
+      const artboardLeft = translateX + stageTransform.offsetX * frame.zoom;
+      const artboardRight = artboardLeft + assetManifest.coordinateSpace.width * stageTransform.scale * frame.zoom;
+      const hasExposedEdge = artboardLeft > 1 || artboardRight < size.width - 1;
+      if (camera.classList.contains("has-exposed-edge") !== hasExposedEdge) {
+        camera.classList.toggle("has-exposed-edge", hasExposedEdge);
+      }
+      if (camera.dataset.cameraWaypoint !== frame.id) {
+        camera.dataset.cameraWaypoint = frame.id;
+        camera.dataset.cameraZoom = frame.zoom.toFixed(3);
+      }
       const terminal = terminalRef.current;
-      if (terminal && activeProject && stageTransform.scale > 0) {
-        const totalScale = stageTransform.scale * frame.zoom;
-        const gap = 16 / totalScale;
-        const isLeftSideChamber = centerX < assetManifest.coordinateSpace.width / 2;
-        terminal.style.left = `${isLeftSideChamber ? focusedOpening.left + focusedOpening.width + gap : focusedOpening.left - (terminalWidth / totalScale) - gap}px`;
-        terminal.style.top = `${Math.max(12 / totalScale, focusedOpening.top - (terminalHeight / totalScale) - gap)}px`;
-        terminal.style.setProperty("--terminal-counter-scale", String(1 / totalScale));
+      if (terminal && stageTransform.scale > 0) {
+        terminal.style.setProperty("--terminal-counter-scale", String(1 / (stageTransform.scale * frame.zoom)));
       }
 
       if (elapsed < frames[frames.length - 1].at) timeline.frame = requestAnimationFrame(tick);
       else {
         timeline.frame = null;
         camera.classList.remove("is-tracking");
-        artboard?.classList.remove("is-camera-tracking");
+        camera.classList.remove("has-exposed-edge");
       }
     };
     tick(performance.now());
@@ -246,10 +279,7 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
       {stageTransform.scale > 0 && <div ref={cameraRef} className="blacksite-camera" style={cameraStyle} data-camera-zoom={cameraZoom} data-camera-waypoint="corridor">
       <div className={`blacksite-artboard phase-${selectedPhase} entry-${entryPhase} motion-${motion}`} style={artboardStyle} data-selected={selectedId ?? "none"} data-entry-phase={entryPhase}>
         <Image className="blacksite-environment" src={assetManifest.environmentPlate} alt="" width={1672} height={941} loading="eager" fetchPriority="high" unoptimized draggable={false}/>
-        <div className="blacksite-atmosphere" aria-hidden="true"/>
         <div className="blacksite-environment-light-system" aria-hidden="true">
-          <Image className="blacksite-environment-emissive blacksite-environment-glow" src={assetManifest.effects.environmentEmissive} alt="" width={1672} height={941} unoptimized draggable={false}/>
-          <Image className="blacksite-environment-emissive blacksite-environment-core" src={assetManifest.effects.environmentEmissive} alt="" width={1672} height={941} unoptimized draggable={false}/>
           {assetManifest.backgroundLights.map((light) => <span
             key={light.id}
             className={`blacksite-background-light-unit mode-${light.mode}`}
@@ -266,14 +296,13 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
             } as React.CSSProperties}
           >
             {light.mode === "sequence" && <i className="blacksite-background-dimmer" style={{ maskImage: `url(${light.asset})`, WebkitMaskImage: `url(${light.asset})` }}/>}
-            {light.mode !== "sequence" && <i className="blacksite-background-aura"/>}
+            <i className="blacksite-background-aura"/>
             <Image className="blacksite-background-emitter" src={light.asset} alt="" fill sizes="100px" unoptimized draggable={false}/>
           </span>)}
         </div>
-        <div ref={focusRef} className="blacksite-cinematic-focus" style={focusStyle} data-focus-project={selectedId ?? "none"} aria-hidden="true"/>
         {alignmentDebug && <svg className="blacksite-alignment-debug" viewBox="0 0 1672 941" preserveAspectRatio="none" aria-hidden="true">
           <path d="M 0 0 H 1672 M 0 0 V 941" fill="none" stroke="#f8fbff" strokeDasharray="8 6" strokeWidth="2"/>
-          {projects.map((project) => {
+          {chamberProjects.map((project) => {
             const asset = assetManifest.chambers.find((item: ChamberAsset) => item.id === project.id) as ChamberAsset;
             const opening = asset.opening ?? { left: asset.aperture.x, top: asset.aperture.y, width: asset.aperture.width, height: asset.aperture.height, polygon: asset.aperture.polygon };
             const points = opening.polygon.map(([x, y]) => `${opening.left + opening.width * x / 100},${opening.top + opening.height * y / 100}`).join(" ");
@@ -285,13 +314,12 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
             </g>;
           })}
         </svg>}
-        {projects.map((project) => {
+        {chamberProjects.map((project) => {
           const asset = assetManifest.chambers.find((item: ChamberAsset) => item.id === project.id) as ChamberAsset;
           const { aperture, shutter } = asset;
           const opening = asset.opening ?? { left: aperture.x, top: aperture.y, width: aperture.width, height: aperture.height, polygon: aperture.polygon };
           const active = selectedId === project.id;
           const chamberImageVisible = active && ["opening", "dissipating", "revealed", "error"].includes(phase);
-          const steamActive = active && (phase === "opening" || phase === "dissipating") && motion !== "off";
           const isClassified = project.id === "classified";
           const accent = project.accent;
           const customStyle = {
@@ -324,25 +352,6 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
             height: aperture.height,
             "--accent": accent,
           } as React.CSSProperties;
-          const frameStyle = {
-            left: asset.frame.left,
-            top: asset.frame.top,
-            width: asset.frame.width,
-            height: asset.frame.height,
-          } as React.CSSProperties;
-          const steamStyle = (vent: ChamberAsset["vents"][number]) => ({
-            left: vent.x - vent.width * 0.04,
-            top: vent.y - vent.height * 0.5,
-            width: vent.width,
-            height: vent.height,
-            transform: `rotate(${vent.angle}deg)`,
-            transformOrigin: "4% 50%",
-            "--accent": accent,
-            "--smoke-delay": vent.delay,
-            "--smoke-opacity": vent.opacity,
-            "--smoke-loop-delay": vent.loopDelay,
-            "--smoke-drift-duration": vent.duration,
-          } as React.CSSProperties);
           const leafStyle = {
             left: shutter.left,
             top: shutter.top,
@@ -381,10 +390,6 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
             <div className="blacksite-door-leaf door-right" style={rightLeafStyle} aria-hidden="true">
               <Image className="blacksite-door-face" src={shutter.rightAsset} alt="" fill sizes="(min-width: 761px) 8vw, 0px" unoptimized draggable={false}/>
             </div>
-            <Image className="blacksite-frame-occluder" src={asset.frame.asset} alt="" width={asset.frame.width} height={asset.frame.height} unoptimized draggable={false} style={frameStyle}/>
-            {steamActive && asset.vents.map((vent) => <div key={`${project.id}-${vent.id}`} className="blacksite-steam" data-vent={vent.id} style={steamStyle(vent)} aria-hidden="true">
-              {motion === "full" ? <Image className="steam-cloud steam-cloud-animation" src={assetManifest.effects.steamLoop} alt="" fill sizes="(min-width: 761px) 16vw, 0px" unoptimized draggable={false}/> : <Image className="steam-cloud steam-cloud-poster" src={assetManifest.effects.steamPlume} alt="" fill sizes="(min-width: 761px) 16vw, 0px" unoptimized draggable={false}/>}
-            </div>)}
             <button
               type="button"
               className="scene-hotspot blacksite-hotspot"
@@ -396,6 +401,20 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
             ><span className="sr-only">{project.name}: {project.status}. Open project.</span></button>
           </div>;
         })}
+        {selectedId && <Image
+          className="blacksite-foreground-occluder"
+          src={assetManifest.effects.foregroundOccluder}
+          alt=""
+          width={1672}
+          height={941}
+          unoptimized
+          draggable={false}
+        />}
+        {steamActive && focusedAsset && activeProject && <div className="blacksite-effects-layer" aria-hidden="true">
+          {focusedAsset.vents.map((vent) => <div key={`${activeProject.id}-${vent.id}`} className="blacksite-steam" data-vent={vent.id} style={steamStyle(vent, activeProject.accent)}>
+            {motion === "full" ? <video className="steam-cloud steam-cloud-animation steam-cloud-video" src={assetManifest.effects.steamLoop} autoPlay loop muted playsInline preload="auto" aria-hidden="true"/> : <Image className="steam-cloud steam-cloud-poster" src={assetManifest.effects.steamPlume} alt="" fill sizes="(min-width: 761px) 16vw, 0px" unoptimized draggable={false}/>}
+          </div>)}
+        </div>}
         {activeProject && terminalPosition && terminalStatus && terminalStyle && <aside
           ref={terminalRef}
           id="project-reveal"
@@ -428,10 +447,11 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
         <span className="blacksite-light-column" aria-hidden="true"/>
       </div>
       </div>}
+      <div className={`blacksite-cinematic-focus phase-${selectedPhase} motion-${motion}`} data-focus-project={selectedId ?? "none"} aria-hidden="true"/>
     </div>
     <div className="blacksite-mobile-selector" role="group" aria-label="Choose a project chamber">
       <p>SELECT A CHAMBER</p>
-      <div>{projects.map((project) => <button
+      <div>{chamberProjects.map((project) => <button
         key={project.id}
         type="button"
         className={`blacksite-mobile-choice ${selectedId === project.id ? "is-active" : ""}`}

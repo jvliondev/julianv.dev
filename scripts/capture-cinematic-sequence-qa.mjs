@@ -3,7 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const base = process.env.PREVIEW_URL ?? "http://127.0.0.1:3200";
-const output = resolve("docs/visual-qa/cinematic-timing-final");
+const output = resolve(process.env.CAPTURE_OUT ?? "docs/visual-qa/cinematic-timing-final");
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({ headless: true });
 const issues = [];
@@ -15,6 +15,7 @@ page.on("console", (message) => { if (message.type() === "error") issues.push({ 
 page.on("requestfailed", (request) => { if (request.failure()?.errorText !== "net::ERR_ABORTED") issues.push({ type: "requestfailed", url: request.url(), message: request.failure()?.errorText }); });
 await page.goto(base, { waitUntil: "load" });
 await page.locator(".blacksite-artboard").waitFor();
+if (process.env.CAPTURE_STYLE) await page.addStyleTag({ content: process.env.CAPTURE_STYLE });
 await page.waitForFunction(() => [...document.images].every((image) => image.complete && image.naturalWidth > 0));
 
 async function capture(name) {

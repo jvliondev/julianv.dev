@@ -67,8 +67,8 @@ await page.waitForFunction(() => document.querySelector(".blacksite-artboard")?.
 await page.screenshot({ path: resolve(output, "xondry-depressurizing.png") });
 await page.waitForFunction(() => document.querySelector(".blacksite-artboard")?.classList.contains("phase-opening"));
 await page.waitForFunction(() => {
-  const plume = document.querySelector(".blacksite-bay.is-active .steam-cloud-animation");
-  return plume instanceof HTMLImageElement && plume.complete && plume.naturalWidth > 0;
+  const plume = document.querySelector(".blacksite-effects-layer .steam-cloud-animation");
+  return plume instanceof HTMLVideoElement && plume.readyState >= 2 && plume.videoWidth > 0;
 }, null, { timeout: 10_000 });
 await page.screenshot({ path: resolve(output, "xondry-venting.png") });
 await page.waitForFunction(() => document.querySelector(".blacksite-artboard")?.classList.contains("phase-dissipating"));
@@ -85,8 +85,8 @@ for (const [id, name] of [["squadamp", "SquadAMP"], ["atomlang-evolved-sdk", "At
   if (id === "squadamp") {
     await page.waitForFunction(() => document.querySelector(".blacksite-artboard")?.classList.contains("phase-opening"));
     await page.waitForFunction(() => {
-      const plume = document.querySelector(".blacksite-bay.is-active .steam-cloud-animation");
-      return plume instanceof HTMLImageElement && plume.complete && plume.naturalWidth > 0;
+      const plume = document.querySelector(".blacksite-effects-layer .steam-cloud-animation");
+      return plume instanceof HTMLVideoElement && plume.readyState >= 2 && plume.videoWidth > 0;
     }, null, { timeout: 10_000 });
     await page.screenshot({ path: resolve(output, "squadamp-roof-venting.png") });
     await page.waitForTimeout(250);

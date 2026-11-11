@@ -19,15 +19,16 @@ export default function WorkPage() {
     </header>
     <section className="work-grid" aria-label="Selected projects">
       {projects.map((project, index) => <article key={project.id} style={{ "--accent": project.accent } as React.CSSProperties}>
-        <figure className="project-art" style={{ "--accent": project.accent, "--artwork-badge-y": `${project.artworkBadgeY}%` } as React.CSSProperties}>
-          <Image src={project.artwork} alt={project.artworkAlt} fill sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 33vw" loading={index === 0 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} unoptimized />
+        <figure className={`project-art ${project.snapshot ? "is-site-snapshot" : ""}`} style={{ "--accent": project.accent, "--artwork-badge-y": `${project.artworkBadgeY}%` } as React.CSSProperties}>
+          <Image src={project.snapshot?.src ?? project.artwork} alt={project.snapshot?.alt ?? project.artworkAlt} fill sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 33vw" loading={index === 0 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} unoptimized />
           <span className="art-claim-patch">{project.artworkBadge}</span>
-          <figcaption><span>CONCEPT ART</span><strong>{project.artworkStatus}</strong></figcaption>
+          <figcaption><span>{project.snapshot?.label ?? "CONCEPT ART"}</span><strong>{project.artworkStatus}</strong></figcaption>
         </figure>
         <div className="project-copy">
           <span className="status">{project.status}</span><h2>{project.name}</h2>
           <p className="category">{project.category}</p><p>{project.summary}</p>
-          <Link href={`/work/${project.id}`}>View project <span aria-hidden>→</span></Link>
+          <div className="project-card-focus"><span>FOCUS</span><p>{project.decisions.slice(0, 2).join(" · ")}</p></div>
+          <div className="project-card-actions"><Link href={`/work/${project.id}`}>Read project <span aria-hidden>→</span></Link>{project.external && <a href={project.external.href} target="_blank" rel="noreferrer">Open site <span aria-hidden>↗</span></a>}</div>
         </div>
       </article>)}
     </section>

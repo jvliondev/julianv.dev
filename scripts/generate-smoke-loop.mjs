@@ -8,7 +8,7 @@ import { chromium } from "playwright";
 const execFileAsync = promisify(execFile);
 const root = resolve("public/blacksite");
 const input = resolve(root, "art/steam-plume.webp");
-const output = resolve(root, "art/steam-loop.webp");
+const output = resolve(root, "art/steam-loop.webm");
 const frameDir = await mkdtemp(join(tmpdir(), "jv-blacksite-smoke-"));
 const frameDirResolved = resolve(frameDir);
 const tempRoot = resolve(tmpdir());
@@ -54,9 +54,11 @@ try {
   await execFileAsync(ffmpeg, [
     "-hide_banner", "-loglevel", "error", "-y", "-framerate", String(fps),
     "-i", join(frameDir, "frame-%04d.png"), "-frames:v", String(frameCount), "-an",
-    "-c:v", "libwebp_anim", "-quality", "72", "-preset", "photo", "-loop", "0",
-    "-pix_fmt", "bgra", output,
+    "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-auto-alt-ref", "0", "-b:v", "300k",
+    "-deadline", "realtime", "-cpu-used", "8", "-row-mt", "1", "-threads", "2",
+    "-metadata:s:v:0", "alpha_mode=1", output,
   ], { maxBuffer: 4 * 1024 * 1024 });
+  await rm(resolve(root, "art/steam-loop.webp"), { force: true });
   const { size } = await stat(output);
   process.stdout.write(`Generated ${duration}s ${width}x${height} alpha smoke animation (${Math.round(size / 1024)} KB): ${output}\n`);
 } finally {

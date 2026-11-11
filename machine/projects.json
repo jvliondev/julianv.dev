@@ -1,12 +1,194 @@
 {
-  "schemaVersion": 1,
-  "statusPolicy": "Only publish verified public status. No metrics, milestones, or external destinations without evidence.",
-  "products": [
-    {"id":"xondry","name":"Xondry.com","shortName":"XONDRY","category":"AI creator discovery","status":"PUBLIC WEBSITE","accent":"#b275ff","summary":"A home for AI creatives to showcase what they build, discover projects, connect, and gain recognition.","problem":"AI-assisted creators need a credible place to present work and be discovered beyond noisy general-purpose feeds.","audience":"AI creators, builders, and people looking to discover their work.","role":"Founder, product vision, experience direction, systems decisions, and AI-assisted iteration.","decisions":["Project-first discovery with creator identity","Visible XP and reputation mechanics","Explore, challenges, leaderboard, and profile paths"],"proof":["The public website was reachable on November 2, 2026.","Public navigation exposes Explore, Challenges, Leaderboard, Creators, and profiles."],"limitations":["Displayed community counts and commercial traction have not been independently audited.","Public content may include illustrative or seeded entries."],"motif":"constellation","external":{"label":"Visit Xondry","href":"https://xondry.com/"}},
-    {"id":"squadamp","name":"SquadAMP.com","shortName":"SQUADAMP","category":"Personalized sports music","status":"IN DEVELOPMENT","accent":"#ff9854","summary":"Personalized anthems for athletes and sports teams, created through AI-assisted music workflows.","problem":"Athletes and teams want personal entrance music without a traditional production process.","audience":"Individual athletes, teams, families, and sports programs.","role":"Service concept, product scope, offer direction, and fulfillment workflow.","decisions":["Athlete and team-specific intake","AI-assisted music production","Original offer concepts for individual and team packages"],"proof":["The product direction and proposed offerings are documented."],"limitations":["Public site access, checkout, payment, and fulfillment are not currently verified.","No production link is published until verification."],"motif":"waveform"},
-    {"id":"atomlang-evolved-sdk","name":"AtomLang Evolved SDK","shortName":"ATOMLANG","category":"Machine-native communication","status":"PROTOCOL RESEARCH","accent":"#23d9ff","summary":"An experimental SDK and protocol for compact, structured coordination between AI systems.","problem":"Natural-language coordination between systems is verbose and ambiguous for machine control flows.","audience":"Developers and researchers exploring agent coordination and typed machine messages.","role":"Research direction, protocol design, SDK experimentation, and verification strategy.","decisions":["Typed packets with explicit intent","Content-addressed artifact references","Encoding, decoding, replay, and checkpoint experiments"],"proof":["A Rust-first research workspace, CLI, and experimental tooling were previously reported."],"limitations":["It is not a standard and has no universal performance claim.","Benchmark results require reproducible public methodology."],"motif":"packet"},
-    {"id":"raeyl","name":"RAEYL","shortName":"RAEYL","category":"Website ownership & control","status":"IN DEVELOPMENT","accent":"#af84ff","summary":"Make website ownership understandable: connected services, access, handoff, and control in one place.","problem":"Website ownership is fragmented across domains, hosts, databases, billing, repositories, and permissions.","audience":"Site owners and the providers who build and operate sites for them.","role":"Product concept, ownership workflow design, and integrations direction.","decisions":["Ownership map centered on the site","Provider visibility and permission handoff","Discovery direction for hosting and database providers"],"proof":["Website ownership and cleaner handoff are the documented core goals.","Vercel and Supabase discovery work was previously reported."],"limitations":["Provider coverage and automated migration are not complete or publicly verified.","No production customer use is claimed."],"motif":"key"},
-    {"id":"realball26","name":"RealBall26","shortName":"REALBALL 26","category":"Native basketball game","status":"PLAYABLE PROTOTYPE · IN DEVELOPMENT","accent":"#ffad5a","summary":"A native C++ basketball game prototype exploring physics-driven gameplay, AI opponents, and athlete customization.","problem":"Create responsive, physical half-court basketball with believable player and ball interaction.","audience":"Basketball game players and simulation-focused sports fans.","role":"Game concept, product specification, game-feel requirements, iterative engineering, and system verification.","decisions":["Reported foundation: native Windows C++20 / Direct3D11","Reported prototype systems: physics-based ball handling and shooting","Reported AI opponent, animation rig, and customization work"],"proof":["A playable half-court 1v1 prototype and 120 Hz simulation were previously reported."],"limitations":["No public build or authentic gameplay capture was supplied for this site.","It is not released, not on Steam, and not presented as a live product."],"motif":"court"},
-    {"id":"classified","name":"TOP SECRET","shortName":"CLASSIFIED","category":"Undisclosed research","status":"CLASSIFIED","accent":"#ff5269","summary":"Select work remains under wraps. Explore public research and products or get in touch.","problem":"Some concepts are not ready for public disclosure.","audience":"Potential collaborators who value careful product exploration.","role":"Undisclosed.","decisions":["Keep private work private","Provide a real path back to public work","Use classification only as a storytelling motif"],"proof":["No confidential names or details are exposed."],"limitations":["This is fictional presentation, not a government status or security-clearance claim."],"motif":"sealed"}
-  ]
+    "schemaVersion":  1,
+    "statusPolicy":  "Only publish verified public status. No metrics, milestones, or external destinations without evidence.",
+    "products":  [
+                     {
+                         "id":  "xondry",
+                         "name":  "Xondry.com",
+                         "shortName":  "XONDRY",
+                         "category":  "AI creator discovery",
+                         "status":  "PUBLIC WEBSITE",
+                         "accent":  "#b275ff",
+                         "summary":  "A public portfolio and discovery platform where AI creators publish projects and visitors explore work, creator profiles, challenges, and leaderboards.",
+                         "problem":  "AI creators need a focused place to present their work and be discovered beyond general-purpose social feeds.",
+                         "audience":  "AI creators and builders sharing work, plus people looking for new AI-made projects.",
+                         "role":  "Founder; product direction, discovery model, experience design, and AI-assisted iteration.",
+                         "decisions":  [
+                                           "Project pages connect each piece of work to its creator",
+                                           "Explore, challenges, leaderboard, and creator-profile paths",
+                                           "XP and reputation signals for community participation"
+                                       ],
+                         "proof":  [
+                                       "The public website was reachable on November 2, 2026.",
+                                       "Public navigation exposes Explore, Challenges, Leaderboard, Creators, and profiles."
+                                   ],
+                         "limitations":  [
+                                             "Displayed community counts and commercial traction have not been independently audited.",
+                                             "Public content may include illustrative or seeded entries."
+                                         ],
+                         "motif":  "constellation",
+                         "external":  {
+                                          "label":  "Visit Xondry",
+                                          "href":  "https://xondry.com/"
+                                      }
+                     },
+                     {
+                         "id":  "squadamp",
+                         "name":  "SquadAMP.com",
+                         "shortName":  "SQUADAMP",
+                         "category":  "Personalized sports music",
+                         "status":  "IN DEVELOPMENT",
+                         "accent":  "#ff9854",
+                         "summary":  "An in-development service concept for personalized athlete and team anthems, shaped through a proposed AI-assisted music workflow.",
+                         "problem":  "Athletes and teams want distinctive entrance music without commissioning a traditional studio production for every player or roster.",
+                         "audience":  "Individual athletes, teams, families, and sports programs.",
+                         "role":  "Service concept, product scope, offer direction, and fulfillment workflow.",
+                         "decisions":  [
+                                           "Athlete and team-specific intake",
+                                           "AI-assisted music production",
+                                           "Offer concepts for individual and team packages"
+                                       ],
+                         "proof":  [
+                                       "The product direction and proposed offerings are documented."
+                                   ],
+                         "limitations":  [
+                                             "Public site access, checkout, payment, and fulfillment are not currently verified.",
+                                             "No production link is published until verification."
+                                         ],
+                         "motif":  "waveform"
+                     },
+                     {
+                         "id":  "atomlang-evolved-sdk",
+                         "name":  "AtomLang Evolved SDK",
+                         "shortName":  "ATOMLANG",
+                         "category":  "Machine-native communication",
+                         "status":  "PROTOCOL RESEARCH",
+                         "accent":  "#23d9ff",
+                         "summary":  "Research-stage machine-native messaging protocol and SDK exploring typed intent, content-addressed payload references, and replayable coordination between AI systems.",
+                         "problem":  "Agent control flows need explicit message structure and reliable references to larger artifacts, rather than ambiguous free-form instructions alone.",
+                         "audience":  "Developers and researchers exploring agent coordination and typed machine messages.",
+                         "role":  "Research direction, protocol design, SDK experimentation, and verification strategy.",
+                         "decisions":  [
+                                           "Typed packets with explicit intent",
+                                           "Content-addressed artifact references",
+                                           "Encoding, decoding, replay, and checkpoint experiments"
+                                       ],
+                         "proof":  [
+                                       "A Rust-first research workspace, CLI, and experimental tooling were previously reported."
+                                   ],
+                         "limitations":  [
+                                             "It is not a standard and has no universal performance claim.",
+                                             "Benchmark results require reproducible public methodology."
+                                         ],
+                         "motif":  "packet"
+                     },
+                     {
+                         "id":  "raeyl",
+                         "name":  "RAEYL",
+                         "shortName":  "RAEYL",
+                         "category":  "Website ownership \u0026 control",
+                         "status":  "IN DEVELOPMENT",
+                         "accent":  "#af84ff",
+                         "summary":  "An in-development website ownership wallet that brings hosting, billing, domains, CMS, access, and handoff details into one clear dashboard.",
+                         "problem":  "After launch, domain, hosting, CMS, billing, credentials, and support contacts can sit in separate accounts, leaving owners without a clear view of what they control.",
+                         "audience":  "Business owners taking over a website, and the developers or agencies preparing its handoff.",
+                         "role":  "Product concept, ownership workflow design, developer-to-owner handoff, and integrations direction.",
+                         "decisions":  [
+                                           "One wallet per website, connecting providers and ownership details",
+                                           "Developer setup followed by a clear owner invite and handoff",
+                                           "Owner-facing views for provider costs, access, renewals, and alerts"
+                                       ],
+                         "proof":  [
+                                       "The public RAEYL site describes an ownership wallet that collects hosting, billing, domains, CMS, access, and handoff information.",
+                                       "Its product preview presents a site dashboard with provider, cost, renewal, and alert views."
+                                   ],
+                         "limitations":  [
+                                             "The public page is a product presentation; live provider integrations, customer use, and dashboard operations are not independently verified."
+                                         ],
+                         "motif":  "key",
+                         "external":  {
+                                          "label":  "Visit RAEYL",
+                                          "href":  "https://project-c5jli.vercel.app/"
+                                      }
+                     },
+                     {
+                         "id":  "realball26",
+                         "name":  "RealBall26",
+                         "shortName":  "REALBALL 26",
+                         "category":  "Native basketball game",
+                         "status":  "PLAYABLE PROTOTYPE / IN DEVELOPMENT",
+                         "accent":  "#ffad5a",
+                         "summary":  "A Windows C++ prototype for half-court 1v1 basketball, exploring responsive ball handling, shooting physics, AI opponents, and player customization.",
+                         "problem":  "Create responsive half-court basketball with believable interaction between players and the ball.",
+                         "audience":  "Basketball game players and simulation-focused sports fans.",
+                         "role":  "Game concept, product specification, game-feel requirements, iterative engineering, and system verification.",
+                         "decisions":  [
+                                           "Reported foundation: native Windows C++20 / Direct3D11",
+                                           "Reported prototype systems: physics-based ball handling and shooting",
+                                           "Reported AI opponent, animation rig, and customization work"
+                                       ],
+                         "proof":  [
+                                       "A playable half-court 1v1 prototype and 120 Hz simulation were previously reported."
+                                   ],
+                         "limitations":  [
+                                             "No public build or authentic gameplay capture was supplied for this site.",
+                                             "It is not released, not on Steam, and not presented as a live product."
+                                         ],
+                         "motif":  "court"
+                     },
+                     {
+                         "id":  "throwful",
+                         "name":  "Throwful",
+                         "shortName":  "THROWFUL",
+                         "category":  "Fundraising operations",
+                         "status":  "PUBLIC PRODUCT SITE / DEMO",
+                         "accent":  "#7654ff",
+                         "summary":  "A fundraiser management product concept that brings event pages, seller links, orders, payment status, helper roles, and pickup coordination into one place.",
+                         "problem":  "School, team, and community fundraisers can leave organizers piecing together orders, seller progress, payment confirmations, food counts, and pickup plans from scattered messages and spreadsheets.",
+                         "audience":  "Schools, sports teams, clubs, and community groups running short-term fundraisers, along with their organizers, sellers, helpers, and buyers.",
+                         "role":  "Product direction, fundraiser workflow design, and organizer-facing experience.",
+                         "decisions":  [
+                                           "One event page for items, buyer details, and pickup information",
+                                           "Seller-specific links to attribute distributed sales",
+                                           "A shared event view for orders, item counts, helpers, and fulfillment status"
+                                       ],
+                         "proof":  [
+                                       "The public site presents a fundraiser workflow spanning event setup, seller links, buyer ordering, order tracking, helper roles, and pickup status.",
+                                       "Its sample Little League BBQ + Raffle dashboard illustrates seller progress, food counts, and pickup updates."
+                                   ],
+                         "limitations":  [
+                                             "Names and counts in the dashboard are illustrative sample content, not verified event results.",
+                                             "The public product site is reachable; live account behavior, payment processing, and production operations have not been validated."
+                                         ],
+                         "motif":  "fundraiser",
+                         "external":  {
+                                          "label":  "Visit Throwful",
+                                          "href":  "https://throwful.vercel.app/"
+                                      }
+                     },
+                     {
+                         "id":  "classified",
+                         "name":  "TOP SECRET",
+                         "shortName":  "CLASSIFIED",
+                         "category":  "Undisclosed research",
+                         "status":  "CLASSIFIED",
+                         "accent":  "#ff5269",
+                         "summary":  "Select work remains under wraps. Explore public research and products or get in touch.",
+                         "problem":  "Some concepts are not ready for public disclosure.",
+                         "audience":  "Potential collaborators who value careful product exploration.",
+                         "role":  "Undisclosed.",
+                         "decisions":  [
+                                           "Keep private work private",
+                                           "Provide a real path back to public work",
+                                           "Use classification only as a storytelling motif"
+                                       ],
+                         "proof":  [
+                                       "No confidential names or details are exposed."
+                                   ],
+                         "limitations":  [
+                                             "This is fictional presentation, not a government status or security-clearance claim."
+                                         ],
+                         "motif":  "sealed"
+                     }
+                 ]
 }

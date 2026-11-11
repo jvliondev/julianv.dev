@@ -11,8 +11,8 @@
   "closedDoorSource": "/blacksite/art/closed-doors-reference.webp",
   "effects": {
     "steamPlume": "/blacksite/art/steam-plume.webp",
-    "steamLoop": "/blacksite/art/steam-loop.webp",
-    "environmentEmissive": "/blacksite/art/environment-emissive.webp"
+    "steamLoop": "/blacksite/art/steam-loop.webm",
+    "foregroundOccluder": "/blacksite/art/environment-foreground-occluder.webp"
   },
   "backgroundLights": [
     {
@@ -164,7 +164,7 @@
       "y": 746,
       "width": 69,
       "height": 37,
-      "color": "#ff3b4f",
+      "color": "#ff1429",
       "mode": "sequence",
       "sequenceDelay": "0s",
       "asset": "/blacksite/art/background-light-walkway-left-0.webp"
@@ -175,7 +175,7 @@
       "y": 746,
       "width": 69,
       "height": 37,
-      "color": "#ff3b4f",
+      "color": "#ff1429",
       "mode": "sequence",
       "sequenceDelay": "0s",
       "asset": "/blacksite/art/background-light-walkway-right-0.webp"
@@ -186,7 +186,7 @@
       "y": 702,
       "width": 44,
       "height": 26,
-      "color": "#ff3b4f",
+      "color": "#ff1429",
       "mode": "sequence",
       "sequenceDelay": ".45s",
       "asset": "/blacksite/art/background-light-walkway-left-1.webp"
@@ -197,7 +197,7 @@
       "y": 702,
       "width": 44,
       "height": 26,
-      "color": "#ff3b4f",
+      "color": "#ff1429",
       "mode": "sequence",
       "sequenceDelay": ".45s",
       "asset": "/blacksite/art/background-light-walkway-right-1.webp"
@@ -208,7 +208,7 @@
       "y": 679,
       "width": 25,
       "height": 17,
-      "color": "#ff3b4f",
+      "color": "#ff1429",
       "mode": "sequence",
       "sequenceDelay": ".9s",
       "asset": "/blacksite/art/background-light-walkway-left-2.webp"
@@ -219,7 +219,7 @@
       "y": 679,
       "width": 25,
       "height": 17,
-      "color": "#ff3b4f",
+      "color": "#ff1429",
       "mode": "sequence",
       "sequenceDelay": ".9s",
       "asset": "/blacksite/art/background-light-walkway-right-2.webp"
@@ -230,7 +230,7 @@
       "y": 626,
       "width": 23,
       "height": 29,
-      "color": "#ff3b4f",
+      "color": "#ff1429",
       "mode": "sequence",
       "sequenceDelay": "1.35s",
       "asset": "/blacksite/art/background-light-walkway-left-3.webp"
@@ -241,13 +241,13 @@
       "y": 626,
       "width": 26,
       "height": 29,
-      "color": "#ff3b4f",
+      "color": "#ff1429",
       "mode": "sequence",
       "sequenceDelay": "1.35s",
       "asset": "/blacksite/art/background-light-walkway-right-3.webp"
     }
   ],
-  "note": "Coordinates map to the 1672x941 artboard; all visual layers use one cover transform. The inner artwork and animated shutters share a shaped doorway mask; an alpha-cut foreground frame restores the original structural supports over both. Smoke uses six independently sized, angled and staggered emitters at the shutter top seal, side gaps, and threshold, using a transparent animated WebP.",
+  "note": "Coordinates map to the 1672x941 artboard; all visual layers use one cover transform. Static atmosphere and environment highlights are precomposited into the scene plate to avoid full-canvas browser filters; localized light emitters remain independently animated. A full-scene copy of the facility plate sits above chamber animation with irregular cutouts matching the recessed doorways. Smoke uses six independently sized, angled and staggered emitters at the shutter top seal, side gaps, and threshold, using transparent VP9 WebM video.",
   "chambers": [
     {
       "id": "xondry",
@@ -314,13 +314,6 @@
             9
           ]
         ]
-      },
-      "frame": {
-        "left": 4,
-        "top": 442,
-        "width": 278,
-        "height": 212,
-        "asset": "/blacksite/art/xondry-frame-occluder.webp"
       },
       "shutter": {
         "left": 34,
@@ -478,13 +471,6 @@
           ]
         ]
       },
-      "frame": {
-        "left": 300,
-        "top": 484,
-        "width": 201,
-        "height": 163,
-        "asset": "/blacksite/art/squadamp-frame-occluder.webp"
-      },
       "shutter": {
         "left": 329,
         "top": 505,
@@ -640,13 +626,6 @@
             8
           ]
         ]
-      },
-      "frame": {
-        "left": 498,
-        "top": 484,
-        "width": 190,
-        "height": 165,
-        "asset": "/blacksite/art/atomlang-evolved-sdk-frame-occluder.webp"
       },
       "shutter": {
         "left": 519,
@@ -804,13 +783,6 @@
           ]
         ]
       },
-      "frame": {
-        "left": 997,
-        "top": 482,
-        "width": 193,
-        "height": 164,
-        "asset": "/blacksite/art/raeyl-frame-occluder.webp"
-      },
       "shutter": {
         "left": 1012,
         "top": 507,
@@ -967,13 +939,6 @@
           ]
         ]
       },
-      "frame": {
-        "left": 1205,
-        "top": 475,
-        "width": 201,
-        "height": 172,
-        "asset": "/blacksite/art/realball26-frame-occluder.webp"
-      },
       "shutter": {
         "left": 1227,
         "top": 500,
@@ -1129,13 +1094,6 @@
             12
           ]
         ]
-      },
-      "frame": {
-        "left": 1431,
-        "top": 439,
-        "width": 240,
-        "height": 214,
-        "asset": "/blacksite/art/classified-frame-occluder.webp"
       },
       "shutter": {
         "left": 1458,
