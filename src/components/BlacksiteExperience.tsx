@@ -35,7 +35,7 @@ function steamStyle(vent: ChamberAsset["vents"][number], accent: string) {
     "--smoke-delay": vent.delay,
     "--smoke-opacity": vent.opacity,
     "--smoke-loop-delay": vent.loopDelay,
-    "--smoke-drift-duration": vent.duration,
+    "--smoke-drift-duration": `${Number.parseFloat(vent.duration) * 1.2}s`,
   } as React.CSSProperties;
 }
 
@@ -231,13 +231,13 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
     const chamberRadiusY = Math.round(Math.max(155, focusedOpening.height * 1.15));
     const frames: CameraFrame[] = [
       { at: 0, id: "corridor", x: 836, y: 470, zoom: 1, radiusX: 470, radiusY: 310, stop: true },
-      { at: 260, id: "walkway-front", x: 836, y: 765, zoom: 1.015, radiusX: 310, radiusY: 190 },
-      { at: 520, id: "walkway-mid", x: 836, y: 688, zoom: 1.045, radiusX: 240, radiusY: 155 },
-      { at: 780, id: "walkway-end", x: 836, y: 641, zoom: 1.06, radiusX: 250, radiusY: 165 },
-      { at: 1250, id: "chamber", x: centerX, y: centerY, zoom: 1.2, radiusX: Math.max(170, Math.round(focusedOpening.width * .88)), radiusY: Math.max(140, Math.round(focusedOpening.height * .96)), stop: true },
-      { at: 2050, id: "doors-open", x: centerX, y: centerY, zoom: 1.2, radiusX: Math.max(170, Math.round(focusedOpening.width * .88)), radiusY: Math.max(140, Math.round(focusedOpening.height * .96)), stop: true },
-      { at: 2100, id: "pullback", x: centerX, y: centerY, zoom: 1.2, radiusX: chamberRadiusX, radiusY: chamberRadiusY, stop: true },
-      { at: 2700, id: "corridor", x: 836, y: 470, zoom: 1, radiusX: 470, radiusY: 310, stop: true },
+      { at: 312, id: "walkway-front", x: 836, y: 765, zoom: 1.015, radiusX: 310, radiusY: 190 },
+      { at: 624, id: "walkway-mid", x: 836, y: 688, zoom: 1.045, radiusX: 240, radiusY: 155 },
+      { at: 936, id: "walkway-end", x: 836, y: 641, zoom: 1.06, radiusX: 250, radiusY: 165 },
+      { at: 1500, id: "chamber", x: centerX, y: centerY, zoom: 1.2, radiusX: Math.max(170, Math.round(focusedOpening.width * .88)), radiusY: Math.max(140, Math.round(focusedOpening.height * .96)), stop: true },
+      { at: 2460, id: "doors-open", x: centerX, y: centerY, zoom: 1.2, radiusX: Math.max(170, Math.round(focusedOpening.width * .88)), radiusY: Math.max(140, Math.round(focusedOpening.height * .96)), stop: true },
+      { at: 2520, id: "pullback", x: centerX, y: centerY, zoom: 1.2, radiusX: chamberRadiusX, radiusY: chamberRadiusY, stop: true },
+      { at: 3240, id: "corridor", x: 836, y: 470, zoom: 1, radiusX: 470, radiusY: 310, stop: true },
     ];
 
     camera.classList.add("is-tracking");
@@ -297,9 +297,9 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
               "--emitter-color": light.color,
               "--emitter-delay": light.delay,
               "--sequence-delay": light.mode === "sequence" && light.sequenceDelay
-                ? `${Number.parseFloat(light.sequenceDelay) * .22}s`
+                ? `${Number.parseFloat(light.sequenceDelay) * .264}s`
                 : "0s",
-              "--gate-sequence-delay": light.id === "arch-warning-right" ? ".08s" : "0s",
+              "--gate-sequence-delay": light.id === "arch-warning-right" ? ".096s" : "0s",
             } as React.CSSProperties}
           >
             {light.mode === "sequence" && <i className="blacksite-background-dimmer" style={{ maskImage: `url(${light.asset})`, WebkitMaskImage: `url(${light.asset})` }}/>}

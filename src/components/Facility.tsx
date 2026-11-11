@@ -109,7 +109,7 @@ export function Facility() {
     if (!state.id || state.phase === "revealed" || state.phase === "closing" || state.phase === "error") return;
     if (motion !== "full") { dispatch({ type: "SKIP" }); return; }
     const next = state.phase === "unlocking" ? "BOLTS_DONE" : state.phase === "depressurizing" ? "VENT_DONE" : state.phase === "opening" ? "DOOR_DONE" : "DISSIPATE_DONE";
-    const delay = state.phase === "unlocking" ? 300 : state.phase === "depressurizing" ? 350 : state.phase === "opening" ? 1050 : 1000;
+    const delay = state.phase === "unlocking" ? 360 : state.phase === "depressurizing" ? 420 : state.phase === "opening" ? 1260 : 1200;
     const timer = window.setTimeout(() => dispatch({ type: next }), delay);
     return () => window.clearTimeout(timer);
   }, [state.id, state.phase, state.token, motion]);

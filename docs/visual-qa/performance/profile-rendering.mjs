@@ -83,11 +83,11 @@ async function sample(name, ms) {
 
 const samples = { idle: await sample("idle", 5000) };
 const states = [
-  ["unlocking", 300],
-  ["depressurizing", 350],
-  ["opening", 1050],
-  ["dissipating", 1000],
-  ["revealed", 1000],
+  ["unlocking", 360],
+  ["depressurizing", 420],
+  ["opening", 1260],
+  ["dissipating", 1200],
+  ["revealed", 1200],
 ];
 await page.locator(".blacksite-bay[data-bay='xondry'] .blacksite-hotspot").click({ force: true });
 for (const [phase, duration] of states) {
