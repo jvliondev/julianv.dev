@@ -167,8 +167,8 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
   const totalScale = stageTransform.scale * cameraZoom;
   const terminalPhase = phase === "unlocking" || phase === "depressurizing" || phase === "opening" || phase === "dissipating";
   const steamActive = Boolean(focusedAsset && activeProject && (phase === "opening" || phase === "dissipating") && motion !== "off");
-  const terminalWidth = 320;
-  const terminalHeight = 130;
+  const terminalWidth = 380;
+  const terminalHeight = 168;
   const terminalPosition = activeProject && focusedAsset && terminalPhase && totalScale > 0 ? (() => {
     const isLeftSideChamber = focusedOpening!.left + focusedOpening!.width / 2 < assetManifest.coordinateSpace.width / 2;
     const gap = 16 / totalScale;
@@ -176,7 +176,7 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
       left: isLeftSideChamber
         ? focusedOpening!.left + focusedOpening!.width + gap
         : focusedOpening!.left - (terminalWidth / totalScale) - gap,
-      top: Math.max(12 / totalScale, focusedOpening!.top - (terminalHeight / totalScale) - gap),
+      top: Math.max(96 / totalScale, focusedOpening!.top - (terminalHeight / totalScale) - gap),
       counterScale: 1 / totalScale,
     };
   })() : null;
@@ -214,6 +214,10 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
       }
       return;
     }
+
+    const viewportTop = viewport.current?.getBoundingClientRect().top ?? 0;
+    const headerBottom = document.querySelector<HTMLElement>(".site-header")?.getBoundingClientRect().bottom ?? 0;
+    const terminalSafeTop = headerBottom + 16;
 
     if (timeline.id !== selectedId) {
       timeline.id = selectedId;
@@ -260,7 +264,12 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
       }
       const terminal = terminalRef.current;
       if (terminal && stageTransform.scale > 0) {
+        const artboardTop = viewportTop + translateY + stageTransform.offsetY * frame.zoom;
+        const terminalBaseTop = terminalPosition?.top ?? 0;
+        const terminalScreenTop = artboardTop + terminalBaseTop * stageTransform.scale * frame.zoom;
+        const safeShift = Math.max(0, terminalSafeTop - terminalScreenTop);
         terminal.style.setProperty("--terminal-counter-scale", String(1 / (stageTransform.scale * frame.zoom)));
+        terminal.style.setProperty("--terminal-safe-shift", `${safeShift}px`);
       }
 
       if (elapsed < frames[frames.length - 1].at) timeline.frame = requestAnimationFrame(tick);
@@ -272,7 +281,7 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
     };
     tick(performance.now());
     return () => { if (timeline.frame !== null) cancelAnimationFrame(timeline.frame); };
-  }, [selectedId, phase, motion, focusedOpening, activeProject, size.width, size.height, stageTransform, terminalWidth, terminalHeight]);
+  }, [selectedId, phase, motion, focusedOpening, activeProject, size.width, size.height, stageTransform, terminalWidth, terminalHeight, terminalPosition?.top]);
 
   return <>
     <div ref={viewport} className={`blacksite-viewport ${cameraIsMoving ? "is-panning" : ""}`} data-scene-ready={stageTransform.scale > 0}>

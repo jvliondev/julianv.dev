@@ -32,6 +32,8 @@ export function Facility() {
   const [entryPhase, setEntryPhase] = useState<EntryPhase>("locked");
   const motion = useSyncExternalStore(subscribeToMotionChanges, getMotionPreference, () => "full" as Motion);
   const lastTrigger = useRef<HTMLButtonElement | null>(null);
+  const overviewHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const sceneHeadingRef = useRef<HTMLHeadingElement | null>(null);
   const initialSelectionTimer = useRef<number | null>(null);
   const stateRef = useRef(state);
   const selected = useMemo(() => chamberProjects.find((project) => project.id === state.id), [state.id]);
@@ -70,6 +72,9 @@ export function Facility() {
   }, []);
 
   useEffect(() => { stateRef.current = state; }, [state]);
+  useEffect(() => {
+    if (state.phase === "revealed") overviewHeadingRef.current?.focus();
+  }, [selected?.id, state.phase]);
   useEffect(() => {
     const resetHome = () => {
       dispatch({ type: "CANCEL" });
@@ -126,7 +131,8 @@ export function Facility() {
     if (state.phase !== "closing") return;
     const timer = window.setTimeout(() => {
       dispatch({ type: "CLOSED" });
-      lastTrigger.current?.focus();
+      if (lastTrigger.current) lastTrigger.current.focus();
+      else sceneHeadingRef.current?.focus();
     }, motion === "full" ? 520 : 0);
     return () => window.clearTimeout(timer);
   }, [state.phase, state.token, motion]);
@@ -152,14 +158,15 @@ export function Facility() {
     <div className="facility-ui">
       <div className="scene-title">
         <span className="eyebrow">FACILITY JV-01 // PRODUCT LAB</span>
-        <h1>WELCOME TO<br/>THE BLACK SITE</h1>
+        <h1 ref={sceneHeadingRef} tabIndex={-1}>WELCOME TO<br/>THE BLACK SITE</h1>
         <p>Where ambitious ideas become engineered realities.</p>
+        {!selected && <p className="scene-help">Choose a chamber to open its project overview, or browse all work.</p>}
         <div className="hero-actions">
           {entryPhase === "locked" ? <button className="entry-button" onClick={beginEntry}>Enter the Facility <span aria-hidden="true">›</span></button> : !entered ? <button className="entry-button" onClick={skipEntry}>Skip entry sequence</button> : null}
         </div>
       </div>
 
-      <div className="access-deck">
+      {!selected && <div className="access-deck">
         <nav className="access-paths" aria-label="Access paths">
           <span className="access-heading">ACCESS PATHS</span>
           <div><Link href="/work">Browse Work</Link><Link href="/contact">Contact</Link></div>
@@ -169,25 +176,28 @@ export function Facility() {
           <span className="featured-copy"><span>FEATURED PROJECT: <strong>XONDRY</strong></span><small>{featuredProject?.summary}</small></span>
           <span className="featured-status">{featuredProject?.status}</span><span className="featured-arrow" aria-hidden="true">›</span>
         </Link>
-      </div>
+      </div>}
 
-      {selected && state.phase === "revealed" && overviewImage && <aside id="project-reveal" className={`reveal-panel reveal-panel-${revealPanelSide} is-ready`} role="dialog" aria-modal="false" aria-labelledby="project-reveal-title" style={{ "--accent": selected.accent } as React.CSSProperties}>
+      {selected && state.phase === "revealed" && overviewImage && <aside id="project-reveal" className={`reveal-panel reveal-panel-${revealPanelSide} is-ready`} role="dialog" aria-modal="false" aria-labelledby="project-reveal-title" aria-describedby="project-reveal-summary" style={{ "--accent": selected.accent } as React.CSSProperties}>
         <button className="close" onClick={close} aria-label={`Close ${selected.name} project panel`}>×</button>
         <div className={`project-overview-visual ${overviewImageKind} ${selectedHasLiveSite ? "is-live-site" : ""}`}>
-          <Image className="project-overview-image" src={overviewImage} alt={overviewImageAlt ?? "Project visual"} fill sizes="(min-width: 1101px) 220px, 40vw" unoptimized draggable={false}/>
+          <Image className="project-overview-image" src={overviewImage} alt={overviewImageAlt ?? "Project visual"} fill sizes="(min-width: 1101px) 460px, (min-width: 761px) 40vw, 100vw" unoptimized draggable={false}/>
           <span className="project-overview-visual-label">{selected?.snapshot?.label ?? "PRODUCT // CONCEPT VISUAL"}</span>
-          {selected?.external && <a className="project-overview-live-link" href={selected.external.href} target="_blank" rel="noreferrer">Open public site <span aria-hidden="true">↗</span></a>}
         </div>
         <div className="project-overview-copy">
           <span className="phase-label">FACILITY JV-01 // PROJECT OVERVIEW</span>
           <span className="status">{selected.status}</span>
-          <h2 id="project-reveal-title">{selected.name}</h2>
+          <h2 id="project-reveal-title" ref={overviewHeadingRef} tabIndex={-1}>{selected.name}</h2>
           <span className="project-overview-category">{selected.category}</span>
-          <p>{selected.summary}</p>
+          <p id="project-reveal-summary">{selected.summary}</p>
           <div className="project-overview-audience"><span>BUILT FOR</span><p>{selected.audience}</p></div>
           <div className="project-overview-role"><span>PRODUCT ROLE</span><p>{selected.role}</p></div>
           <div className="project-overview-focus"><span>DESIGN FOCUS</span><ul>{selected.decisions.slice(0, 2).map((decision) => <li key={decision}>{decision}</li>)}</ul></div>
-          <div className="panel-actions"><Link className="primary button" href={`/work/${selected.id}`}>Read case study</Link><button onClick={close}>Return to corridor</button></div>
+          <div className="panel-actions">
+            <Link className="primary button" href={`/work/${selected.id}`}>Read full case study</Link>
+            {selected.external && <a className="button" href={selected.external.href} target="_blank" rel="noreferrer" aria-label="Visit live project (opens in a new tab)">Visit live project <span aria-hidden="true">↗</span></a>}
+            <button onClick={close}>Return to chambers</button>
+          </div>
         </div>
       </aside>}
       <p className="sr-only" aria-live="polite">{selected ? `${selected.name}: ${state.phase}` : "No chamber selected"}</p>

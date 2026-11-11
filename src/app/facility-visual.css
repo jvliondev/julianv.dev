@@ -447,7 +447,7 @@
   .facility-stage.has-reveal .reveal-panel{top:50%;bottom:auto;transform:translateY(-50%)}
   .facility-stage.has-reveal .reveal-panel-left{right:auto;left:clamp(1rem,5vw,5rem)}
   .facility-stage.has-reveal .reveal-panel-right{right:clamp(1rem,5vw,5rem);left:auto}
-  .facility-stage.has-reveal .reveal-panel.is-ready{top:50%;right:auto;bottom:auto;left:50%;transform:translate(-50%,-50%)}
+  .facility-stage.has-reveal .reveal-panel.is-ready{top:calc(50% + 16px);right:auto;bottom:auto;left:50%;transform:translate(-50%,-50%)}
 }
 @media(max-width:1100px){.facility-stage.has-reveal .reveal-panel{transform:none}}
 
@@ -510,7 +510,7 @@
 
 /* Compact chamber terminal stays attached to the active bay during the camera move. */
 .blacksite-artboard .blacksite-terminal.reveal-panel-left,
-.blacksite-artboard .blacksite-terminal.reveal-panel-right{position:absolute;z-index:12;inset:auto;width:320px;max-width:none;min-height:130px;box-sizing:border-box;padding:0;overflow:visible;border:0;background:transparent;color:#eaf6fc;box-shadow:none;backdrop-filter:none;pointer-events:auto;transform:scale(var(--terminal-counter-scale,1));transform-origin:top left}
+.blacksite-artboard .blacksite-terminal.reveal-panel-right{position:absolute;z-index:12;inset:auto;width:320px;max-width:none;min-height:130px;box-sizing:border-box;padding:0;overflow:visible;border:0;background:transparent;color:#eaf6fc;box-shadow:none;backdrop-filter:none;pointer-events:auto;translate:0 var(--terminal-safe-shift,0px);transform:scale(var(--terminal-counter-scale,1));transform-origin:top left}
 .blacksite-terminal .terminal-shell{position:relative;display:grid;grid-template-rows:18px 1fr 23px;gap:0;width:100%;min-height:130px;box-sizing:border-box;padding:8px 12px 7px;overflow:hidden;border:1px solid color-mix(in srgb,var(--accent) 72%,#55707b);border-left:2px solid var(--accent);background:linear-gradient(112deg,#061017f7,#0a1720f2 58%,#071119f7);box-shadow:0 9px 26px #0009,0 0 20px color-mix(in srgb,var(--accent) 17%,transparent),inset 0 0 18px #8ceeff0a;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,0 100%);animation:terminal-power-on .2s ease-out both}
 .blacksite-terminal .terminal-shell:before{position:absolute;inset:0;z-index:0;background:repeating-linear-gradient(180deg,transparent 0 3px,#c8f6ff05 4px,transparent 5px);content:"";pointer-events:none}
 .blacksite-terminal .terminal-topline{position:relative;z-index:1;display:flex;align-items:center;gap:8px;min-width:0;border-bottom:1px solid #d4f4ff1a;color:#96acb7;font:500 9px/1 var(--mono);letter-spacing:.095em}
@@ -565,3 +565,164 @@
 .project-card-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
 .project-card-actions a{color:#8af0f3;text-decoration:none;font-size:.77rem;font-weight:600}
 .project-card-actions a:hover{color:#e9ffff}
+
+/* Readable, keyboard-friendly presentation across the cinematic experience. */
+.eyebrow{font-size:.78rem;line-height:1.4;letter-spacing:.14em}
+.scene-title .eyebrow{font-size:.8rem;line-height:1.45}
+.scene-title p{font-size:clamp(1.05rem,1.25vw,1.2rem)}
+.scene-title .scene-help{max-width:620px;margin:.25rem auto .9rem;color:#f0f7f9;font-size:1rem;line-height:1.45;text-shadow:0 2px 12px #000}
+.hotspot-copy strong{font-size:.95rem}
+.hotspot-copy small{font-size:.78rem;line-height:1.35}
+.art-claim-patch{font-size:clamp(.68rem,.72vw,.78rem)}
+.hotspot-media-caption{font-size:.72rem;opacity:.92}
+.access-heading{font-size:.9rem}
+.access-paths a,.access-paths button{min-height:52px;font-size:.95rem}
+.featured-project{grid-template-columns:112px minmax(0,1fr) auto 20px;min-height:112px;gap:1rem;padding:.8rem 1rem}
+.featured-art{height:82px}
+.featured-copy>span{font-size:.86rem}
+.featured-copy small{font-size:.96rem;line-height:1.42}
+.featured-status{font-size:.75rem}
+.project-overview-visual-label{font-size:.85rem;letter-spacing:.1em}
+.project-overview-copy{display:flex;flex-direction:column;gap:.08rem;padding:clamp(1.4rem,2.2vw,2rem);overflow-y:auto}
+.project-overview-copy .phase-label{font-size:.9rem;line-height:1.45;letter-spacing:.08em}
+.project-overview-copy .status{font-size:.98rem;line-height:1.4}
+.project-overview-copy h2{margin:.25rem 3.5rem .35rem 0;font-size:clamp(2.3rem,3.1vw,3rem);line-height:1.08}
+.project-overview-category{font-size:.95rem;line-height:1.4}
+.project-overview-copy>p{font-size:1.16rem;line-height:1.5}
+.project-overview-audience{margin:.7rem 0 0;padding-top:.6rem}
+.project-overview-audience>span,.project-overview-role>span,.project-overview-focus>span{margin-bottom:.28rem;font-size:.86rem;line-height:1.35;letter-spacing:.09em}
+.project-overview-audience>p,.project-overview-role>p{font-size:1.08rem;line-height:1.45}
+.project-overview-role,.project-overview-focus{margin-top:.7rem;padding-top:.6rem}
+.project-overview-focus ul{gap:.28rem;margin-top:.25rem}
+.project-overview-focus li{padding-left:.9rem;font-size:1.05rem;line-height:1.4}
+.project-overview-focus li:before{width:.38rem;height:.38rem}
+.reveal-panel.is-ready{grid-template-columns:minmax(420px,.9fr) minmax(0,1.1fr);width:min(1180px,calc(100vw - 40px));height:min(760px,calc(100svh - 200px));min-height:min(660px,calc(100svh - 200px));max-height:760px}
+.project-overview-visual{height:100%;min-height:0}
+.reveal-panel.is-ready .close{top:.8rem;right:.8rem;width:52px;height:52px;font-size:1.8rem}
+.reveal-panel.is-ready .panel-actions{display:flex;gap:.6rem;margin-top:1rem}
+.reveal-panel.is-ready .panel-actions .button,.reveal-panel.is-ready .panel-actions button{display:inline-flex;align-items:center;justify-content:center;gap:.35rem;min-height:54px;padding:.78rem 1rem;font-size:1rem;line-height:1.25;text-align:center}
+.project-overview-copy h2:focus{outline:none;text-shadow:0 0 18px color-mix(in srgb,var(--accent) 40%,transparent)}
+.project-copy .status{font-size:.78rem;line-height:1.4}
+.project-copy h2{font-size:1.48rem}
+.project-copy .category{font-size:.92rem}
+.project-copy p:not(.category){font-size:1rem;line-height:1.55}
+.project-copy>a,.project-card-actions a{font-size:.95rem}
+.project-card-focus>span{font-size:.75rem}
+.project-copy .project-card-focus p{font-size:.92rem;line-height:1.5}
+.home-after .access-links span{font-size:.78rem}
+.project-art>span{font-size:.76rem}
+.project-detail .back-link{min-height:44px;display:inline-flex;align-items:center;font-size:.95rem}
+.project-detail .status-large{font-size:.84rem}
+.project-artwork .art-label{font-size:.75rem}
+.project-columns dt{font-size:.78rem}
+.project-columns dd{font-size:1rem;line-height:1.45}
+.project-body p,.project-body li{font-size:1.04rem;line-height:1.65}
+.limits strong{font-size:.8rem}
+.related .eyebrow{font-size:.75rem}
+.related a>span:last-child{font-size:.95rem}
+.brand-copy small{font-size:.75rem}
+.footer-profile span,.footer-contact{font-size:.92rem}
+.footer-wordmark{font-size:1.05rem}
+.footer-socials a{width:44px;height:44px}
+.footer-socials svg{width:23px;height:23px}
+
+/* The animated status panel stays readable while it tracks the active chamber. */
+.blacksite-artboard .blacksite-terminal.reveal-panel-left,
+.blacksite-artboard .blacksite-terminal.reveal-panel-right{width:380px;min-height:168px}
+.blacksite-terminal .terminal-shell{grid-template-rows:44px 1fr 46px;min-height:168px;padding:11px 15px 9px}
+.blacksite-terminal .terminal-topline{font-size:.75rem;letter-spacing:.07em}
+.terminal-channel i,.terminal-live i{width:7px;height:7px}
+.terminal-live{font-size:.72rem}
+.blacksite-terminal .terminal-close{width:44px;height:44px;font-size:1.25rem}
+.terminal-readout{gap:5px;padding:7px 0}
+.terminal-project-line{font-size:.72rem;line-height:1.3}
+.terminal-readout h2{font-size:1.42rem}
+.terminal-phase-line{gap:3px}
+.terminal-phase-line strong{font-size:.8rem;line-height:1.35}
+.terminal-phase-line span{font-size:.88rem;line-height:1.4}
+.terminal-progress i{height:3px}
+.blacksite-terminal .terminal-skip{min-height:42px;font-size:.82rem}
+.blacksite-terminal .terminal-skip span{font-size:1rem}
+
+.blacksite-mobile-selector>p{font-size:.82rem;line-height:1.4}
+.blacksite-mobile-choice{grid-template-columns:48px minmax(0,1fr) 14px;min-height:84px;padding:.5rem}
+.blacksite-mobile-thumb{width:48px;height:56px}
+.blacksite-mobile-choice strong{display:-webkit-box;overflow:hidden;font-size:.9rem;line-height:1.2;text-overflow:clip;white-space:normal;overflow-wrap:anywhere;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.blacksite-mobile-choice small{display:-webkit-box;overflow:hidden;font-size:.82rem;line-height:1.25;text-overflow:clip;white-space:normal;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.blacksite-mobile-choice>b{font-size:1.25rem}
+.blacksite-mobile-selected-exhibit{height:190px}
+.blacksite-mobile-selected-exhibit span{padding:.55rem .65rem;font-size:.78rem;line-height:1.35}
+
+@media(max-width:1100px){
+  .featured-project{grid-template-columns:92px minmax(0,1fr) auto 18px;min-height:106px}
+  .featured-art{height:76px}
+  .reveal-panel.is-ready{width:auto;height:auto;min-height:630px;max-height:none}
+  .facility-stage.has-reveal{min-height:1940px}
+  .facility-stage.has-reveal .reveal-panel.is-ready{top:870px;right:1.5rem;left:1.5rem;width:auto;max-height:none}
+  .facility-stage.has-reveal .access-deck{top:1570px}
+}
+@media(max-width:900px){
+  .reveal-panel.is-ready{grid-template-columns:minmax(0,1fr);height:auto;min-height:0;max-height:none}
+  .project-overview-visual{height:260px;min-height:0}
+  .project-overview-copy{padding:1.5rem;overflow:visible}
+  .project-overview-copy h2{font-size:2.45rem}
+  .project-overview-copy>p{font-size:1.125rem}
+  .project-overview-focus li,.project-overview-audience>p,.project-overview-role>p{font-size:1.05rem}
+}
+@media(max-width:760px){
+  .facility-stage{min-height:880px}
+  .access-deck{top:620px}
+  .scene-title .eyebrow{font-size:.74rem}
+  .scene-title p{font-size:1rem}
+  .scene-title .scene-help{max-width:350px;margin:.3rem auto .75rem;font-size:.95rem;line-height:1.4}
+  .blacksite-mobile-choice{grid-template-columns:44px minmax(0,1fr) 12px;min-height:82px;padding:.45rem}
+  .blacksite-mobile-thumb{width:44px;height:54px}
+  .blacksite-mobile-choice strong{font-size:.85rem}
+  .blacksite-mobile-choice small{font-size:.82rem}
+  .blacksite-mobile-selected-exhibit{height:190px}
+  .reveal-panel.is-ready{grid-template-columns:minmax(0,1fr);width:auto;height:auto;min-height:0;max-height:none}
+  .project-overview-visual{height:220px;min-height:0}
+  .project-overview-copy{display:flex;gap:.12rem;padding:1.15rem;overflow:visible}
+  .project-overview-copy .phase-label{font-size:.86rem}
+  .project-overview-copy .status{font-size:.94rem}
+  .project-overview-copy h2{font-size:2.15rem}
+  .project-overview-category{font-size:.95rem}
+  .project-overview-copy>p{font-size:1.125rem;line-height:1.55}
+  .project-overview-audience>span,.project-overview-role>span,.project-overview-focus>span{font-size:.82rem}
+  .project-overview-audience>p,.project-overview-role>p,.project-overview-focus li{font-size:1.05rem}
+  .reveal-panel.is-ready .close{top:.55rem;right:.55rem;width:50px;height:50px}
+  .reveal-panel.is-ready .panel-actions{display:grid;grid-template-columns:1fr;gap:.55rem;margin-top:1rem}
+  .reveal-panel.is-ready .panel-actions .button,.reveal-panel.is-ready .panel-actions button{width:100%;min-height:56px;font-size:1rem}
+  .facility-stage.has-reveal{min-height:2100px}
+  .facility-stage.has-reveal .reveal-panel.is-ready{top:810px;right:.85rem;left:.85rem;width:auto;max-height:none}
+  .facility-stage.has-reveal .access-deck{top:1640px}
+  .featured-project{grid-template-columns:76px minmax(0,1fr) 16px;min-height:100px;gap:.7rem;padding:.65rem}
+  .featured-art{height:68px}
+  .featured-copy>span{font-size:.79rem}
+  .featured-copy small{font-size:.9rem}
+  .featured-status{display:none}
+  .access-paths a,.access-paths button{min-height:50px;font-size:.9rem}
+  .project-copy .status{font-size:.76rem}
+  .project-copy h2{font-size:1.45rem}
+  .project-copy .category{font-size:.9rem}
+  .project-copy p:not(.category){font-size:1rem}
+  .project-body p,.project-body li{font-size:1rem}
+  .footer-profile span,.footer-contact{font-size:.9rem}
+}
+@media(max-width:380px){
+  .facility-stage{min-height:900px}
+  .access-deck{top:625px}
+  .blacksite-mobile-choice{grid-template-columns:40px minmax(0,1fr) 11px;min-height:76px;gap:.4rem;padding:.4rem}
+  .blacksite-mobile-thumb{width:40px;height:50px}
+  .blacksite-mobile-choice strong{font-size:.82rem}
+  .blacksite-mobile-choice small{font-size:.8rem}
+  .project-overview-visual{height:205px}
+  .project-overview-copy{padding:1rem}
+  .project-overview-copy h2{font-size:1.85rem}
+  .facility-stage.has-reveal{min-height:2100px}
+  .facility-stage.has-reveal .reveal-panel.is-ready{top:800px}
+  .facility-stage.has-reveal .access-deck{top:1720px}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal-panel.is-ready:hover .project-overview-image{transform:none}
+}
