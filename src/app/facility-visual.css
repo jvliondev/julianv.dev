@@ -153,6 +153,8 @@
 .blacksite-camera{position:absolute;z-index:1;inset:0;transform-origin:0 0;pointer-events:none;transition:transform 1.32s cubic-bezier(.18,.72,.16,1)}
 .blacksite-camera.is-tracking{will-change:transform;transition:none}
 .blacksite-artboard{position:absolute;top:0;left:0;overflow:hidden;transform-origin:0 0;pointer-events:none}
+@media(min-width:761px){.blacksite-camera,.blacksite-door-leaf{will-change:transform}.blacksite-foreground-occluder{will-change:opacity}}
+@media(min-width:761px){.blacksite-viewport:before,.blacksite-cinematic-focus,.blacksite-cinematic-focus:after,.blacksite-seam,.blacksite-background-light-unit.mode-sequence .blacksite-background-dimmer,.blacksite-background-light-unit.mode-sequence .blacksite-background-emitter,.blacksite-background-light-unit.mode-sequence .blacksite-background-aura{will-change:opacity}.blacksite-background-light-unit.mode-sequence .blacksite-background-aura{will-change:opacity,transform}}
 .blacksite-camera.is-tracking.has-exposed-edge .blacksite-artboard{mask-image:linear-gradient(90deg,transparent 0,#000 80px,#000 calc(100% - 80px),transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 80px,#000 calc(100% - 80px),transparent 100%)}
 .blacksite-artboard *{pointer-events:none}
 .blacksite-alignment-debug{position:absolute;inset:0;z-index:30;width:100%;height:100%;overflow:visible;pointer-events:none}
@@ -231,7 +233,8 @@
 .blacksite-seam{position:absolute;z-index:4;width:2px;opacity:0;background:var(--accent);box-shadow:0 0 5px var(--accent),0 0 14px var(--accent),0 0 26px color-mix(in srgb,var(--accent) 65%,transparent);transition:opacity .2s}
 .blacksite-seal{position:absolute;z-index:4;background:linear-gradient(180deg,#04080c32,transparent 18% 82%,#07151a32)}
 .blacksite-bay[data-phase="unlocking"] .blacksite-seam,.blacksite-bay[data-phase="depressurizing"] .blacksite-seam,.blacksite-bay[data-phase="opening"] .blacksite-seam,.blacksite-bay[data-phase="closing"] .blacksite-seam{opacity:.95}
-.blacksite-foreground-occluder{position:absolute;inset:0;z-index:5;display:block;width:1672px;height:941px;max-width:none;object-fit:fill;pointer-events:none;user-select:none}
+.blacksite-foreground-occluder{position:absolute;inset:0;z-index:5;display:block;width:1672px;height:941px;max-width:none;object-fit:fill;opacity:.001;transition:opacity .12s ease;pointer-events:none;user-select:none}
+.blacksite-artboard:not([data-selected="none"]) .blacksite-foreground-occluder{opacity:1}
 .blacksite-effects-layer{position:absolute;inset:0;z-index:7;overflow:visible;pointer-events:none}
 .blacksite-steam{position:absolute;z-index:7;opacity:0;pointer-events:none;mix-blend-mode:screen;transform-origin:4% 50%;transition:opacity .35s ease;filter:blur(.15px)}
 .steam-cloud{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:fill;mix-blend-mode:screen;user-select:none}
@@ -481,7 +484,7 @@
 .project-progress-copy .status{display:block;margin:.3rem 0;color:var(--accent);font:500 .7rem/1.3 var(--mono);letter-spacing:.08em}
 .project-progress-copy h2{margin:.38rem 2rem .42rem 0;font:600 1.4rem/1.15 var(--display)}
 .project-progress-copy p{margin:.4rem 0 .9rem;color:#d2e0e4;font:400 .92rem/1.5 var(--body)}
-@keyframes project-overview-arrive{from{opacity:0;filter:blur(7px)}to{opacity:1;filter:blur(0)}}
+@keyframes project-overview-arrive{from{opacity:0;translate:0 8px}to{opacity:1;translate:0 0}}
 @media(max-width:1100px){
   .facility-stage.has-reveal .reveal-panel.is-ready{top:800px;right:1.5rem;left:1.5rem;width:auto;max-height:460px}
   .facility-stage.has-reveal{min-height:1530px}
@@ -543,7 +546,7 @@
 .blacksite-terminal.reveal-panel-right:after,.blacksite-terminal.reveal-panel-left:after{position:absolute;z-index:-1;bottom:-16px;width:3px;height:3px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);content:""}
 .blacksite-terminal.reveal-panel-right:after{left:-14px}
 .blacksite-terminal.reveal-panel-left:after{right:-14px}
-@keyframes terminal-power-on{from{opacity:0;filter:blur(3px);translate:0 4px}to{opacity:1;filter:blur(0);translate:0 0}}
+@keyframes terminal-power-on{from{opacity:0;translate:0 4px}to{opacity:1;translate:0 0}}
 @keyframes terminal-live{0%,100%{opacity:.55;box-shadow:0 0 4px var(--accent)}50%{opacity:1;box-shadow:0 0 9px var(--accent)}}
 @media(max-width:760px){.blacksite-terminal{display:none}}
 @media(prefers-reduced-motion:reduce){.blacksite-terminal .terminal-shell,.terminal-live i{animation:none!important}.blacksite-terminal .terminal-skip span{transition:none!important}}

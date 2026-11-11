@@ -7,7 +7,14 @@ const output = resolve(process.env.PROFILE_OUT ?? "docs/visual-qa/performance/la
 const cpuRate = Number(process.env.PROFILE_CPU_RATE ?? 1);
 const variant = process.env.PROFILE_VARIANT ?? "default";
 await mkdir(dirname(output), { recursive: true });
-const browser = await chromium.launch({ headless: true });
+const executablePath = process.env.PROFILE_BROWSER_EXECUTABLE;
+const browser = await chromium.launch({
+  headless: true,
+  ...(executablePath ? {
+    executablePath,
+    args: ["--enable-gpu", "--ignore-gpu-blocklist", "--use-angle=d3d11"],
+  } : {}),
+});
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
 const page = await context.newPage();
 await page.addInitScript(() => {
@@ -40,6 +47,9 @@ if (variant === "no-ambient-units") {
 }
 if (variant === "no-smoke") {
   await page.addStyleTag({ content: ".blacksite-effects-layer{display:none!important}" });
+}
+if (process.env.PROFILE_CSS) {
+  await page.addStyleTag({ content: process.env.PROFILE_CSS });
 }
 await page.locator(".blacksite-bay[data-bay='xondry'] .blacksite-hotspot").waitFor();
 
@@ -85,6 +95,15 @@ for (const [phase, duration] of states) {
   if (variant === "no-smoke") await page.evaluate(() => document.querySelectorAll("video").forEach((video) => video.pause()));
   samples[phase] = await sample(phase, duration);
 }
+if (process.env.PROFILE_REPEAT === "1") {
+  await page.getByRole("button", { name: "Return to chambers" }).click();
+  await page.waitForFunction(() => document.querySelector(".blacksite-artboard")?.dataset.selected === "none", null, { timeout: 10_000 });
+  await page.locator(".blacksite-bay[data-bay='xondry'] .blacksite-hotspot").click({ force: true });
+  for (const [phase, duration] of states) {
+    await page.waitForFunction((name) => document.querySelector(".blacksite-artboard")?.classList.contains(`phase-${name}`), phase, { timeout: 20_000 });
+    samples[`repeat-${phase}`] = await sample(`repeat-${phase}`, duration);
+  }
+}
 const pageSummary = await page.evaluate(() => {
   const resources = performance.getEntriesByType("resource");
   const images = resources.filter((entry) => /\.(?:png|jpe?g|webp|avif|gif)(?:\?|$)/i.test(entry.name));
@@ -97,7 +116,7 @@ const pageSummary = await page.evaluate(() => {
   };
 });
 const result = {
-  context: `Production static export, Chromium, 1440x900, CPU throttled ${cpuRate}x, variant ${variant}; requestAnimationFrame cadence is a rendering proxy, not a measured user INP.`,
+  context: `Production static export, ${executablePath ? "hardware accelerated Chrome" : "Playwright Chromium"}, 1440x900, CPU throttled ${cpuRate}x, variant ${variant}; requestAnimationFrame cadence is a rendering proxy, not a measured user INP.`,
   url: base,
   measuredAt: new Date().toISOString(),
   pageSummary,

@@ -112,6 +112,7 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
       preload.decoding = "async";
       preload.fetchPriority = "low";
       preload.src = assetManifest.effects.foregroundOccluder;
+      void preload.decode().catch(() => {});
     }, 900);
     return () => {
       window.clearTimeout(timer);
@@ -410,7 +411,7 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
             ><span className="sr-only">{project.name}: {project.status}. Open project.</span></button>
           </div>;
         })}
-        {selectedId && <Image
+        <Image
           className="blacksite-foreground-occluder"
           src={assetManifest.effects.foregroundOccluder}
           alt=""
@@ -418,7 +419,7 @@ export function BlacksiteExperience({ selectedId, phase, entryPhase, motion, onA
           height={941}
           unoptimized
           draggable={false}
-        />}
+        />
         {steamActive && focusedAsset && activeProject && <div className="blacksite-effects-layer" aria-hidden="true">
           {focusedAsset.vents.map((vent) => <div key={`${activeProject.id}-${vent.id}`} className="blacksite-steam" data-vent={vent.id} style={steamStyle(vent, activeProject.accent)}>
             {motion === "full" ? <video className="steam-cloud steam-cloud-animation steam-cloud-video" src={assetManifest.effects.steamLoop} autoPlay loop muted playsInline preload="auto" aria-hidden="true"/> : <Image className="steam-cloud steam-cloud-poster" src={assetManifest.effects.steamPlume} alt="" fill sizes="(min-width: 761px) 16vw, 0px" unoptimized draggable={false}/>}

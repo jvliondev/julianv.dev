@@ -76,6 +76,14 @@ export function Facility() {
     if (state.phase === "revealed") overviewHeadingRef.current?.focus();
   }, [selected?.id, state.phase]);
   useEffect(() => {
+    if (!selected || !overviewImage) return;
+    const preload = new window.Image();
+    preload.decoding = "async";
+    preload.fetchPriority = "low";
+    preload.src = overviewImage;
+    void preload.decode().catch(() => {});
+  }, [selected?.id, overviewImage]);
+  useEffect(() => {
     const resetHome = () => {
       dispatch({ type: "CANCEL" });
       setEntryPhase("locked");
